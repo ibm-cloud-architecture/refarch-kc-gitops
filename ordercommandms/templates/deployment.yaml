@@ -1,0 +1,87 @@
+---
+# Source: ordercommandms/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "ordercommandms-deployment"
+  labels:
+    chart: 'ordercommandms-1.0.0'
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: "ordercommandms-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "ordercommandms"
+        image: "osowski/eda-order-command-ms:latest"
+        imagePullPolicy: Always
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 20
+
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value: "9080"
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "demo-kafka-brokers"
+                key: brokers
+          - name: ORDER_TOPIC
+            value: "orders"
+          - name: ORDERCOMMAND_TOPIC
+            value: "orderCommands"
+          - name: ERROR_TOPIC
+            value: "errors"
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "demo-es-apikey"
+                key: binding
+          # This file is included in-line in the env section of deployment.yaml
+          # if .Values.generatedBindings.enabled is true.
+          - name: IBM_APM_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: apm-server-config
+                key: ibm_apm_server_url
+                optional: true
+          - name: IBM_APM_KEYFILE
+            valueFrom:
+              secretKeyRef:
+                name: apm-server-config
+                key: ibm_apm_keyfile
+                optional: true
+          - name: IBM_APM_KEYFILE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: apm-server-config
+                key: ibm_apm_keyfile_password
+                optional: true
+          - name: IBM_APM_INGRESS_URL
+            valueFrom:
+              secretKeyRef:
+                name: apm-server-config
+                key: ibm_apm_ingress_url
+                optional: true
+          - name: IBM_APM_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: apm-server-config
+                key: ibm_apm_access_token
+                optional: true
+          

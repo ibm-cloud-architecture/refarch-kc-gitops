@@ -1,0 +1,18 @@
+---
+# Source: orderqueryms/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "orderqueryms-service"
+  labels:
+    chart: "orderqueryms-1.0.0"
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 9080
+    nodePort: 31100
+  - name: https
+    port: 9443
+  selector:
+    app: "orderqueryms-selector"
