@@ -1,0 +1,20 @@
+---
+# Source: kc-ui/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: release-name-kc-ui
+  labels:
+    app: kc-ui
+    chart: kc-ui-1.0.0
+    release: release-name
+    heritage: Tiller
+spec:
+  rules:
+    - host: kcontainer-demo.gse-eda-demos.us-east.containers.appdomain.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: release-name-kc-ui
+              servicePort: http

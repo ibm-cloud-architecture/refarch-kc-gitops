@@ -1,0 +1,75 @@
+---
+# Source: kc-ui/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: release-name-kc-ui
+  labels:
+    app: kc-ui
+    chart: kc-ui-1.0.0
+    release: release-name
+    heritage: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kc-ui
+      release: release-name
+  template:
+    metadata:
+      labels:
+        app: kc-ui
+        release: release-name
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "kc-ui"
+        image: "osowski/eda-kc-ui:latest"
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3010
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        ports:
+        - containerPort: 3010
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: PORT
+            value : "3010"
+          - name: FLEETMS_SERVICE_HOST
+            value: "fleetms-service"
+          - name: FLEETMS_SERVICE_PORT
+            value: "9080"
+          - name: ORDERCOMMANDMS_SERVICE_HOST
+            value: "ordercommandms-service"
+          - name: ORDERCOMMANDMS_SERVICE_PORT
+            value: "9080"
+          - name: ORDERQUERYMS_SERVICE_HOST
+            value: "orderqueryms-service"
+          - name: ORDERQUERYMS_SERVICE_PORT
+            value: "9080"
+          - name: VOYAGESMS_SERVICE_HOST
+            value: "voyagesms-service"
+          - name: VOYAGESMS_SERVICE_PORT
+            value: "3000"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "demo-kafka-brokers"
+                key: brokers
+          - name: PROBLEM_TOPIC
+            value: "bluewaterProblem"
+          - name: SHIP_TOPIC
+            value: "bluewaterShip"
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "demo-es-apikey"
+                key: binding
