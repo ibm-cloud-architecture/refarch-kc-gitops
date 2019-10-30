@@ -16,5 +16,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: release-name-kc-ui
+              serviceName: "kc-ui-service"
               servicePort: http
