@@ -18,7 +18,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "ordercommandms"
-        image: "ibmcase/kcontainer-order-command-ms:0.2.2"
+        image: "ibmcase/kcontainer-order-command-ms:0.1.3"
         imagePullPolicy: Always
 
         readinessProbe:
