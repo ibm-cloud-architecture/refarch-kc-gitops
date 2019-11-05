@@ -1,0 +1,16 @@
+---
+# Source: springcontainerms/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "springcontainerms-service"
+  labels:
+    chart: "springcontainerms-1.0.0"
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 8080
+    nodePort: 31900
+  selector:
+    app: "springcontainerms-selector"
