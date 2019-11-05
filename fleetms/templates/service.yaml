@@ -1,0 +1,18 @@
+---
+# Source: fleetms/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "fleetms-service"
+  labels:
+    chart: "fleetms-1.0.0"
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 9080
+    nodePort: 31300
+  - name: https
+    port: 9443
+  selector:
+    app: "fleetms-selector"
