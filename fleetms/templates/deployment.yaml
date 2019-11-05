@@ -1,0 +1,52 @@
+---
+# Source: fleetms/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "fleetms-deployment"
+  labels:
+    chart: 'fleetms-1.0.0'
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: "fleetms-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "fleetms"
+        image: "ibmcase/kcontainer-fleet-ms:latest"
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 20
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value: "9080"
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "demo-kafka-brokers"
+                key: brokers
+          - name: KAFKA_SHIP_TOPIC_NAME
+            value: "bluewaterShip"
+          - name: KAFKA_CONTAINER_TOPIC_NAME
+            value: "bluewaterContainer"
+          - name: KAFKA_BW_PROBLEM_TOPIC_NAME
+            value: "bluewaterProblem"
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "demo-es-apikey"
+                key: binding

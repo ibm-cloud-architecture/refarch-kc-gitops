@@ -1,0 +1,18 @@
+---
+# Source: voyagesms/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: "voyagesms-service"
+  labels:
+    chart: "voyagesms-1.0.0"
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 3000
+    nodePort: 31000
+  selector:
+    app: "voyagesms-selector"
