@@ -20,27 +20,27 @@ Event Driven Architecture reference implementation GitOps repository, in support
 
 4. Create an ArgoCD application deployment for each microservice you wish to deploy, using either the [ArgoCD CLI](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) or applying application manifest YAMLs through the ArgoCD UI:
    - ArgoCD CLI:
-```bash
-argocd app create kcontainer-order-command-ms --repo https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git --revision demo-sandbox/roks-demos.us-east.containers.appdomain.cloud --path kc-ui --directory-recurse --dest-server https://kubernetes.default.svc --dest-namespace demo-sandbox --sync-policy automated --self-heal --auto-prune
-```
+    ```bash
+    argocd app create kcontainer-order-command-ms --repo https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git --revision demo-sandbox/roks-demos.us-east.containers.appdomain.cloud --path kc-ui --directory-recurse --dest-server https://kubernetes.default.svc --dest-namespace demo-sandbox --sync-policy automated --self-heal --auto-prune
+    ```
    - ArgoCD UI Manifest YAML:
-```yaml
-project: default
-source:
-  repoURL: 'https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git'
-  path: kc-ui
-  targetRevision: demo-sandbox/roks-demos.us-east.containers.appdomain.cloud
-  directory:
-    recurse: true
-    jsonnet: {}
-destination:
-  server: 'https://kubernetes.default.svc'
-  namespace: demo-sandbox
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
-```
+    ```yaml
+    project: default
+    source:
+      repoURL: 'https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git'
+      path: kc-ui
+      targetRevision: demo-sandbox/roks-demos.us-east.containers.appdomain.cloud
+      directory:
+        recurse: true
+        jsonnet: {}
+    destination:
+      server: 'https://kubernetes.default.svc'
+      namespace: demo-sandbox
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+    ```
 5. You should be able to see ArgoCD applying the YAMLs to the target cluster by watching `kubectl get pods`.
 6.  Validate all application `Status` conditions are both `Healthy` and `Synced` before verifying your application deployment in the application UI.
 
@@ -51,5 +51,5 @@ syncPolicy:
 2. Copy the generated YAMLs to the root of your new branch in the repository.
    - Example: `<repo_root>/ordercommandms/templates`
 3. Commit and push your generated YAMLs to this repository on your new branch.  _Note that the `master` branch is protected and will not accept pushes, so you will only be able to push to your branch._
-4. Continue with [Templates Step #4](#deploying-kcontainer-reference-implementation-using-git-ops-templates) above.
+4. Continue with [Templates Step #4](#deploying-kcontainer-reference-implementation-using-gitops-templates) above.
 5.  Validate all application `Status` conditions are both `Healthy` and `Synced` before verifying your application deployment in the UI.
