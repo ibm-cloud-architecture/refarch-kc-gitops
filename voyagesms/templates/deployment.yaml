@@ -23,7 +23,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "voyagesms"
-        image: "ibmcase/kcontainer-voyages-ms:0.1.5"
+        image: "ibmcase/kcontainer-voyages-ms:latest"
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -45,12 +45,12 @@ spec:
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
-                name: "demo-kafka-brokers"
+                name: "kafka-brokers"
                 key: brokers
           - name: ORDER_TOPIC
             value: "orders"
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:
-                name: "demo-es-apikey"
+                name: "eventstreams-apikey"
                 key: binding

@@ -18,7 +18,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "springcontainerms"
-        image: "ibmcase/kcontainer-spring-container-ms:0.1.9"
+        image: "ibmcase/kcontainer-spring-container-ms:latest"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -39,7 +39,7 @@ spec:
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
-                name: "demo-kafka-brokers"
+                name: "kafka-brokers"
                 key: brokers
           - name: KCSOLUTION_CONTAINERS
             value: "containers"
@@ -52,7 +52,7 @@ spec:
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:
-                name: "demo-es-apikey"
+                name: "eventstreams-apikey"
                 key: binding
           - name: POSTGRESQL_CA_PEM
             valueFrom:

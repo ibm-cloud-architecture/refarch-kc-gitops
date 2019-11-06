@@ -24,7 +24,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "kc-ui"
-        image: "ibmcase/kcontainer-ui:0.1.1"
+        image: "ibmcase/kcontainer-ui:latest"
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -62,7 +62,7 @@ spec:
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
-                name: "demo-kafka-brokers"
+                name: "kafka-brokers"
                 key: brokers
           - name: PROBLEM_TOPIC
             value: "bluewaterProblem"
@@ -71,5 +71,5 @@ spec:
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:
-                name: "demo-es-apikey"
+                name: "eventstreams-apikey"
                 key: binding
