@@ -18,7 +18,7 @@ Event Driven Architecture reference implementation GitOps repository, in support
       - You may use different names for the ConfigMaps and Secrets, but you will need to adjust the references in the YAMLs accordingly.  This should only be necessary if deploying multiple times to the same namespace.
    4. Configure Service Account, as required by OpenShift or Kubernetes. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/deployments/application-components/#openshift-container-platform-311)
 
-4. Create an ArgoCD application deployment for each microservice you wish to deploy, using either the [ArgoCD CLI](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli) or applying application manifest YAMLs through the ArgoCD UI:
+4. Create an ArgoCD application deployment for each microservice you wish to deploy, using either the [ArgoCD CLI](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli), applying application manifest YAMLs through the ArgoCD UI, or apply application manifest YAMLs through the Kubernetes CRDs:
    - ArgoCD CLI:
     ```bash
     argocd app create kcontainer-order-command-ms \
@@ -44,6 +44,28 @@ Event Driven Architecture reference implementation GitOps repository, in support
       automated:
         prune: true
         selfHeal: true
+    ```
+   - ArgoCD CRD YAML:
+    ```yaml
+    apiVersion: argoproj.io/v1alpha1
+    metadata:
+      name: kc-ui-ms
+    spec:
+      project: default
+      source:
+       repoURL: 'https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git'
+       path: kc-ui
+       targetRevision: demo-sandbox/roks-demos.us-east.containers.appdomain.cloud
+       directory:
+         recurse: true
+         jsonnet: {}
+      destination:
+       server: 'https://kubernetes.default.svc'
+       namespace: demo-sandbox
+      syncPolicy:
+       automated:
+         prune: true
+         selfHeal: true
     ```
 5. You should be able to see ArgoCD applying the YAMLs to the target cluster by watching `kubectl get pods`.
 6.  Validate all application `Status` conditions are both `Healthy` and `Synced` before verifying your application deployment in the application UI.
