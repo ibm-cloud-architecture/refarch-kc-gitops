@@ -32,7 +32,9 @@ jobs:
           git config --local user.email "gitops@ibmcloud.com"
           git config --local user.name "GitOps Automation"
           git commit -m "GitOps updates ${TIMESTAMP}" -a
-          git push origin ${DESIRED_BRANCH}
+          REMOTE_REPO=$(git remote get-url --push origin | sed 's/https:\/\//''/')
+          REMOTE_AUTH_REPO="https://${{ github.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@${REMOTE_REPO}"
+          git push origin ${DESIRED_BRANCH} --repo="${REMOTE_AUTH_REPO}"
         else
           echo "No changes detected in application YAMLs."
         fi
