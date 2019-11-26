@@ -13,10 +13,26 @@ jobs:
     - uses: actions/checkout@master
     - name: Checkout default sandbox branch
       id: checkout-sandbox-branch
-      run: |
-        git checkout ${DESIRED_BRANCH}
       env:
         DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
+      run: |
+        git checkout ${DESIRED_BRANCH}
     - name: Update GitOps YAMLs
       id: update-gitops-yamls
       uses: ./.github/actions/update-gitops
+    - name: Commit & push modified files
+      id: commit-and-push-files
+      env:
+        DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
+      run: |
+        MODIFIED_FILES=$(git status --short | wc -l)
+        if [ "${MODIFIED_FILES}" -gt "0" ]
+        then
+          TIMESTAMP=$(date +%m-%d-%Y-%H-%M-%S)
+          git config --local user.email "gitops@ibmcloud.com"
+          git config --local user.name "GitOps Automation"
+          git commit -m "GitOps updates ${TIMESTAMP}" -a
+          git push origin ${DESIRED_BRANCH}
+        else
+          echo "No changes detected in application YAMLs."
+        fi
