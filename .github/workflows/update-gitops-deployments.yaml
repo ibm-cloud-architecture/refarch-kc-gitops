@@ -24,6 +24,8 @@ jobs:
       id: commit-and-push-files
       env:
         DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
       run: |
         MODIFIED_FILES=$(git status --short | wc -l)
         if [ "${MODIFIED_FILES}" -gt "0" ]
@@ -33,7 +35,7 @@ jobs:
           git config --local user.name "GitOps Automation"
           git commit -m "GitOps updates ${TIMESTAMP}" -a
           REMOTE_REPO=$(git remote get-url --push origin | sed 's/https:\/\//''/')
-          REMOTE_AUTH_REPO="https://${{ github.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@${REMOTE_REPO}"
+          REMOTE_AUTH_REPO="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@${REMOTE_REPO}"
           git push "${REMOTE_AUTH_REPO}" ${DESIRED_BRANCH} --force
         else
           echo "No changes detected in application YAMLs."
