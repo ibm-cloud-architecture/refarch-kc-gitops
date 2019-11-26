@@ -34,7 +34,7 @@ jobs:
           git commit -m "GitOps updates ${TIMESTAMP}" -a
           REMOTE_REPO=$(git remote get-url --push origin | sed 's/https:\/\//''/')
           REMOTE_AUTH_REPO="https://${{ github.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}@${REMOTE_REPO}"
-          git push origin ${DESIRED_BRANCH} --repo="${REMOTE_AUTH_REPO}"
+          git push "${REMOTE_AUTH_REPO}" ${DESIRED_BRANCH} --force
         else
           echo "No changes detected in application YAMLs."
         fi
