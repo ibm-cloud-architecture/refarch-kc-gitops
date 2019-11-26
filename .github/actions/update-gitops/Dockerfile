@@ -1,6 +1,6 @@
-FROM alpine:3.10
+FROM ubuntu:18.04
 
-RUN apk add --no-cache curl ca-certificates
+RUN apt-get install -y --no-cache curl ca-certificates
 
 COPY README.md /
 
