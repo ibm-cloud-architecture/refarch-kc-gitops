@@ -5,6 +5,8 @@ on:
       - master
   schedule:
     - cron: '*/10 * * * *'
+  repository_dispatch:
+
 env:
   DESIRED_BRANCH: eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
 jobs:
