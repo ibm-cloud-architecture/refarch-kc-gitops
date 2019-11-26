@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /github/workspace
+
 REGISTRY_URL="https://registry.hub.docker.com/v1/repositories/__IMAGE_NAME__/tags"
 
 ##TODO## Explode into CSL for 'input'
