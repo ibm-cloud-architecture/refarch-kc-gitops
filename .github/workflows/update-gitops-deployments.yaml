@@ -4,8 +4,9 @@ on:
     branches:
       - master
   schedule:
-    - cron: '*/15 * * * *'
-
+    - cron: '*/10 * * * *'
+env:
+  DESIRED_BRANCH: eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
 jobs:
   update-gitops-deployments:
     runs-on: ubuntu-latest
@@ -13,8 +14,6 @@ jobs:
     - uses: actions/checkout@master
     - name: Checkout default sandbox branch
       id: checkout-sandbox-branch
-      env:
-        DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
       run: |
         git checkout ${DESIRED_BRANCH}
     - name: Update GitOps YAMLs
@@ -23,7 +22,6 @@ jobs:
     - name: Commit & push modified files
       id: commit-and-push-files
       env:
-        DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ github.actor }}
       run: |
