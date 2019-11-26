@@ -16,4 +16,4 @@ jobs:
         DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
     - name: Update GitOps YAMLs
       id: update-gitops-yamls
-      uses: ./.github/actions/update-gitops
+      uses: ibm-cloud-architecture/actions-update-gitops@master
