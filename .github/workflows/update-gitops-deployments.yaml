@@ -30,7 +30,7 @@ jobs:
         MODIFIED_FILES=$(git status --short | wc -l)
         if [ "${MODIFIED_FILES}" -gt "0" ]
         then
-          TIMESTAMP=$(date +%m-%d-%Y-%H-%M-%S)
+          TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
           git config --local user.email "gitops@ibmcloud.com"
           git config --local user.name "GitOps Automation"
           git commit -m "GitOps updates ${TIMESTAMP}" -a
