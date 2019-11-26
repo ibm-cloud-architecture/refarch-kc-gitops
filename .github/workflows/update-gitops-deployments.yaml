@@ -1,7 +1,10 @@
 name: Update GitOps deployments
 on:
+  push:
+    branches:
+      - master
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/15 * * * *'
 
 jobs:
   update-gitops-deployments:
@@ -16,4 +19,4 @@ jobs:
         DESIRED_BRANCH: eda-demo/gse-eda-demos.us-east.containers.appdomain.cloud
     - name: Update GitOps YAMLs
       id: update-gitops-yamls
-      uses: ibm-cloud-architecture/actions-update-gitops@master
+      uses: ./.github/actions/update-gitops
