@@ -1,6 +1,0 @@
-name: 'Update GitOps'
-description: 'Update the deployment information for a GitOps-based deployment strategy'
-author: 'osowski'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
