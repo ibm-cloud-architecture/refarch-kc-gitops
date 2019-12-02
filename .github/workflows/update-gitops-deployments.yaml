@@ -20,7 +20,7 @@ jobs:
         git checkout ${DESIRED_BRANCH}
     - name: Update GitOps YAMLs
       id: update-gitops-yamls
-      uses: ibm-cloud-architecture/actions-update-gitops@master
+      uses: ibm-cloud-architecture/actions-update-gitops@v1
     - name: Commit & push modified files
       id: commit-and-push-files
       env:
