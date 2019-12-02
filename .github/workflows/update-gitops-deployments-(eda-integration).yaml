@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
   schedule:
     - cron: '*/10 * * * *'
   repository_dispatch:
