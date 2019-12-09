@@ -5,7 +5,7 @@ on:
       - master
       - eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/20 * * * *'
   repository_dispatch:
 
 env:
