@@ -41,6 +41,12 @@ spec:
               configMapKeyRef:
                 name: "kafka-brokers"
                 key: brokers
+          - name: BPM_ANOMALY
+            valueFrom:
+              configMapKeyRef:
+                name: "bpm-anomaly"
+                key: url
+                optional: true
           - name: KCSOLUTION_CONTAINERS
             value: "containers"
           - name: KCSOLUTION_ORDERS
