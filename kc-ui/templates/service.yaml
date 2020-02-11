@@ -12,7 +12,6 @@ spec:
   - name: http
     protocol: TCP
     port: 3010
-    nodePort: 31010
   selector:
     app: kc-ui
     release: release-name
