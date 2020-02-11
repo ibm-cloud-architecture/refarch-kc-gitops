@@ -59,6 +59,10 @@ spec:
             value: "voyagesms-service"
           - name: VOYAGESMS_SERVICE_PORT
             value: "3000"
+          - name: CONTAINERMS_SERVICE_HOST
+            value: "springcontainerms-service"
+          - name: CONTAINERMS_SERVICE_PORT
+            value: "8080"
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
