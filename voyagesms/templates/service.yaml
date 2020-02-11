@@ -13,6 +13,5 @@ spec:
   ports:
   - name: http
     port: 3000
-    nodePort: 31000
   selector:
     app: "voyagesms-selector"
