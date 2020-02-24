@@ -48,7 +48,10 @@ spec:
                 name: "kafka-brokers"
                 key: brokers
           - name: ORDER_TOPIC
-            value: "orders"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: ordersTopic
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:
