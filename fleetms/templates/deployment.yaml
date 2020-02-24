@@ -40,11 +40,20 @@ spec:
                 name: "kafka-brokers"
                 key: brokers
           - name: KAFKA_SHIP_TOPIC_NAME
-            value: "bluewaterShip"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterShipTopic
           - name: KAFKA_CONTAINER_TOPIC_NAME
-            value: "bluewaterContainer"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterContainerTopic
           - name: KAFKA_BW_PROBLEM_TOPIC_NAME
-            value: "bluewaterProblem"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterProblemTopic
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:

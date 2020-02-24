@@ -47,14 +47,50 @@ spec:
                 name: "bpm-anomaly"
                 key: url
                 optional: true
+          - name: BPM_ANOMALY_LOGIN
+            valueFrom:
+              configMapKeyRef:
+                name: "bpm-anomaly"
+                key: login
+                optional: true
+          - name: BPM_ANOMALY_USER
+            valueFrom:
+              secretKeyRef:
+                name: "bpm-anomaly"
+                key: user
+                optional: true
+          - name: BPM_ANOMALY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "bpm-anomaly"
+                key: password
+                optional: true
           - name: KCSOLUTION_CONTAINERS
-            value: "containers"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: containersTopic
           - name: KCSOLUTION_ORDERS
-            value: "orders"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: ordersTopic
           - name: KCSOLUTION_REJECTED_ORDERS
-            value: "rejected-orders"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: rejectedOrdersTopic
           - name: KCSOLUTION_ALLOCATED_ORDERS
-            value: "allocated-orders"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: allocatedOrdersTopic
+          - name: LOGGING_CONTAINER_MS_ROOT
+            value: "INFO"
+          - name: LOGGING_CONTAINER_MS_CONSUMER_CONFIG
+            value: "ERROR"
+          - name: LOGGING_CONTAINER_MS_PRODUCER_CONFIG
+            value: "ERROR"
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:

@@ -3,13 +3,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: release-name-kc-ui
+  name: "kc-ui-deployment"
   labels:
-    app: kc-ui
-    chart: kc-ui-1.0.0
-    release: release-name
-    heritage: Tiller
-spec:
+    chart: 'kc-ui-1.0.0'
   replicas: 1
   revisionHistoryLimit: 1
   selector:
@@ -70,9 +66,15 @@ spec:
                 name: "kafka-brokers"
                 key: brokers
           - name: PROBLEM_TOPIC
-            value: "bluewaterProblem"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterProblemTopic
           - name: SHIP_TOPIC
-            value: "bluewaterShip"
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterShipTopic
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:

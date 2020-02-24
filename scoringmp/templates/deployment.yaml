@@ -1,0 +1,83 @@
+---
+# Source: scoringmp/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "scoringmp-deployment"
+  labels:
+    chart: 'scoringmp-1.0.0'
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: "scoringmp-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "scoringmp"
+        image: "ibmcase/kcontainer-scoringmp-ms:0.1.46"
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 20
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value: "9080"
+          - name: APPLICATION_NAME
+            value: "scoringmp"
+          ##################################
+          ### Predictive model configuration
+          ##################################
+          - name: MOCKUP
+            value: "yes"
+          - name: CP4D_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: "predictive-model-configmap"
+                key: baseURL
+          - name: CP4D_PREDICTION_URL
+            valueFrom:
+              configMapKeyRef:
+                name: "predictive-model-configmap"
+                key: predictionURL
+          - name: CP4D_USER
+            valueFrom:
+              secretKeyRef:
+                name: "predictive-model-secret"
+                key: user
+          - name: CP4D_PWD
+            valueFrom:
+              secretKeyRef:
+                name: "predictive-model-secret"
+                key: password
+          #############################
+          ### Reactive Messaging topics
+          #############################
+          - name: MP_MESSAGING_INCOMING_REEFERTELEMETRY_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: reeferTelemetryTopic
+          - name: MP_MESSAGING_OUTGOING_CONTAINERS_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: containersTopic
+        volumeMounts:
+          - mountPath: "/opt/ol/wlp/usr/servers/defaultServer/bootstrap.properties"
+            subPath: "bootstrap.properties"
+            name: openliberty-bootstrap
+            readOnly: true
+      volumes:
+        - name: openliberty-bootstrap
+          secret:
+            secretName: "openliberty-bootstrap"
