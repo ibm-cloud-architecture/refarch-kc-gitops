@@ -6,6 +6,7 @@ metadata:
   name: "kc-ui-deployment"
   labels:
     chart: 'kc-ui-1.0.0'
+spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
