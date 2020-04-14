@@ -9,10 +9,10 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 1
-  selector:
-    matchLabels:
-      app: kc-ui
-      release: release-name
+  # selector:
+  #   matchLabels:
+  #     app: kc-ui
+  #     release: release-name
   template:
     metadata:
       labels:
