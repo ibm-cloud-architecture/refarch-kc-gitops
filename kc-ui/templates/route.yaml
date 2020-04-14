@@ -9,7 +9,7 @@ metadata:
     chart: 'kc-ui-1.0.0'
 spec:
   # Not a required attribute but ArgoCD fails sync without this field included in the YAML
-  host:   kcontainer-ui-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-1234.us-east.containers.appdomain.cloud
+  host: kcontainer-ui-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-1234.us-east.containers.appdomain.cloud
   path: /
   to:
     kind: Service
