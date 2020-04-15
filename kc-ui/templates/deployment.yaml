@@ -1,6 +1,6 @@
 ---
 # Source: kc-ui/templates/deployment.yaml
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "kc-ui-deployment"
@@ -12,7 +12,7 @@ spec:
   # selector:
   #   matchLabels:
   #     app: kc-ui
-  #     release: release-name
+  #     release: release-name 
   template:
     metadata:
       labels:

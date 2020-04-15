@@ -23,6 +23,6 @@ status:
   - conditions:
     - status: "True"
       type: Admitted
-    # host: kcontainer-ui-[project].[cluster-domain]
-    routerName: router
+    host: kcontainer-ui-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-0000.us-east.containers.appdomain.cloud
+    routerName: default
     wildcardPolicy: None
