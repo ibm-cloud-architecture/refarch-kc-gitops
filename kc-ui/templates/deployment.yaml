@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: kc-ui
-      release: release-name 
+      release: release-name
   template:
     metadata:
       labels:
@@ -22,7 +22,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "kc-ui"
-        image: "ibmcase/kcontainer-ui:0.1.30latest"
+        image: "ibmcase/kcontainer-ui:0.1.30"
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
