@@ -12,7 +12,6 @@ spec:
   selector:
     matchLabels:
       app: "springcontainerms-selector"
-      version: "current"
   template:
     metadata:
       labels:
@@ -22,7 +21,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "springcontainerms"
-        image: "ibmcase/kcontainer-spring-container-ms:latest"
+        image: "ibmcase/kcontainer-spring-container-ms:0.1.29"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -45,6 +44,12 @@ spec:
               configMapKeyRef:
                 name: "kafka-brokers"
                 key: brokers
+          - name: ANOMALY_THRESHOLD
+            valueFrom:
+              configMapKeyRef:
+                name: "bpm-anomaly"
+                key: anomalyThreshold
+                optional: true
           - name: BPM_ANOMALY
             valueFrom:
               configMapKeyRef:
@@ -56,6 +61,12 @@ spec:
               configMapKeyRef:
                 name: "bpm-anomaly"
                 key: login
+                optional: true
+          - name: BPM_EXPIRATION
+            valueFrom:
+              configMapKeyRef:
+                name: "bpm-anomaly"
+                key: expiration
                 optional: true
           - name: BPM_ANOMALY_USER
             valueFrom:
@@ -69,26 +80,26 @@ spec:
                 name: "bpm-anomaly"
                 key: password
                 optional: true
-          - name: KCSOLUTION_CONTAINERS
+          - name: KCSOLUTION_CONTAINERS_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: containersTopic
-          - name: KCSOLUTION_ORDERS
+          - name: KCSOLUTION_ORDERS_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: ordersTopic
-          - name: KCSOLUTION_REJECTED_ORDERS
+          - name: KCSOLUTION_CONTAINER_ANOMALY_RETRY_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"
-                key: rejectedOrdersTopic
-          - name: KCSOLUTION_ALLOCATED_ORDERS
+                key: containerAnomalyRetryTopic
+          - name: KCSOLUTION_CONTAINER_ANOMALY_DEAD_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"
-                key: allocatedOrdersTopic
+                key: containerAnomalyDeadTopic
           - name: LOGGING_CONTAINER_MS_ROOT
             value: "INFO"
           - name: LOGGING_CONTAINER_MS_CONSUMER_CONFIG

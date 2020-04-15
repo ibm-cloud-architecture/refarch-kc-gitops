@@ -11,5 +11,6 @@ spec:
   ports:
   - name: http
     port: 8080
+    nodePort: 31900
   selector:
     app: "springcontainerms-selector"
