@@ -1,0 +1,53 @@
+name: Update GitOps deployments
+#on:
+  push:
+    branches:
+      - master
+      - eda-integration/gse-eda-demo-43.us-east.containers.appdomain.cloud
+  schedule:
+    - cron: '*/20 * * * *'
+  repository_dispatch:
+
+env:
+  DESIRED_BRANCH: eda-integration/gse-eda-demo-43.us-east.containers.appdomain.cloud
+jobs:
+  update-gitops-deployments:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Checkout default sandbox branch
+      id: checkout-sandbox-branch
+      run: |
+        git fetch --all --verbose --progress
+        git checkout --progress ${DESIRED_BRANCH}
+    - name: Update Helm YAMLs
+      id: update-helm-yamls
+      #uses: ibm-cloud-architecture/actions-update-gitops@master
+      uses: ibm-cloud-architecture/actions-update-gitops@v1.0.5
+      with:
+        filePath: 'templates/deployment.yaml'
+    - name: Update Appsody YAMLs
+      id: update-appsody-yamls
+      #uses: ibm-cloud-architecture/actions-update-gitops@master
+      uses: ibm-cloud-architecture/actions-update-gitops@v1.0.5
+      with:
+        filePath: 'appsody/app-deploy.yaml'
+    - name: Commit & push modified files
+      id: commit-and-push-files
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
+      run: |
+        MODIFIED_FILES=$(git status --short | wc -l)
+        if [ "${MODIFIED_FILES}" -gt "0" ]
+        then
+          TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+          git config --local user.email "gitops@ibmcloud.com"
+          git config --local user.name "GitOps Automation"
+          git commit -m "GitOps updates ${TIMESTAMP}" -a
+          REMOTE_REPO=$(git remote get-url --push origin | sed 's/https:\/\//''/')
+          REMOTE_AUTH_REPO="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@${REMOTE_REPO}"
+          git push "${REMOTE_AUTH_REPO}" ${DESIRED_BRANCH} --force
+        else
+          echo "No changes detected in application YAMLs."
+        fi
