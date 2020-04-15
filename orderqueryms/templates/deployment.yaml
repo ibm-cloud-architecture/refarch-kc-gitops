@@ -9,6 +9,10 @@ metadata:
 spec:
   replicas: 1
   revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: "orderqueryms-selector"
+      version: "current"
   template:
     metadata:
       labels:
