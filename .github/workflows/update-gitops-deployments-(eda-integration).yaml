@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - master
-      - eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
+      - eda-integration/gse-eda-demo-43.us-east.containers.appdomain.cloud
   schedule:
     - cron: '*/20 * * * *'
   repository_dispatch:
 
 env:
-  DESIRED_BRANCH: eda-integration/gse-eda-demos.us-east.containers.appdomain.cloud
+  DESIRED_BRANCH: eda-integration/gse-eda-demo-43.us-east.containers.appdomain.cloud
 jobs:
   update-gitops-deployments:
     runs-on: ubuntu-latest
