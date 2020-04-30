@@ -21,7 +21,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "springcontainerms"
-        image: "ibmcase/kcontainer-spring-container-ms:0.1.29"
+        image: "ibmcase/kcontainer-spring-container-ms:0.1.30"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
