@@ -58,6 +58,7 @@ spec:
       prometheus.io/scrape: "true"
     port: 8080
     type: NodePort
+  serviceAccountName: kcontainer-runtime
   stack: python-flask
   version: 1.0.0
   volumeMounts:
