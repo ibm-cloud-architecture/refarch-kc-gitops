@@ -10,7 +10,7 @@ metadata:
 spec:
   # Not a required attribute but ArgoCD fails sync without this field included in the YAML
   # host: kcontainer-order-command-[project].[cluster-domain]
-  host: kcontainer-order-command-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-0000.us-east.containers.appdomain.cloud
+  # host: kcontainer-order-command-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-0000.us-east.containers.appdomain.cloud
   path: /
   to:
     kind: Service
@@ -19,11 +19,11 @@ spec:
   port:
     targetPort: http
 # Not a required attribute but ArgoCD fails sync without this field included in the YAML
-status:
-  ingress:
-  - conditions:
-    - status: "True"
-      type: Admitted
-    host: kcontainer-order-command-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-0000.us-east.containers.appdomain.cloud
-    routerName: default
-    wildcardPolicy: None
+#status:
+#  ingress:
+#  - conditions:
+#    - status: "True"
+#      type: Admitted
+#    host: kcontainer-order-command-eda-integration.gse-eda-demo-43-fa9ee67c9ab6a7791435450358e564cc-0000.us-east.containers.appdomain.cloud
+#    routerName: default
+#    wildcardPolicy: None
