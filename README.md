@@ -2,6 +2,35 @@
 
 Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
 
+## TODO: update documentation for new gitops layout
+
+### Development environment
+
+Prerequisites: Strimzi and Appsody operators should be installed, and configured to watch all namespaces.
+
+One-time setup to create namespace and Kafka cluster:
+```
+kubectl apply -k environments/dev/infrastructure
+```
+Deploy microservices and required configmaps and secrets:
+```
+kubectl apply -k environments/dev
+```
+
+### Environment with off-cluster backing services
+
+Prerequisites: supply credentials for backing services as files - see [credentials README](./environments/example-credentials/env/base/credentials/README.md)
+```
+kubectl apply -k environments/example-credentials
+```
+
+### Environment with off-cluster Event Streams with certificates
+
+Prerequisites: supply credentials for backing services as files - see [credentials README](./environments/example-es-truststore/env/base/credentials/README.md)
+```
+kubectl apply -k environments/example-es-truststore
+```
+
 ## Deploying KContainer Reference Implementation using GitOps templates
 
 1. Create a new branch based on the `starter-template` branch, using the format of `<namespace>/<clustername>`
