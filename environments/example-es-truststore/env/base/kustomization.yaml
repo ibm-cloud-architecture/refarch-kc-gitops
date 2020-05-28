@@ -11,6 +11,13 @@ secretGenerator:
   - name: eventstreams-apikey
     files:
       - ./credentials/eventstreams-apikey/binding
+  - name: es-truststore-jks
+    files:
+      - ./credentials/eventstreams-truststore/es-cert.jks
+      - ./credentials/eventstreams-truststore/password
+  - name: es-ca-pemfile
+    files:
+      - ./credentials/eventstreams-pem/es-cert.pem
   - name: postgresql-url
     files:
       - ./credentials/postgresql-url/binding
@@ -31,7 +38,7 @@ secretGenerator:
 configMapGenerator:
   - name: kafka-brokers
     literals:
-      - brokers="broker-3-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-0-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-1-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-2-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-4-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-5-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093"
+      - brokers="es-1-ibm-es-proxy-route-bootstrap-eventstreams.apps.ocp43.vg.gse-ocp.net:443"
 
 generatorOptions:
   disableNameSuffixHash: true

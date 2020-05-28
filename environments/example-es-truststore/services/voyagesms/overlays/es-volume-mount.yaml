@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voyagesms-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: voyagesms
+        volumeMounts:
+          - mountPath: /etc/ssl/certs/kcontainer
+            name: es-pem-volume
+            readOnly: true

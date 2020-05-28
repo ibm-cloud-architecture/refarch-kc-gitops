@@ -1,2 +1,5 @@
 credentials/*/binding
 credentials/*/root.crt
+credentials/*/es-cert.jks
+credentials/*/es-cert.pem
+credentials/*/password
