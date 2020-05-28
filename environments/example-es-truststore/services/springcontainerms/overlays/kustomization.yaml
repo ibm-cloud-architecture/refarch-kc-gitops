@@ -2,6 +2,11 @@ bases:
   - ../base
 
 # Postgres CA mounted as /.postgresql/root.crt (for default SSLFactory)
+# Event Streams truststore mounted as /config/resources/security/es-ssl/es-cert.jks
+
 patchesStrategicMerge:
+  - ./es-env.yaml
+  - ./es-volume.yaml
+  - ./es-volume-mount.yaml
   - ./postgres-ca-volume-mount.yaml
   - ./postgres-ca-volume.yaml

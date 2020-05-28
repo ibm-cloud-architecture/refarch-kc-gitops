@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kc-ui-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: kc-ui
+        env:
+          - name: CERTS_ENABLED
+            value: "true"
+          - name: KAFKA_CERT_PATH
+            value: /etc/ssl/certs/kcontainer/es-cert.pem
