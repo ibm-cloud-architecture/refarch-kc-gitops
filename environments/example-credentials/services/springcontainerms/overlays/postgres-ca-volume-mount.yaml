@@ -12,5 +12,5 @@ spec:
           # depending on the userid executing the container (OCP vs vanilla k8s)
           - mountPath: /.postgresql
             name: postgresql-ca-volume
-          - mountPath: /home/java_user/.postgresql
+          - mountPath: /root/.postgresql
             name: postgresql-ca-volume
