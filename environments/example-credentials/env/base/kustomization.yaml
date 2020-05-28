@@ -2,40 +2,36 @@ bases:
   - ../../apps/refarch-kc
 
 resources:
-# Namespace created as part of Kafka cluster install.
-# TODO: move kafka and namespace back into env once services properly tolerate its absence.
-#  - ./namespace.yaml
-#  - ./kafka-cluster.yaml
+  - ./namespace.yaml
   - ./service-account.yaml
   - ./kafka-topics-configmap.yaml
   - ./bpm-configmap.yaml
 
 secretGenerator:
-# Empty value for kafka-apikey should be interpreted by consuming microservices
-# that credentials are not required to connect to Kafka.
-# TODO: make this optional
   - name: eventstreams-apikey
-    literals:
-      - binding=""
+    files:
+      - ./credentials/eventstreams-apikey/binding
   - name: postgresql-url
-    literals:
-      - binding="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
+    files:
+      - ./credentials/postgresql-url/binding
   - name: postgresql-user
-    literals:
-      - binding="postgres"
+    files:
+      - ./credentials/postgresql-user/binding
   - name: postgresql-pwd
-    literals:
-      - binding="supersecret"
+    files:
+      - ./credentials/postgresql-pwd/binding
+  - name: postgresql-ca-pem
+    files:
+      - ./credentials/gsa-eda-sandbox-db/root.crt
   - name: bpm-anomaly
     literals:
       - user='your-username'
       - password='your-password'
 
-# TODO: replace with Service Binding Operator
 configMapGenerator:
   - name: kafka-brokers
     literals:
-      - brokers="my-cluster-kafka-bootstrap:9092"
+      - brokers="broker-3-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-0-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-1-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-2-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-4-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-5-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093"
 
 generatorOptions:
   disableNameSuffixHash: true

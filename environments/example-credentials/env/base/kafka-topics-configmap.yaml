@@ -3,15 +3,15 @@ kind: ConfigMap
 metadata:
   name: kafka-topics
 data:
-  allocatedOrdersTopic: allocated-orders
-  bluewaterContainerTopic: bluewater-container
-  bluewaterProblemTopic: bluewater-problem
-  bluewaterShipTopic: bluewater-ship
-  containersTopic: containers
-  containerAnomalyRetryTopic: container-anomaly-retry
-  containerAnomalyDeadTopic: container-anomaly-dead
-  errorsTopic: errors
-  orderCommandsTopic: order-commands
-  ordersTopic: orders
-  reeferTelemetryTopic: reefer-telemetry
-  rejectedOrdersTopic: rejected-orders
+  allocatedOrdersTopic: eda-integration-allocated-orders
+  bluewaterContainerTopic: eda-integration-bluewaterContainer
+  bluewaterProblemTopic: eda-integration-bluewaterProblem
+  bluewaterShipTopic: eda-integration-bluewaterShip
+  containersTopic: eda-integration-containers
+  containerAnomalyRetryTopic: eda-integration-container-anomaly-retry
+  containerAnomalyDeadTopic: eda-integration-container-anomaly-dead
+  errorsTopic: eda-integration-errors
+  orderCommandsTopic: eda-integration-order-commands
+  ordersTopic: eda-integration-orders
+  reeferTelemetryTopic: eda-integration-reefer-telemetry
+  rejectedOrdersTopic: eda-integration-rejected-orders
