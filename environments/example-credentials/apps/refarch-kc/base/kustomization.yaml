@@ -1,5 +1,4 @@
 bases:
-  - ./kafka
   - ../../../services/fleetms
   - ../../../services/kc-ui
   - ../../../services/ordercommandms
