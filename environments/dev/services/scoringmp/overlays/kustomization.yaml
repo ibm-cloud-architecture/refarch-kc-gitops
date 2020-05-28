@@ -1,0 +1,20 @@
+bases:
+  - ../base
+
+secretGenerator:
+  - name: openliberty-bootstrap
+    files:
+      - ./bootstrap.properties
+  - name: predictive-model-secret 
+    literals:
+      - user='replace-with-your-username'
+      - password='replace-with-your-password'
+
+configMapGenerator:
+  - name: predictive-model-configmap
+    literals:
+      - baseURL='https://zen-cpd-zen.demo.ibmcloudpack.com/'
+      - predictionURL='/v4/deployments/fb03738c-1234-abcd-wxyz-7e66106ee51c/predictions'
+
+#patchesStrategicMerge:
+#  - ./patch.yaml
