@@ -1,0 +1,83 @@
+---
+# Source: kc-ui/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "kc-ui-deployment"
+  labels:
+    chart: 'kc-ui-1.0.0'
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: kc-ui
+      release: release-name
+  template:
+    metadata:
+      labels:
+        app: kc-ui
+        release: release-name
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "kc-ui"
+        image: "ibmcase/kcontainer-ui:latest"
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3010
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        ports:
+        - containerPort: 3010
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: PORT
+            value : "3010"
+          - name: FLEETMS_SERVICE_HOST
+            value: "fleetms-service"
+          - name: FLEETMS_SERVICE_PORT
+            value: "9080"
+          - name: ORDERCOMMANDMS_SERVICE_HOST
+            value: "ordercommandms-service"
+          - name: ORDERCOMMANDMS_SERVICE_PORT
+            value: "9080"
+          - name: ORDERQUERYMS_SERVICE_HOST
+            value: "orderqueryms-service"
+          - name: ORDERQUERYMS_SERVICE_PORT
+            value: "9080"
+          - name: VOYAGESMS_SERVICE_HOST
+            value: "voyagesms-service"
+          - name: VOYAGESMS_SERVICE_PORT
+            value: "3000"
+          - name: CONTAINERMS_SERVICE_HOST
+            value: "springcontainerms-service"
+          - name: CONTAINERMS_SERVICE_PORT
+            value: "8080"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-brokers"
+                key: brokers
+          - name: PROBLEM_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterProblemTopic
+          - name: SHIP_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterShipTopic
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding
