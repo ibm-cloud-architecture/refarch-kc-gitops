@@ -1,0 +1,62 @@
+---
+# Source: voyagesms/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "voyagesms-deployment"
+  labels:
+    chart: 'voyagesms-1.0.0'
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: "voyagesms-selector"
+  template:
+    metadata:
+      labels:
+        app: "voyagesms-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "voyagesms"
+        image: "ibmcase/kcontainer-voyages-ms:latest"
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value : "3000"
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-brokers"
+                key: brokers
+          - name: ORDER_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: ordersTopic
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding
