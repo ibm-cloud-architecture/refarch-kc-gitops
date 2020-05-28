@@ -1,0 +1,28 @@
+---
+# Source: fleetms/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  #TODO Add default name overrides?
+  name: kcontainer-fleetms
+  labels:
+    chart: 'fleetms-1.0.0'
+spec:
+  # Not a required attribute but ArgoCD fails sync without this field included in the YAML
+  # host: kcontainer-fleetms-[project].[cluster-domain]
+  path: /
+  to:
+    kind: Service
+    name: "fleetms-service"
+    weight: 100
+  port:
+    targetPort: http
+# Not a required attribute but ArgoCD fails sync without this field included in the YAML
+status:
+  ingress:
+  - conditions:
+    - status: "True"
+      type: Admitted
+    # host: kcontainer-fleetms-[project].[cluster-domain]
+    routerName: router
+    wildcardPolicy: None
