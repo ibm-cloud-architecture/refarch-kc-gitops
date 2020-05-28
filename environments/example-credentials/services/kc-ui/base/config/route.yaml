@@ -1,0 +1,28 @@
+---
+# Source: kc-ui/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  #TODO Add default name overrides?
+  name: kcontainer-ui
+  labels:
+    chart: 'kc-ui-1.0.0'
+spec:
+  # Not a required attribute but ArgoCD fails sync without this field included in the YAML
+  # host: kcontainer-ui-[project].[cluster-domain]
+  path: /
+  to:
+    kind: Service
+    name: "kc-ui-service"
+    weight: 100
+  port:
+    targetPort: http
+# Not a required attribute but ArgoCD fails sync without this field included in the YAML
+status:
+  ingress:
+  - conditions:
+    - status: "True"
+      type: Admitted
+    # host: kcontainer-ui-[project].[cluster-domain]
+    routerName: router
+    wildcardPolicy: None

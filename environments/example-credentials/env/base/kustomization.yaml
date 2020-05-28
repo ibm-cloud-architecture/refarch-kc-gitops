@@ -1,0 +1,41 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+# Namespace created as part of Kafka cluster install.
+# TODO: move kafka and namespace back into env once services properly tolerate its absence.
+#  - ./namespace.yaml
+#  - ./kafka-cluster.yaml
+  - ./service-account.yaml
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+# Empty value for kafka-apikey should be interpreted by consuming microservices
+# that credentials are not required to connect to Kafka.
+# TODO: make this optional
+  - name: eventstreams-apikey
+    literals:
+      - binding=""
+  - name: postgresql-url
+    literals:
+      - binding="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
+  - name: postgresql-user
+    literals:
+      - binding="postgres"
+  - name: postgresql-pwd
+    literals:
+      - binding="supersecret"
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+# TODO: replace with Service Binding Operator
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="my-cluster-kafka-bootstrap:9092"
+
+generatorOptions:
+  disableNameSuffixHash: true

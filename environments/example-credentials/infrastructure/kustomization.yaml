@@ -1,0 +1,9 @@
+# Temporary separate kustomization for creating kafka cluster ahead of application install.
+# This is required because some stacks do not correctly restart if they start up before the
+# kafka cluster is ready.
+
+resources:
+  - ./namespace.yaml
+  - ./kafka-cluster.yaml
+
+namespace: shipping

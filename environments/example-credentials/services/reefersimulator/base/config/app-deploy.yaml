@@ -1,0 +1,71 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    commit.image.appsody.dev/author: Jerome Boyer <jerome.boyer@gmail.com>
+    commit.image.appsody.dev/committer: GitHub <noreply@github.com>
+    commit.image.appsody.dev/contextDir: /simulator
+    commit.image.appsody.dev/message: 'Merge pull request #19 from jbcodeforce/master'
+    image.opencontainers.org/revision: bad18355674e29a1b423c06815ae9a503b61ffb7-modified
+    stack.appsody.dev/configured: docker.io/appsody/python-flask:0.1
+    stack.appsody.dev/created: 2019-11-14T10:29:19+0000
+    stack.appsody.dev/revision: b3e8a19b0a4b66a69daa8d1106f37bbe4167693a
+    stack.appsody.dev/tag: appsody/python-flask:0.1.6
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: reefer-simulator
+    stack.appsody.dev/version: 0.1.6
+  name: reefer-simulator
+spec:
+  applicationImage: ibmcase/kcontainer-reefer-simulator-appsody:0.1.46
+  createKnativeService: false
+  env:
+  - name: KAFKA_BROKERS
+    valueFrom:
+      configMapKeyRef:
+        name: kafka-brokers
+        key: brokers
+  - name: TELEMETRY_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        name: kafka-topics
+        key: reeferTelemetryTopic
+  - name: CONTAINER_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        name: kafka-topics
+        key: containersTopic
+  - name: KAFKA_APIKEY
+    valueFrom:
+      secretKeyRef:
+        key: binding
+        name: eventstreams-apikey
+  - name: KAFKA_CERT
+    value: /certs/es-cert.pem
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  monitoring:
+    labels:
+      k8s-app: reefer-simulator
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 8080
+    type: NodePort
+  stack: python-flask
+  version: 1.0.0
+  volumeMounts:
+  - mountPath: /certs
+    name: eventstreams-cert-pem
+  volumes:
+  - name: eventstreams-cert-pem
+    secret:
+      optional: true
+      secretName: eventstreams-cert-pem
+status: {}
