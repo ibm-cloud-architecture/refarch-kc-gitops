@@ -18,15 +18,19 @@ Prerequisites:
 #### Postgres installation:
 ```
 kubectl create ns postgres
+kubectl create serviceaccount -n postgres pgserviceaccount
+oc adm policy add-scc-to-user anyuid -z pgserviceaccount -n postgres
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install postgresql bitnami/postgresql -n postgres --wait --timeout=300s --set postgresqlPassword=supersecret --set persistence.enabled=false --set serviceAccount.enabled=true --set serviceAccount.name=pgserviceaccount
 ```
+(note: the `oc adm` command is required only if targeting an OpenShift cluster).
 
 #### Deploying microservices:
 
 One-time setup to create namespace and Kafka cluster:
 ```
 kubectl apply -k environments/dev/infrastructure
+kubectl wait --for=condition=ready kafka my-cluster --timeout 300s -n shipping
 ```
 Deploy microservices and required configmaps and secrets:
 ```
