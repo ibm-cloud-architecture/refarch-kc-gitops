@@ -22,7 +22,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "fleetms"
-        image: "ibmcase/kcontainer-fleet-ms:0.1.25"
+        image: "ibmcase/kcontainer-fleet-ms:0.1.26"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
