@@ -2,6 +2,63 @@
 
 Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
 
+## Example environments
+
+These example environments will deploy the microservices and their associated configuration to the `shipping` namespace.
+
+### Development environment (`dev`)
+
+This environment is deployable to any Kubernetes or OCP cluster and provides its own dedicated backing services.
+
+Prerequisites:
+- Strimzi operator must be installed, and configured to watch all namespaces.
+- Appsody operator must be installed, and configured to watch all namespaces.
+- Postgres database must exist. The defaults assume that the database is in the `postgres` namespace, configured with the default credentials (`postgres` / `supersecret`).
+
+#### Postgres installation:
+```
+kubectl create ns postgres
+kubectl create serviceaccount -n postgres pgserviceaccount
+oc adm policy add-scc-to-user anyuid -z pgserviceaccount -n postgres
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install postgresql bitnami/postgresql -n postgres --wait --timeout=300s --set postgresqlPassword=supersecret --set persistence.enabled=false --set serviceAccount.enabled=true --set serviceAccount.name=pgserviceaccount
+```
+(note: the `oc adm` command is required only if targeting an OpenShift cluster).
+
+#### Deploying microservices:
+
+One-time setup to create namespace and Kafka cluster:
+```
+kubectl apply -k environments/dev/infrastructure
+kubectl wait --for=condition=ready kafka my-cluster --timeout 300s -n shipping
+```
+Deploy microservices and required configmaps and secrets:
+```
+kubectl apply -k environments/dev
+```
+
+### Environment with off-cluster backing services (`example-credentials`)
+
+This example configures the microservices to connect to a Postgres database with SSL verification enabled, and to Event Streams using an API key.
+
+The backing services should already exist (for example, hosted on an OpenShift cluster or IBM Cloud).  In the case of Kafka, the topics should already exist. In the `environments/example-credentials` tree, the Kafka topics are prefixed with `itg-integration-`.
+
+Prerequisites: supply credentials for backing services as files - see [credentials README](./environments/example-credentials/env/base/credentials/README.md)
+```
+kubectl apply -k environments/example-credentials
+```
+
+### Environment with off-cluster Event Streams with certificates (`example-es-truststore`)
+
+This example configures the microservices to connect to a Postgres database with SSL verification enabled, and to Event Streams using an API key, with SSL verification enabled. The ES certificate is provided as a Java truststore, or a PEM file to the non-Java apps.
+
+Prerequisites: supply credentials for backing services as files - see [credentials README](./environments/example-es-truststore/env/base/credentials/README.md)
+```
+kubectl apply -k environments/example-es-truststore
+```
+
+## TODO: rewrite environment creation instructions below
+
 ## Deploying KContainer Reference Implementation using GitOps templates
 
 1. Create a new branch based on the `starter-template` branch, using the format of `<namespace>/<clustername>`

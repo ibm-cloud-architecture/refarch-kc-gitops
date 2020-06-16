@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springcontainerms-deployment
+spec:
+  template:
+    spec:
+      volumes:
+      - name: postgresql-ca-volume
+        secret:
+          secretName: postgresql-ca-pem

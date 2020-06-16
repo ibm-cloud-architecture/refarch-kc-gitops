@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordercommandms-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: ordercommandms
+        volumeMounts:
+          - mountPath: /config/resources/security/es-ssl
+            name: es-truststore-volume

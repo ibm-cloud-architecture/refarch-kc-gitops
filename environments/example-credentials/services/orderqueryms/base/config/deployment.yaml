@@ -1,0 +1,66 @@
+---
+# Source: orderqueryms/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "orderqueryms-deployment"
+  labels:
+    chart: 'orderqueryms-1.0.0'
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: "orderqueryms-selector"
+  template:
+    metadata:
+      labels:
+        app: "orderqueryms-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "orderqueryms"
+        image: "ibmcase/kcontainer-order-query-ms:latest"
+        imagePullPolicy: Always
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 20
+
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value: "9080"
+          - name: APPLICATION_NAME
+            value: "release-name"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-brokers"
+                key: brokers
+          - name: ORDER_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: ordersTopic
+          - name: CONTAINER_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: containersTopic
+          - name: ERROR_TOPIC
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: errorsTopic
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding

@@ -1,0 +1,10 @@
+bases:
+  - ../base
+
+# Event Streams certificate mounted as /etc/ssl/certs/kcontainer/es-cert.pem
+
+patchesStrategicMerge:
+  - ./es-env.yaml
+  - ./es-volume.yaml
+  - ./es-volume-mount.yaml
+

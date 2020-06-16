@@ -1,0 +1,10 @@
+bases:
+  - ../base
+
+# Event Streams truststore mounted as /config/resources/security/es-ssl/es-cert.jks
+
+patchesStrategicMerge:
+  - ./es-env.yaml
+  - ./es-volume.yaml
+  - ./es-volume-mount.yaml
+

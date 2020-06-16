@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kc-ui-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: kc-ui
+        volumeMounts:
+          - mountPath: /etc/ssl/certs/kcontainer
+            name: es-pem-volume
+            readOnly: true
