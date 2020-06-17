@@ -2,4 +2,4 @@ bases:
   - ../base
 
 patchesStrategicMerge:
-  - ./es-env.yaml
+  - ./service-account-patch.yaml
