@@ -1,0 +1,83 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    commit.image.appsody.dev/author: Jesus Almaraz <almarazj@ie.ibm.com>
+    commit.image.appsody.dev/committer: GitHub <noreply@github.com>
+    commit.image.appsody.dev/contextDir: C:\dev\refarch\appsody-voyages-ms\voyages-ms
+    commit.image.appsody.dev/date: Fri May 15 14:35:01 2020 +0200
+    commit.image.appsody.dev/message: 'Merge pull request #48 from djones6/fixNonRoot'
+    commit.stack.appsody.dev/contextDir: /incubator/nodejs-express
+    commit.stack.appsody.dev/date: Thu Jun 4 10:47:57 2020 +0100
+    commit.stack.appsody.dev/message: 'nodejs-express: define APPSODY_DEBUG_PORT (#820)'
+    image.opencontainers.org/created: "2020-06-08T14:02:05+01:00"
+    image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-ms
+    image.opencontainers.org/revision: 96e0f7638917534522762085be430ce5b6d8dc36
+    image.opencontainers.org/source: |
+      https://github.com/ibm-cloud-architecture/refarch-kc-ms/tree/master
+    image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-ms
+    stack.appsody.dev/authors: Sam Roberts <sam-github>
+    stack.appsody.dev/configured: docker.io/appsody/nodejs-express:0.4
+    stack.appsody.dev/created: "2020-06-04T09:50:35Z"
+    stack.appsody.dev/description: Express web framework for Node.js
+    stack.appsody.dev/documentation: https://github.com/appsody/stacks/tree/master/incubator/nodejs-express/README.md
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: d4c368144c333187df99e93069c9b517e3ede413
+    stack.appsody.dev/source: https://github.com/appsody/stacks/tree/master/incubator/nodejs-express/image
+    stack.appsody.dev/tag: docker.io/appsody/nodejs-express:0.4.10
+    stack.appsody.dev/title: Node.js Express
+    stack.appsody.dev/url: https://github.com/appsody/stacks/tree/master/incubator/nodejs-express
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: voyages-ms
+    stack.appsody.dev/id: nodejs-express
+    stack.appsody.dev/version: 0.4.10
+  name: voyages-ms
+spec:
+  applicationImage: djones6/voyages-ms:0.1.26
+  createKnativeService: false
+  env:
+  - name: PORT
+    value : "3000"
+  - name: KAFKA_BROKERS
+    valueFrom:
+      configMapKeyRef:
+        key: brokers
+        name: "kafka-brokers"
+  - name: ORDER_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        key: ordersTopic
+        name: "kafka-topics"
+  - name: KAFKA_APIKEY
+    valueFrom:
+      secretKeyRef:
+        key: binding
+        name: "eventstreams-apikey"
+        optional: true
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /live
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  monitoring:
+    labels:
+      k8s-app: voyages-ms
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /ready
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 3000
+    type: NodePort
+  stack: nodejs-express
+  version: 1.0.0

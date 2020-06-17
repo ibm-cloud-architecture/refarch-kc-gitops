@@ -4,7 +4,14 @@ bases:
 # Event Streams certificate mounted as /etc/ssl/certs/kcontainer/es-cert.pem
 
 patchesStrategicMerge:
-  - ./es-env.yaml
-  - ./es-volume.yaml
-  - ./es-volume-mount.yaml
+  - ./service-account-patch.yaml
+  - ./appsody-volume-mounts.yaml
+  - ./appsody-volumes.yaml
 
+patchesJson6902:
+  - target:
+      group: appsody.dev
+      version: v1beta1
+      kind: AppsodyApplication
+      name: voyages-ms
+    path: ./appsody-env-patch.yaml

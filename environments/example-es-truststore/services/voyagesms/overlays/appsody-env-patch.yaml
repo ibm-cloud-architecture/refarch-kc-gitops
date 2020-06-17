@@ -1,0 +1,10 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: CERTS_ENABLED
+    value: "true"
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: CERTS_PATH
+    value: /etc/ssl/certs/kcontainer/es-cert.pem
