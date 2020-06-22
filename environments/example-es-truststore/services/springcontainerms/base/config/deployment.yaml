@@ -3,9 +3,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "springcontainerms-deployment"
+  name: "spring-container-ms"
   labels:
     chart: 'springcontainerms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -106,18 +107,6 @@ spec:
             value: "ERROR"
           - name: LOGGING_CONTAINER_MS_PRODUCER_CONFIG
             value: "ERROR"
-          - name: KAFKA_APIKEY
-            valueFrom:
-              secretKeyRef:
-                name: "eventstreams-apikey"
-                key: binding
-                optional: true
-          - name: POSTGRESQL_CA_PEM
-            valueFrom:
-              secretKeyRef:
-                name: "postgresql-ca-pem"
-                key: binding
-                optional: true
           - name: POSTGRESQL_URL
             valueFrom:
               secretKeyRef:

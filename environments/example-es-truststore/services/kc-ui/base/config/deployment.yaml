@@ -3,21 +3,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "kc-ui-deployment"
+  name: "kc-ui"
   labels:
     chart: 'kc-ui-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: kc-ui
-      release: release-name
+      app: "kc-ui-selector"
   template:
     metadata:
       labels:
-        app: kc-ui
-        release: release-name
+        app: "kc-ui-selector"
+        version: "current"
     spec:
       serviceAccountName: kcontainer-runtime
       containers:
@@ -38,27 +38,27 @@ spec:
             memory: "300Mi"
         env:
           - name: APPLICATION_NAME
-            value: "release-name"
+            value: "RELEASE-NAME"
           - name: PORT
             value : "3010"
           - name: FLEETMS_SERVICE_HOST
-            value: "fleetms-service"
+            value: "fleet-ms"
           - name: FLEETMS_SERVICE_PORT
             value: "9080"
           - name: ORDERCOMMANDMS_SERVICE_HOST
-            value: "ordercommandms-service"
+            value: "order-command-ms"
           - name: ORDERCOMMANDMS_SERVICE_PORT
             value: "9080"
           - name: ORDERQUERYMS_SERVICE_HOST
-            value: "orderqueryms-service"
+            value: "order-query-ms"
           - name: ORDERQUERYMS_SERVICE_PORT
             value: "9080"
           - name: VOYAGESMS_SERVICE_HOST
-            value: "voyagesms-service"
+            value: "voyages-ms"
           - name: VOYAGESMS_SERVICE_PORT
             value: "3000"
           - name: CONTAINERMS_SERVICE_HOST
-            value: "springcontainerms-service"
+            value: "spring-container-ms"
           - name: CONTAINERMS_SERVICE_PORT
             value: "8080"
           - name: KAFKA_BROKERS
@@ -76,8 +76,3 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: bluewaterShipTopic
-          - name: KAFKA_APIKEY
-            valueFrom:
-              secretKeyRef:
-                name: "eventstreams-apikey"
-                key: binding

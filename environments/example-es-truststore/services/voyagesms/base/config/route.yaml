@@ -7,22 +7,12 @@ metadata:
   name: kcontainer-voyagesms
   labels:
     chart: 'voyagesms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
-  # Not a required attribute but ArgoCD fails sync without this field included in the YAML
-  # host: kcontainer-voyagesms-[project].[cluster-domain]
   path: /
   to:
     kind: Service
-    name: "voyagesms-service"
+    name: "voyages-ms"
     weight: 100
   port:
     targetPort: http
-# Not a required attribute but ArgoCD fails sync without this field included in the YAML
-status:
-  ingress:
-  - conditions:
-    - status: "True"
-      type: Admitted
-    # host: kcontainer-voyagesms-[project].[cluster-domain]
-    routerName: router
-    wildcardPolicy: None
