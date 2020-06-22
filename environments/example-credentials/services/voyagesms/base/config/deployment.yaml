@@ -3,9 +3,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "voyagesms-deployment"
+  name: "voyages-ms"
   labels:
     chart: 'voyagesms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   strategy:
@@ -44,7 +45,7 @@ spec:
           - name: PORT
             value : "3000"
           - name: APPLICATION_NAME
-            value: "release-name"
+            value: "RELEASE-NAME"
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
@@ -55,8 +56,3 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: ordersTopic
-          - name: KAFKA_APIKEY
-            valueFrom:
-              secretKeyRef:
-                name: "eventstreams-apikey"
-                key: binding

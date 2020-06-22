@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-container-ms
+spec:
+  template:
+    spec:
+      containers:
+      - name: springcontainerms
+        env:
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding
+          - name: POSTGRESQL_CA_PEM
+            valueFrom:
+              secretKeyRef:
+                name: "postgresql-ca-pem"
+                key: binding

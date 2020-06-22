@@ -3,9 +3,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "scoringmp-deployment"
+  name: "scoring-mp"
   labels:
     chart: 'scoringmp-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -21,13 +22,15 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "scoringmp"
-        image: "ibmcase/kcontainer-scoringmp-ms:0.1.46"
+        image: "ibmcase/kcontainer-scoringmp-ms:latest"
         imagePullPolicy: Always
+
         readinessProbe:
           httpGet:
             path: /health
             port: 9080
           initialDelaySeconds: 20
+
         resources:
           requests:
             cpu: "200m"
@@ -36,12 +39,12 @@ spec:
           - name: PORT
             value: "9080"
           - name: APPLICATION_NAME
-            value: "scoringmp"
+            value: "RELEASE-NAME"
           ##################################
           ### Predictive model configuration
           ##################################
-          - name: MOCKUP
-            value: "yes"
+          - name: PREDICTIONS_ENABLED
+            value: "false"
           - name: CP4D_BASE_URL
             valueFrom:
               configMapKeyRef:
