@@ -3,13 +3,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "springcontainerms-service"
+  name: "spring-container-ms"
   labels:
     chart: "springcontainerms-1.0.0"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   type: NodePort
   ports:
   - name: http
     port: 8080
+    nodePort: 31900
   selector:
     app: "springcontainerms-selector"
