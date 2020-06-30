@@ -1,13 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: voyagesms-deployment
+  name: voyages-ms
 spec:
   template:
     spec:
       containers:
       - name: voyagesms
         env:
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding
           - name: CERTS_ENABLED
             value: "true"
           - name: CERTS_PATH

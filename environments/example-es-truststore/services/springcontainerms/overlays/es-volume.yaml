@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springcontainerms-deployment
+  name: spring-container-ms
 spec:
   template:
     spec:

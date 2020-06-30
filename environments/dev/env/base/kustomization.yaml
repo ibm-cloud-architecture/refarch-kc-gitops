@@ -11,12 +11,6 @@ resources:
   - ./bpm-configmap.yaml
 
 secretGenerator:
-# Empty value for kafka-apikey should be interpreted by consuming microservices
-# that credentials are not required to connect to Kafka.
-# TODO: make this optional
-  - name: eventstreams-apikey
-    literals:
-      - binding=""
   - name: postgresql-url
     literals:
       - binding="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"

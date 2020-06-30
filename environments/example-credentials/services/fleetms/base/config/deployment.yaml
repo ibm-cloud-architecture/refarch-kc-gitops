@@ -3,9 +3,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "fleetms-deployment"
+  name: "fleet-ms"
   labels:
     chart: 'fleetms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -36,7 +37,7 @@ spec:
           - name: PORT
             value: "9080"
           - name: APPLICATION_NAME
-            value: "release-name"
+            value: "RELEASE-NAME"
           - name: KAFKA_BROKERS
             valueFrom:
               configMapKeyRef:
@@ -57,8 +58,3 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: bluewaterProblemTopic
-          - name: KAFKA_APIKEY
-            valueFrom:
-              secretKeyRef:
-                name: "eventstreams-apikey"
-                key: binding

@@ -1,13 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orderqueryms-deployment
+  name: order-query-ms
 spec:
   template:
     spec:
       containers:
       - name: orderqueryms
         env:
+          - name: KAFKA_APIKEY
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: binding
           - name: TRUSTSTORE_ENABLED
             value: "true"
           - name: TRUSTSTORE_PWD

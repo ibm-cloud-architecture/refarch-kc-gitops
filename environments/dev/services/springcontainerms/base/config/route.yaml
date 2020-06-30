@@ -7,22 +7,12 @@ metadata:
   name: kcontainer-spring-container
   labels:
     chart: 'springcontainerms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
-  # Not a required attribute but ArgoCD fails sync without this field included in the YAML
-  # host: kcontainer-spring-container-[project].[cluster-domain]
   path: /
   to:
     kind: Service
-    name: "springcontainerms-service"
+    name: "spring-container-ms"
     weight: 100
   port:
     targetPort: http
-# Not a required attribute but ArgoCD fails sync without this field included in the YAML
-status:
-  ingress:
-  - conditions:
-    - status: "True"
-      type: Admitted
-    # host: kcontainer-spring-container-[project].[cluster-domain]
-    routerName: router
-    wildcardPolicy: None

@@ -7,22 +7,12 @@ metadata:
   name: kcontainer-order-query
   labels:
     chart: 'orderqueryms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
-  # Not a required attribute but ArgoCD fails sync without this field included in the YAML
-  # host: kcontainer-order-query-[project].[cluster-domain]
   path: /
   to:
     kind: Service
-    name: "orderqueryms-service"
+    name: "order-query-ms"
     weight: 100
   port:
     targetPort: http
-# Not a required attribute but ArgoCD fails sync without this field included in the YAML
-status:
-  ingress:
-  - conditions:
-    - status: "True"
-      type: Admitted
-    # host: kcontainer-order-query-[project].[cluster-domain]
-    routerName: router
-    wildcardPolicy: None

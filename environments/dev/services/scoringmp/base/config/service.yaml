@@ -3,14 +3,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "scoringmp-service"
+  name: "scoring-mp"
   labels:
     chart: "scoringmp-1.0.0"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   type: NodePort
   ports:
   - name: http
     port: 9080
+    nodePort: 30211
   - name: https
     port: 9443
   selector:

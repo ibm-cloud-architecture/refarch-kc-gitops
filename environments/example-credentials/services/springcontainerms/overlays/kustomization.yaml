@@ -3,5 +3,6 @@ bases:
 
 # Postgres CA mounted as /.postgresql/root.crt (for default SSLFactory)
 patchesStrategicMerge:
+  - ./es-env.yaml
   - ./postgres-ca-volume-mount.yaml
   - ./postgres-ca-volume.yaml

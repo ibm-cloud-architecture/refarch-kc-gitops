@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ordercommandms-deployment
+  name: order-command-ms
 spec:
   template:
     spec:

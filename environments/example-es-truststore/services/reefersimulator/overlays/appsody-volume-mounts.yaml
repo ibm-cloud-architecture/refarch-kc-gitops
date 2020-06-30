@@ -1,0 +1,8 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: reefer-simulator
+spec:
+  volumeMounts:
+  - mountPath: /certs
+    name: eventstreams-cert-pem

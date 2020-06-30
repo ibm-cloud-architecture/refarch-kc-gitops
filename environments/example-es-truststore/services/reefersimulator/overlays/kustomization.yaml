@@ -1,5 +1,17 @@
 bases:
   - ../base
 
-#patchesStrategicMerge:
-#  - ./patch.yaml
+# Event Streams certificate mounted as /certs/es-cert.pem
+
+patchesStrategicMerge:
+  - ./service-account-patch.yaml
+  - ./appsody-volume-mounts.yaml
+  - ./appsody-volumes.yaml
+
+patchesJson6902:
+  - target:
+      group: appsody.dev
+      version: v1beta1
+      kind: AppsodyApplication
+      name: reefer-simulator
+    path: ./appsody-env-patch.yaml
