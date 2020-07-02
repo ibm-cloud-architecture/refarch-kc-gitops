@@ -12,11 +12,11 @@ Event Driven Architecture reference implementation GitOps repository, in support
 3. Commit and push your updated branch to a git repository that will be accessible from your cluster.
 3. Create all the necessary pre-requisites in the target cluster:
    1. Ensure ArgoCD is installed and functional. [Link](https://argoproj.github.io/argo-cd/getting_started/)
-   2. Configure necessary backing components, like Kafka, Event Streams, or Postgresql. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/deployments/backing-services/)
-   3. Create necessary Kubernetes ConfigMaps and Secrets, which will connect the microservices to the backing components. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/deployments/backing-services/)
+   2. Configure necessary backing components, like Kafka, Event Streams, or Postgresql. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/infrastructure/required-services/)
+   3. Create necessary Kubernetes ConfigMaps and Secrets, which will connect the microservices to the backing components. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/infrastructure/required-services/)
       - The template YAMLs use the reasonable default names of the necessary ConfigMaps and Secrets, so the YAMLs will not need to be altered if you follow the deployment instructions exactly.
       - You may use different names for the ConfigMaps and Secrets, but you will need to adjust the references in the YAMLs accordingly.  This should only be necessary if deploying multiple times to the same namespace.
-   4. Configure Service Account, as required by OpenShift or Kubernetes. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/deployments/application-components/#openshift-container-platform-311)
+   4. Configure Service Account, as required by OpenShift or Kubernetes. [Link](https://ibm-cloud-architecture.github.io/refarch-kc/infrastructure/required-services/#ibm-bpm-on-redhat-openshift-container-platform)
 
 4. Create an ArgoCD application deployment for each microservice you wish to deploy, using either the [ArgoCD CLI](https://argoproj.github.io/argo-cd/getting_started/#2-download-argo-cd-cli), applying application manifest YAMLs through the ArgoCD UI, or apply application manifest YAMLs through the Kubernetes CRDs:
    - ArgoCD CLI:
