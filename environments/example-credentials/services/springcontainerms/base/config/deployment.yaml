@@ -100,12 +100,6 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: containerAnomalyDeadTopic
-          - name: LOGGING_CONTAINER_MS_ROOT
-            value: "INFO"
-          - name: LOGGING_CONTAINER_MS_CONSUMER_CONFIG
-            value: "ERROR"
-          - name: LOGGING_CONTAINER_MS_PRODUCER_CONFIG
-            value: "ERROR"
           - name: KAFKA_APIKEY
             valueFrom:
               secretKeyRef:

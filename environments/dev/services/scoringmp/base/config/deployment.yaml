@@ -40,8 +40,8 @@ spec:
           ##################################
           ### Predictive model configuration
           ##################################
-          - name: MOCKUP
-            value: "yes"
+          - name: PREDICTIONS_ENABLED
+            value: "true"
           - name: CP4D_BASE_URL
             valueFrom:
               configMapKeyRef:
@@ -65,7 +65,7 @@ spec:
           #############################
           ### Reactive Messaging topics
           #############################
-          - name: MP_MESSAGING_INCOMING_REEFERTELEMETRY_TOPIC
+          - name: MP_MESSAGING_INCOMING_REEFER_TELEMETRY_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"

@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: kafka-topics
 data:
-  allocatedOrdersTopic: eda-integration-allocated-orders
   bluewaterContainerTopic: eda-integration-bluewaterContainer
   bluewaterProblemTopic: eda-integration-bluewaterProblem
   bluewaterShipTopic: eda-integration-bluewaterShip
@@ -14,4 +13,3 @@ data:
   orderCommandsTopic: eda-integration-order-commands
   ordersTopic: eda-integration-orders
   reeferTelemetryTopic: eda-integration-reefer-telemetry
-  rejectedOrdersTopic: eda-integration-rejected-orders

@@ -40,8 +40,8 @@ spec:
           ##################################
           ### Predictive model configuration
           ##################################
-          - name: MOCKUP
-            value: "yes"
+          - name: PREDICTIONS_ENABLED
+            value: "true"
           - name: CP4D_BASE_URL
             valueFrom:
               configMapKeyRef:
