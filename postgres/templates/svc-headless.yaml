@@ -1,0 +1,21 @@
+---
+# Source: postgresql/templates/svc-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db-postgresql-headless
+  labels:
+    app: postgresql
+    chart: postgresql-7.6.0
+    release: "postgres-db"
+    heritage: "Helm"
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: postgresql
+      port: 5432
+      targetPort: postgresql
+  selector:
+    app: postgresql
+    release: "postgres-db"
