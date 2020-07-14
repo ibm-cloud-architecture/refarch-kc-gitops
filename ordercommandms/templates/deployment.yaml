@@ -6,6 +6,7 @@ metadata:
   name: "ordercommandms-deployment"
   labels:
     chart: 'ordercommandms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -18,6 +19,7 @@ spec:
       labels:
         app: "ordercommandms-selector"
         version: "current"
+        app.kubernetes.io/part-of: refarch-kc
     spec:
       serviceAccountName: kcontainer-runtime
       containers:
