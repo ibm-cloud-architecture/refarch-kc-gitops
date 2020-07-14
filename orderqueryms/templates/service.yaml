@@ -6,6 +6,7 @@ metadata:
   name: "orderqueryms-service"
   labels:
     chart: "orderqueryms-1.0.0"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   type: NodePort
   ports:

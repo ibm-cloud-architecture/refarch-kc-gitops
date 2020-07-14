@@ -6,6 +6,7 @@ metadata:
   name: "springcontainerms-deployment"
   labels:
     chart: 'springcontainerms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -17,6 +18,7 @@ spec:
       labels:
         app: "springcontainerms-selector"
         version: "current"
+        app.kubernetes.io/part-of: refarch-kc
     spec:
       serviceAccountName: kcontainer-runtime
       containers:

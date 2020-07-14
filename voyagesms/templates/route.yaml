@@ -7,6 +7,7 @@ metadata:
   name: kcontainer-voyagesms
   labels:
     chart: 'voyagesms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   # Not a required attribute but ArgoCD fails sync without this field included in the YAML
   # host: kcontainer-voyagesms-[project].[cluster-domain]

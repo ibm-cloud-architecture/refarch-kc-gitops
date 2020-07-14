@@ -6,6 +6,7 @@ metadata:
   name: "ordercommandms-service"
   labels:
     chart: "ordercommandms-1.0.0"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   type: NodePort
   ports:

@@ -6,6 +6,7 @@ metadata:
   name: "voyagesms-deployment"
   labels:
     chart: 'voyagesms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   replicas: 1
   strategy:
@@ -23,6 +24,7 @@ spec:
       labels:
         app: "voyagesms-selector"
         version: "current"
+        app.kubernetes.io/part-of: refarch-kc
     spec:
       serviceAccountName: kcontainer-runtime
       containers:
