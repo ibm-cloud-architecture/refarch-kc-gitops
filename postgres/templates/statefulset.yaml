@@ -85,6 +85,8 @@ spec:
                   #key: postgresql-password
                   name: postgresql-pwd
                   key: binding
+            - name: POSTGRES_DB
+              value: "containers"
             - name: POSTGRESQL_ENABLE_LDAP
               value: "no"
           ports:
@@ -95,7 +97,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - exec pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+                - exec pg_isready -U "postgres" -d "containers" -h 127.0.0.1 -p 5432
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
@@ -108,7 +110,7 @@ spec:
                 - -c
                 - -e
                 - |
-                  pg_isready -U "postgres" -h 127.0.0.1 -p 5432
+                  pg_isready -U "postgres" -d "containers" -h 127.0.0.1 -p 5432
                   [ -f /opt/bitnami/postgresql/tmp/.initialized ]
             initialDelaySeconds: 5
             periodSeconds: 10
