@@ -9,6 +9,7 @@ metadata:
     chart: postgresql-7.6.0
     release: "postgres-db"
     heritage: "Helm"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   serviceName: postgres-db-postgresql-headless
   replicas: 1
@@ -28,6 +29,7 @@ spec:
         release: "postgres-db"
         heritage: "Helm"
         role: master
+        app.kubernetes.io/part-of: refarch-kc
     spec:
       securityContext:
         fsGroup: 1001

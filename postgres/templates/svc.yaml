@@ -9,6 +9,7 @@ metadata:
     chart: postgresql-7.6.0
     release: "postgres-db"
     heritage: "Helm"
+    app.kubernetes.io/part-of: refarch-kc
 spec:
   type: ClusterIP
   ports:
