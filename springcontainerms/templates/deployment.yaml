@@ -118,6 +118,7 @@ spec:
               secretKeyRef:
                 name: "postgresql-ca-pem"
                 key: binding
+                optional: true
           - name: POSTGRESQL_URL
             valueFrom:
               secretKeyRef:
