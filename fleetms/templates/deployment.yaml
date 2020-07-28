@@ -24,7 +24,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "fleetms"
-        image: "ibmcase/kcontainer-fleet-ms:0.1.32"
+        image: "ibmcase/kcontainer-fleet-ms:0.1.33"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
