@@ -1,4 +1,2 @@
 resources:
-  - ./deployment.yaml
-  - ./route.yaml
-  - ./service.yaml
+  - ./app-deploy.yaml
