@@ -6,8 +6,8 @@ patchesStrategicMerge:
 
 patchesJson6902:
   - target:
-      group: appsody.dev
+      group: openliberty.io
       version: v1beta1
-      kind: AppsodyApplication
+      kind: OpenLibertyApplication
       name: order-query-ms
     path: ./appsody-env-patch.yaml
