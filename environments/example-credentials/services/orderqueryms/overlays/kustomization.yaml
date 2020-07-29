@@ -2,4 +2,12 @@ bases:
   - ../base
 
 patchesStrategicMerge:
-  - ./es-env.yaml
+  - ./service-account-patch.yaml
+
+patchesJson6902:
+  - target:
+      group: appsody.dev
+      version: v1beta1
+      kind: AppsodyApplication
+      name: order-query-ms
+    path: ./appsody-env-patch.yaml
