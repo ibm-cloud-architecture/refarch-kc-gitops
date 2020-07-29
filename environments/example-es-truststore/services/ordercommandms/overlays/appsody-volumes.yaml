@@ -1,5 +1,5 @@
-apiVersion: appsody.dev/v1beta1
-kind: AppsodyApplication
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
 metadata:
   name: order-command-ms
 spec:
