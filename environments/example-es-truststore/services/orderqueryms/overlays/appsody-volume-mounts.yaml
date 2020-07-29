@@ -1,0 +1,8 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: order-query-ms
+spec:
+  volumeMounts:
+  - mountPath: /config/resources/security/es-ssl
+    name: es-truststore-volume

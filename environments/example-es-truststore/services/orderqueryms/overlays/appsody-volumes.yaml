@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: order-query-ms
+spec:
+  volumes:
+  - name: es-truststore-volume
+    secret:
+      secretName: es-truststore-jks
