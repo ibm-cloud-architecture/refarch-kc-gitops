@@ -3,3 +3,11 @@ bases:
 
 patchesStrategicMerge:
   - ./service-account-patch.yaml
+
+patchesJson6902:
+  - target:
+      group: openliberty.io
+      version: v1beta1
+      kind: OpenLibertyApplication
+      name: fleet-ms
+    path: ./appsody-env-patch.yaml
