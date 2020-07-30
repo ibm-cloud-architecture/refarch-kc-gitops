@@ -38,6 +38,8 @@ spec:
   pullPolicy: Always
   createKnativeService: false
   env:
+  - name: PORT
+    value: "3000"
   - name: FLEETMS_SERVICE_HOST
     value: fleet-ms
   - name: FLEETMS_SERVICE_PORT
