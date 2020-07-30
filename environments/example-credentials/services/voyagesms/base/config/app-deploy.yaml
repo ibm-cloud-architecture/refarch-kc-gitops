@@ -39,6 +39,7 @@ metadata:
   name: voyages-ms
 spec:
   applicationImage: ibmcase/kcontainer-voyages-ms:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
   - name: PORT
