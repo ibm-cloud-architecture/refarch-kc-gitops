@@ -35,6 +35,7 @@ metadata:
   name: kc-ui
 spec:
   applicationImage: ibmcase/kcontainer-ui:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
   - name: FLEETMS_SERVICE_HOST
