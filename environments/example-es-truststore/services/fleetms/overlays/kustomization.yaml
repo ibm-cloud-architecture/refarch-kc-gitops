@@ -13,5 +13,5 @@ patchesJson6902:
       group: openliberty.io
       version: v1beta1
       kind: OpenLibertyApplication
-      name: order-command-ms
+      name: fleet-ms
     path: ./appsody-env-patch.yaml
