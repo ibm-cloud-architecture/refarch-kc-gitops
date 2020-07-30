@@ -68,6 +68,7 @@ metadata:
   namespace: shipping
 spec:
   applicationImage: ibmcase/kcontainer-order-query-ms:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS

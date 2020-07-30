@@ -67,6 +67,7 @@ metadata:
   name: order-command-ms
 spec:
   applicationImage: ibmcase/kcontainer-order-command-ms:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
