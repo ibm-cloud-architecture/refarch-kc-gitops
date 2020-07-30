@@ -42,6 +42,7 @@ metadata:
   name: spring-container-ms
 spec:
   applicationImage: ibmcase/kcontainer-spring-container-ms:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
