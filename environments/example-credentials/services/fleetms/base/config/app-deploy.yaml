@@ -64,6 +64,7 @@ metadata:
 spec:
   applicationImage: ibmcase/kcontainer-fleet-ms:latest
   pullPolicy: Always
+  createKnativeService: false
   env:
   - name: KAFKA_BROKERS
     valueFrom:
