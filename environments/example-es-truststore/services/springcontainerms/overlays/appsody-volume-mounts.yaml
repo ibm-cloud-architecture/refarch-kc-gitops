@@ -1,0 +1,14 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: spring-container-ms
+spec:
+  volumeMounts:
+  - mountPath: /config/resources/security/es-ssl
+    name: es-truststore-volume
+  # Temporarily mount postgres cert in 2 locations, as the home directory differs
+  # depending on the userid executing the container (OCP vs vanilla k8s)
+  - mountPath: /.postgresql
+    name: postgresql-ca-volume
+  - mountPath: /home/java_user/.postgresql
+    name: postgresql-ca-volume

@@ -1,0 +1,44 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+  - ./namespace.yaml
+  - ./service-account.yaml
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+  - name: eventstreams-apikey
+    files:
+      - ./credentials/eventstreams-apikey/binding
+  - name: es-truststore-jks
+    files:
+      - ./credentials/eventstreams-truststore/es-cert.jks
+      - ./credentials/eventstreams-truststore/password
+  - name: es-ca-pemfile
+    files:
+      - ./credentials/eventstreams-pem/es-cert.pem
+  - name: postgresql-url
+    files:
+      - ./credentials/postgresql-url/binding
+  - name: postgresql-user
+    files:
+      - ./credentials/postgresql-user/binding
+  - name: postgresql-pwd
+    files:
+      - ./credentials/postgresql-pwd/binding
+  - name: postgresql-ca-pem
+    files:
+      - ./credentials/gsa-eda-sandbox-db/root.crt
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="es-1-ibm-es-proxy-route-bootstrap-eventstreams.apps.ocp43.vg.gse-ocp.net:443"
+
+generatorOptions:
+  disableNameSuffixHash: true

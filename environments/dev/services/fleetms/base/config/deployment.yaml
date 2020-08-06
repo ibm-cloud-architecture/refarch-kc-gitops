@@ -1,0 +1,60 @@
+---
+# Source: fleetms/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "fleet-ms"
+  labels:
+    chart: 'fleetms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: "fleetms-selector"
+  template:
+    metadata:
+      labels:
+        app: "fleetms-selector"
+        version: "current"
+    spec:
+      serviceAccountName: kcontainer-runtime
+      containers:
+      - name: "fleetms"
+        image: "ibmcase/kcontainer-fleet-ms:latest"
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 20
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "300Mi"
+        env:
+          - name: PORT
+            value: "9080"
+          - name: APPLICATION_NAME
+            value: "RELEASE-NAME"
+          - name: KAFKA_BROKERS
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-brokers"
+                key: brokers
+          - name: KAFKA_SHIP_TOPIC_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterShipTopic
+          - name: KAFKA_CONTAINER_TOPIC_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterContainerTopic
+          - name: KAFKA_BW_PROBLEM_TOPIC_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: "kafka-topics"
+                key: bluewaterProblemTopic

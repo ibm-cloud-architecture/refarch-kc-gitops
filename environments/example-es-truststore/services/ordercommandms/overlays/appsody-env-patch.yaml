@@ -1,0 +1,26 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: "eventstreams-apikey"
+        key: binding
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_ENABLED
+    value: "true"
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PWD
+    valueFrom:
+      secretKeyRef:
+        name: es-truststore-jks
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PATH
+    value: /config/resources/security/es-ssl/es-cert.jks

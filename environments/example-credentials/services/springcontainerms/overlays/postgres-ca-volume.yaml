@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: spring-container-ms
+spec:
+  volumes:
+  - name: postgresql-ca-volume
+    secret:
+      secretName: postgresql-ca-pem

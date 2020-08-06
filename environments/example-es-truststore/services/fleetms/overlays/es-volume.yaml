@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleet-ms
+spec:
+  template:
+    spec:
+      volumes:
+      - name: es-truststore-volume
+        secret:
+          secretName: es-truststore-jks
