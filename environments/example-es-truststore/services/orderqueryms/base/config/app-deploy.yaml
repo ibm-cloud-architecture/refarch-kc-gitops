@@ -1,0 +1,116 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  annotations:
+    architecture: x86_64
+    authoritative-source-url: registry.access.redhat.com
+    build-date: 2020-03-31T14:54:13.907559
+    commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
+    commit.image.appsody.dev/committer: GitHub <noreply@github.com>
+    commit.image.appsody.dev/contextDir: C:\dev\refarch\refarch-kc-order-ms\order-query-ms
+    commit.image.appsody.dev/date: Mon Jul 27 16:23:24 2020 -0500
+    commit.image.appsody.dev/message: docker compose local dev refactor (#77)
+    commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
+    commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
+    commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
+      20.0.0.6 (#847)
+    description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
+      Maven
+    distribution-scope: public
+    image.opencontainers.org/created: "2020-07-29T13:45:03+01:00"
+    image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
+    image.opencontainers.org/revision: 1b6b7cff9583ecbac425e08e853e19848e995959
+    image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms/tree/HEAD
+      -> upstream
+    image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
+    k8s.io/description: The Universal Base Image is designed and engineered to be
+      the base layer for all of your containerized applications, middleware and utilities.
+      This base image is freely redistributable, but Red Hat only supports Red Hat
+      technologies through subscriptions for Red Hat products. This image is maintained
+      by Red Hat and updated regularly.
+    k8s.io/display-name: Red Hat Universal Base Image 8
+    maintainer: Red Hat, Inc.
+    name: java-openliberty
+    openshift.io/expose-services: ""
+    openshift.io/tags: base rhel8
+    redhat.com/build-host: cpt-1007.osbs.prod.upshift.rdu2.redhat.com
+    redhat.com/component: ubi8-container
+    redhat.com/license_terms: https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI
+    release: "408"
+    stack.appsody.dev/authors: Mike Andrasak <uberskigeek>, Andy Mauer <ajm01>, Scott
+      Kurz <scottkurz>, Adam Wisniewski <awisniew90>
+    stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.2
+    stack.appsody.dev/created: "2020-07-21T15:51:13Z"
+    stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
+      & OpenJ9 using Maven
+    stack.appsody.dev/digest: sha256:eacaf472af2ab870a09834baf653108bef890a136d211f938ff900ad89d53c7d
+    stack.appsody.dev/documentation: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/README.md
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: 02083c860c608940e8845948a0b9c00e459767d0
+    stack.appsody.dev/source: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/image
+    stack.appsody.dev/tag: docker.io/appsody/java-openliberty:0.2.15
+    stack.appsody.dev/title: Open Liberty
+    stack.appsody.dev/url: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty
+    summary: Open Liberty
+    url: https://access.redhat.com/containers/#/registry.access.redhat.com/ubi8/images/8.1-408
+    vcs-ref: 26f36bfa3e3a04c8c866b250924c1aefc34f01c9
+    vcs-type: git
+    vendor: Open Liberty
+    version: 0.2.15
+  creationTimestamp: null
+  labels:
+    app.appsody.dev/name: refarch-kc
+    app.kubernetes.io/part-of: refarch-kc
+    image.opencontainers.org/title: order-query-ms
+    stack.appsody.dev/id: java-openliberty
+    stack.appsody.dev/version: 0.2.15
+  name: order-query-ms
+  namespace: shipping
+spec:
+  applicationImage: ibmcase/kcontainer-order-query-ms:latest
+  pullPolicy: Always
+  createKnativeService: false
+  env:
+  - name: KAFKA_BROKERS
+    valueFrom:
+      configMapKeyRef:
+        key: brokers
+        name: kafka-brokers
+  - name: KCSOLUTION_ORDERS_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        key: ordersTopic
+        name: kafka-topics
+  - name: KCSOLUTION_CONTAINERS_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        key: containersTopic
+        name: kafka-topics
+  - name: KCSOLUTION_ERRORS_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        key: errorsTopic
+        name: kafka-topics
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+  version: 1.0.0
+status: {}

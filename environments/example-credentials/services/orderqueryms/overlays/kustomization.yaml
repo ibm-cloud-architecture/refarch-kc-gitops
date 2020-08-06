@@ -2,4 +2,12 @@ bases:
   - ../base
 
 patchesStrategicMerge:
-  - ./es-env.yaml
+  - ./service-account-patch.yaml
+
+patchesJson6902:
+  - target:
+      group: openliberty.io
+      version: v1beta1
+      kind: OpenLibertyApplication
+      name: order-query-ms
+    path: ./appsody-env-patch.yaml
