@@ -1,0 +1,37 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+  - ./namespace.yaml
+  - ./service-account.yaml
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+  - name: eventstreams-apikey
+    files:
+      - ./credentials/eventstreams-apikey/binding
+  - name: postgresql-url
+    files:
+      - ./credentials/postgresql-url/binding
+  - name: postgresql-user
+    files:
+      - ./credentials/postgresql-user/binding
+  - name: postgresql-pwd
+    files:
+      - ./credentials/postgresql-pwd/binding
+  - name: postgresql-ca-pem
+    files:
+      - ./credentials/gsa-eda-sandbox-db/root.crt
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="broker-3-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-0-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-1-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-2-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-4-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-5-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093"
+
+generatorOptions:
+  disableNameSuffixHash: true

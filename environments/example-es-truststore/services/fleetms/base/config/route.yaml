@@ -1,0 +1,18 @@
+---
+# Source: fleetms/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  #TODO Add default name overrides?
+  name: kcontainer-fleetms
+  labels:
+    chart: 'fleetms-1.0.0'
+    app.kubernetes.io/part-of: refarch-kc
+spec:
+  path: /
+  to:
+    kind: Service
+    name: "fleet-ms"
+    weight: 100
+  port:
+    targetPort: http

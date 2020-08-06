@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: kc-ui
+spec:
+  volumes:
+  - name: es-pem-volume
+    secret:
+      secretName: es-ca-pemfile

@@ -1,0 +1,17 @@
+bases:
+  - ../base
+
+# Event Streams truststore mounted as /config/resources/security/es-ssl/es-cert.jks
+
+patchesStrategicMerge:
+  - ./service-account-patch.yaml
+  - ./appsody-volume-mounts.yaml
+  - ./appsody-volumes.yaml
+
+patchesJson6902:
+  - target:
+      group: openliberty.io
+      version: v1beta1
+      kind: OpenLibertyApplication
+      name: order-query-ms
+    path: ./appsody-env-patch.yaml
