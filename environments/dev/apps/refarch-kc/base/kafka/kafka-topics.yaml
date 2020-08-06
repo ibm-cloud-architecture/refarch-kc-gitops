@@ -1,16 +1,6 @@
 apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
-  name: allocated-orders
-  labels:
-    strimzi.io/cluster: my-cluster
-spec:
-  partitions: 1
-  replicas: 1
----
-apiVersion: kafka.strimzi.io/v1beta1
-kind: KafkaTopic
-metadata:
   name: bluewater-container
   labels:
     strimzi.io/cluster: my-cluster
@@ -102,16 +92,6 @@ apiVersion: kafka.strimzi.io/v1beta1
 kind: KafkaTopic
 metadata:
   name: reefer-telemetry
-  labels:
-    strimzi.io/cluster: my-cluster
-spec:
-  partitions: 1
-  replicas: 1
----
-apiVersion: kafka.strimzi.io/v1beta1
-kind: KafkaTopic
-metadata:
-  name: rejected-orders
   labels:
     strimzi.io/cluster: my-cluster
 spec:

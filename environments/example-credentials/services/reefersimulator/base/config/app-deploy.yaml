@@ -33,15 +33,10 @@ spec:
       configMapKeyRef:
         key: brokers
         name: kafka-brokers
-  - name: TELEMETRY_TOPIC
+  - name: MP_MESSAGING_INCOMING_REEFER_TELEMETRY_TOPIC
     valueFrom:
       configMapKeyRef:
         key: reeferTelemetryTopic
-        name: kafka-topics
-  - name: CONTAINER_TOPIC
-    valueFrom:
-      configMapKeyRef:
-        key: containersTopic
         name: kafka-topics
 # TODO: Remove from app-deploy.yaml in refarch-reefer-ml
 #  - name: KAFKA_APIKEY

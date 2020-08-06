@@ -49,7 +49,7 @@ spec:
       configMapKeyRef:
         key: brokers
         name: kafka-brokers
-  - name: ORDER_TOPIC
+  - name: KCSOLUTION_ORDERS_TOPIC
     valueFrom:
       configMapKeyRef:
         key: ordersTopic
