@@ -4,6 +4,9 @@ metadata:
   name: spring-container-ms
 spec:
   volumes:
+  - name: es-truststore-volume
+    secret:
+      secretName: es-truststore-jks
   - name: postgresql-ca-volume
     secret:
       secretName: postgresql-ca-pem
