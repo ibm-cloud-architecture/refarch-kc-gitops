@@ -1,0 +1,8 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: "eventstreams-apikey"
+        key: binding

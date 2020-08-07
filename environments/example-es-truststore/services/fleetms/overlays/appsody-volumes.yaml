@@ -1,0 +1,9 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: fleet-ms
+spec:
+  volumes:
+  - name: es-truststore-volume
+    secret:
+      secretName: es-truststore-jks
