@@ -61,6 +61,8 @@ metadata:
     image.opencontainers.org/title: scoring-mp
     stack.appsody.dev/id: java-openliberty
     stack.appsody.dev/version: 0.2.15
+    app.appsody.dev/name: refarch-kc
+    app.kubernetes.io/part-of: refarch-kc
   name: scoring-mp
 spec:
   applicationImage: osowski/kcontainer-scoringmp-ms:0.1.56-dev
