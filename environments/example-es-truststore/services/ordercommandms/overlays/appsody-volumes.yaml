@@ -6,4 +6,4 @@ spec:
   volumes:
   - name: es-truststore-volume
     secret:
-      secretName: es-truststore-jks
+      secretName: eventstreams-truststore
