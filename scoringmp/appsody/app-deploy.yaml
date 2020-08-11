@@ -65,7 +65,7 @@ metadata:
     app.kubernetes.io/part-of: refarch-kc
   name: scoring-mp
 spec:
-  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.42-dev
+  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.56-dev
   createKnativeService: false
   env:
   ##################################
