@@ -18,7 +18,7 @@ metadata:
     app.kubernetes.io/part-of: refarch-kc
   name: reefer-simulator
 spec:
-  applicationImage: ibmcase/kcontainer-reefer-simulator-appsody:0.1.56
+  applicationImage: ibmcase/kcontainer-reefer-simulator-appsody:0.1.57
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
