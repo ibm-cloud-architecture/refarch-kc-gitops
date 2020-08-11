@@ -24,7 +24,7 @@ spec:
       serviceAccountName: kcontainer-runtime
       containers:
       - name: "scoringmp"
-        image: "ibmcase/kcontainer-scoringmp-ms:0.1.55"
+        image: "ibmcase/kcontainer-scoringmp-ms:0.1.56"
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
