@@ -1,5 +1,5 @@
-apiVersion: appsody.dev/v1beta1
-kind: AppsodyApplication
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
 metadata:
   annotations:
     architecture: x86_64
@@ -17,7 +17,7 @@ metadata:
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-08-11T14:55:04-05:00"
+    image.opencontainers.org/created: "2020-08-11T15:51:25-05:00"
     image.opencontainers.org/documentation: https://github.com/osowski/refarch-reefer-ml
     image.opencontainers.org/revision: ddd59e5eb8e302090d131a87760f132d0803cfa4-modified
     image.opencontainers.org/source: https://github.com/osowski/refarch-reefer-ml/tree/master
@@ -58,54 +58,49 @@ metadata:
     version: 0.2.15
   creationTimestamp: null
   labels:
+    app.appsody.dev/name: refarch-kc
+    app.kubernetes.io/part-of: refarch-kc
     image.opencontainers.org/title: scoring-mp
     stack.appsody.dev/id: java-openliberty
     stack.appsody.dev/version: 0.2.15
-    app.appsody.dev/name: refarch-kc
-    app.kubernetes.io/part-of: refarch-kc
   name: scoring-mp
 spec:
-  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.56-dev
+  applicationImage: ibmcase/kcontainer-scoringmp-ms:latest
+  pullPolicy: Always
   createKnativeService: false
   env:
-  ##################################
-  ### Predictive model configuration
-  ##################################
   - name: PREDICTIONS_ENABLED
     value: "false"
   - name: CP4D_BASE_URL
     valueFrom:
       configMapKeyRef:
-        name: "predictive-model-configmap"
         key: baseURL
+        name: predictive-model-configmap
   - name: CP4D_PREDICTION_URL
     valueFrom:
       configMapKeyRef:
-        name: "predictive-model-configmap"
         key: predictionURL
+        name: predictive-model-configmap
   - name: CP4D_USER
     valueFrom:
       secretKeyRef:
-        name: "predictive-model-secret"
         key: user
+        name: predictive-model-secret
   - name: CP4D_PWD
     valueFrom:
       secretKeyRef:
-        name: "predictive-model-secret"
         key: password
-  #############################
-  ### Reactive Messaging topics
-  #############################
+        name: predictive-model-secret
   - name: MP_MESSAGING_INCOMING_REEFER_TELEMETRY_TOPIC
     valueFrom:
       configMapKeyRef:
-        name: "kafka-topics"
         key: reeferTelemetryTopic
+        name: kafka-topics
   - name: MP_MESSAGING_OUTGOING_CONTAINERS_TOPIC
     valueFrom:
       configMapKeyRef:
-        name: "kafka-topics"
         key: containersTopic
+        name: kafka-topics
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -130,11 +125,11 @@ spec:
   stack: java-microprofile
   version: 1.0.0
   volumeMounts:
-  - mountPath: "/opt/ol/wlp/usr/servers/defaultServer/bootstrap.properties"
-    subPath: "bootstrap.properties"
+  - mountPath: /opt/ol/wlp/usr/servers/defaultServer/bootstrap.properties
     name: openliberty-bootstrap
     readOnly: true
+    subPath: bootstrap.properties
   volumes:
   - name: openliberty-bootstrap
     secret:
-      secretName: "openliberty-bootstrap"
+      secretName: openliberty-bootstrap
