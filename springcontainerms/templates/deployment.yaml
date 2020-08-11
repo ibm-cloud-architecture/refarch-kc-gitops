@@ -102,17 +102,16 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: containerAnomalyDeadTopic
-          - name: LOGGING_CONTAINER_MS_ROOT
-            value: "INFO"
-          - name: LOGGING_CONTAINER_MS_CONSUMER_CONFIG
-            value: "ERROR"
-          - name: LOGGING_CONTAINER_MS_PRODUCER_CONFIG
-            value: "ERROR"
-          - name: KAFKA_APIKEY
+          - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
                 name: "eventstreams-apikey"
-                key: binding
+                key: username
+          - name: KAFKA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: password
           - name: POSTGRESQL_CA_PEM
             valueFrom:
               secretKeyRef:

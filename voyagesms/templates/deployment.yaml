@@ -53,13 +53,18 @@ spec:
               configMapKeyRef:
                 name: "kafka-brokers"
                 key: brokers
-          - name: ORDER_TOPIC
+          - name: KCSOLUTION_ORDERS_TOPIC
             valueFrom:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: ordersTopic
-          - name: KAFKA_APIKEY
+          - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
                 name: "eventstreams-apikey"
-                key: binding
+                key: username
+          - name: KAFKA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: password

@@ -78,8 +78,13 @@ spec:
               configMapKeyRef:
                 name: "kafka-topics"
                 key: bluewaterShipTopic
-          - name: KAFKA_APIKEY
+          - name: KAFKA_USER
             valueFrom:
               secretKeyRef:
                 name: "eventstreams-apikey"
-                key: binding
+                key: username
+          - name: KAFKA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "eventstreams-apikey"
+                key: password
