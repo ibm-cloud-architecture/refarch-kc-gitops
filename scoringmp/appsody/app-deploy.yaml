@@ -63,7 +63,7 @@ metadata:
     stack.appsody.dev/version: 0.2.15
   name: scoring-mp
 spec:
-  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.56-dev
+  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.42-dev
   createKnativeService: false
   env:
   ##################################
