@@ -1,0 +1,138 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    architecture: x86_64
+    authoritative-source-url: registry.access.redhat.com
+    build-date: 2020-03-31T14:54:13.907559
+    commit.image.appsody.dev/author: Jerome Boyer <boyerje@us.ibm.com>
+    commit.image.appsody.dev/committer: Jerome Boyer <boyerje@us.ibm.com>
+    commit.image.appsody.dev/contextDir: /scoring-mp
+    commit.image.appsody.dev/date: Tue Aug 11 14:52:52 2020 -0500
+    commit.image.appsody.dev/message: Merge remote-tracking branch 'upstream/master'
+    commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
+    commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
+    commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
+      20.0.0.6 (#847)
+    description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
+      Maven
+    distribution-scope: public
+    image.opencontainers.org/created: "2020-08-11T14:55:04-05:00"
+    image.opencontainers.org/documentation: https://github.com/osowski/refarch-reefer-ml
+    image.opencontainers.org/revision: ddd59e5eb8e302090d131a87760f132d0803cfa4-modified
+    image.opencontainers.org/source: https://github.com/osowski/refarch-reefer-ml/tree/master
+    image.opencontainers.org/url: https://github.com/osowski/refarch-reefer-ml
+    k8s.io/description: The Universal Base Image is designed and engineered to be
+      the base layer for all of your containerized applications, middleware and utilities.
+      This base image is freely redistributable, but Red Hat only supports Red Hat
+      technologies through subscriptions for Red Hat products. This image is maintained
+      by Red Hat and updated regularly.
+    k8s.io/display-name: Red Hat Universal Base Image 8
+    maintainer: Red Hat, Inc.
+    name: java-openliberty
+    openshift.io/expose-services: ""
+    openshift.io/tags: base rhel8
+    redhat.com/build-host: cpt-1007.osbs.prod.upshift.rdu2.redhat.com
+    redhat.com/component: ubi8-container
+    redhat.com/license_terms: https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI
+    release: "408"
+    stack.appsody.dev/authors: Mike Andrasak <uberskigeek>, Andy Mauer <ajm01>, Scott
+      Kurz <scottkurz>, Adam Wisniewski <awisniew90>
+    stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.2
+    stack.appsody.dev/created: "2020-07-21T15:51:13Z"
+    stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
+      & OpenJ9 using Maven
+    stack.appsody.dev/digest: sha256:eacaf472af2ab870a09834baf653108bef890a136d211f938ff900ad89d53c7d
+    stack.appsody.dev/documentation: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/README.md
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: 02083c860c608940e8845948a0b9c00e459767d0
+    stack.appsody.dev/source: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/image
+    stack.appsody.dev/tag: docker.io/appsody/java-openliberty:0.2.15
+    stack.appsody.dev/title: Open Liberty
+    stack.appsody.dev/url: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty
+    summary: Open Liberty
+    url: https://access.redhat.com/containers/#/registry.access.redhat.com/ubi8/images/8.1-408
+    vcs-ref: 26f36bfa3e3a04c8c866b250924c1aefc34f01c9
+    vcs-type: git
+    vendor: Open Liberty
+    version: 0.2.15
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: scoring-mp
+    stack.appsody.dev/id: java-openliberty
+    stack.appsody.dev/version: 0.2.15
+  name: scoring-mp
+spec:
+  applicationImage: osowski/kcontainer-scoringmp-ms:0.1.56-dev
+  createKnativeService: false
+  env:
+  ##################################
+  ### Predictive model configuration
+  ##################################
+  - name: PREDICTIONS_ENABLED
+    value: "false"
+  - name: CP4D_BASE_URL
+    valueFrom:
+      configMapKeyRef:
+        name: "predictive-model-configmap"
+        key: baseURL
+  - name: CP4D_PREDICTION_URL
+    valueFrom:
+      configMapKeyRef:
+        name: "predictive-model-configmap"
+        key: predictionURL
+  - name: CP4D_USER
+    valueFrom:
+      secretKeyRef:
+        name: "predictive-model-secret"
+        key: user
+  - name: CP4D_PWD
+    valueFrom:
+      secretKeyRef:
+        name: "predictive-model-secret"
+        key: password
+  #############################
+  ### Reactive Messaging topics
+  #############################
+  - name: MP_MESSAGING_INCOMING_REEFER_TELEMETRY_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        name: "kafka-topics"
+        key: reeferTelemetryTopic
+  - name: MP_MESSAGING_OUTGOING_CONTAINERS_TOPIC
+    valueFrom:
+      configMapKeyRef:
+        name: "kafka-topics"
+        key: containersTopic
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+  stack: java-microprofile
+  version: 1.0.0
+  volumeMounts:
+  - mountPath: "/opt/ol/wlp/usr/servers/defaultServer/bootstrap.properties"
+    subPath: "bootstrap.properties"
+    name: openliberty-bootstrap
+    readOnly: true
+  volumes:
+  - name: openliberty-bootstrap
+    secret:
+      secretName: "openliberty-bootstrap"
