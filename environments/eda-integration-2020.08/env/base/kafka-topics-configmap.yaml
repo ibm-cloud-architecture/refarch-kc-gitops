@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-topics
+data:
+  bluewaterContainerTopic: eda-integration-202008-bluewater-container
+  bluewaterProblemTopic: eda-integration-202008-bluewater-problem
+  bluewaterShipTopic: eda-integration-202008-bluewater-ship
+  containersTopic: eda-integration-202008-containers
+  containerAnomalyRetryTopic: eda-integration-202008-container-anomaly-retry
+  containerAnomalyDeadTopic: eda-integration-202008-container-anomaly-dead
+  errorsTopic: eda-integration-202008-errors
+  orderCommandsTopic: eda-integration-202008-order-commands
+  ordersTopic: eda-integration-202008-orders
+  reeferTelemetryTopic: eda-integration-202008-reefer-telemetry
