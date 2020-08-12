@@ -8,9 +8,11 @@ resources:
   - ./bpm-configmap.yaml
 
 secretGenerator:
-  - name: eventstreams-apikey
+  - name: eventstreams-cred
+    literals:
+      - username=token
     files:
-      - ./credentials/eventstreams-apikey/binding
+      - ./credentials/eventstreams-cred/password
   - name: postgresql-url
     files:
       - ./credentials/postgresql-url/binding

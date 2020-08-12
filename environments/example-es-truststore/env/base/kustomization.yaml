@@ -8,14 +8,17 @@ resources:
   - ./bpm-configmap.yaml
 
 secretGenerator:
-  - name: eventstreams-apikey
+  - name: eventstreams-cred
     files:
-      - ./credentials/eventstreams-apikey/binding
-  - name: es-truststore-jks
+      - ./credentials/eventstreams-cred/username
+      - ./credentials/eventstreams-cred/password
+  - name: eventstreams-truststore
     files:
-      - ./credentials/eventstreams-truststore/es-cert.jks
+      - ./credentials/eventstreams-truststore/es-cert.p12
+  - name: eventstreams-truststore-pwd
+    files:
       - ./credentials/eventstreams-truststore/password
-  - name: es-ca-pemfile
+  - name: eventstreams-cert-pem
     files:
       - ./credentials/eventstreams-pem/es-cert.pem
   - name: postgresql-url

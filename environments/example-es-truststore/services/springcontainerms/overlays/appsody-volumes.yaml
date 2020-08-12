@@ -6,7 +6,7 @@ spec:
   volumes:
   - name: es-truststore-volume
     secret:
-      secretName: es-truststore-jks
+      secretName: eventstreams-truststore
   - name: postgresql-ca-volume
     secret:
       secretName: postgresql-ca-pem

@@ -1,11 +1,19 @@
 - op: add
   path: "/spec/env/-"
   value:
-    name: KAFKA_APIKEY
+    name: KAFKA_USER
     valueFrom:
       secretKeyRef:
-        name: "eventstreams-apikey"
-        key: binding
+        name: "eventstreams-cred"
+        key: username
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "eventstreams-cred"
+        key: password
 - op: add
   path: "/spec/env/-"
   value:
@@ -17,10 +25,10 @@
     name: TRUSTSTORE_PWD
     valueFrom:
       secretKeyRef:
-        name: es-truststore-jks
+        name: eventstreams-truststore-pwd
         key: password
 - op: add
   path: "/spec/env/-"
   value:
     name: TRUSTSTORE_PATH
-    value: /config/resources/security/es-ssl/es-cert.jks
+    value: /config/resources/security/es-ssl/es-cert.p12
