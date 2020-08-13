@@ -1,0 +1,31 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+  - ./service-account.yaml
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+  #- name: eventstreams-cred
+  #  literals:
+  #  - username='token'
+  #  - password='...abcd123xyz...'
+  #  ^^ PRECREATED IN THE NAMESPACE ^^
+  - name: postgresql-cred
+    files:
+      - ./credentials/postgresql-cred/url
+      - ./credentials/postgresql-cred/username
+      - ./credentials/postgresql-cred/password
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="broker-3-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-0-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-1-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-2-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-4-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093,broker-5-qnprtqnp7hnkssdz.kafka.svc01.us-east.eventstreams.cloud.ibm.com:9093"
+
+generatorOptions:
+  disableNameSuffixHash: true
