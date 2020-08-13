@@ -6,3 +6,6 @@ spec:
   volumes:
   - name: openliberty-bootstrap
     emptyDir: {}
+  - name: es-truststore-volume
+    secret:
+      secretName: eventstreams-truststore
