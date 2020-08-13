@@ -38,14 +38,6 @@ spec:
       configMapKeyRef:
         key: reeferTelemetryTopic
         name: kafka-topics
-# TODO: Remove from app-deploy.yaml in refarch-reefer-ml
-#  - name: KAFKA_APIKEY
-#    valueFrom:
-#      secretKeyRef:
-#        key: binding
-#        name: eventstreams-apikey
-#  - name: KAFKA_CERT
-#    value: /certs/es-cert.pem
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -64,13 +56,4 @@ spec:
     type: NodePort
   stack: python-flask
   version: 1.0.0
-# TODO: Remove from app-deploy.yaml in refarch-reefer-ml
-#  volumeMounts:
-#  - mountPath: /certs
-#    name: eventstreams-cert-pem
-#  volumes:
-#  - name: eventstreams-cert-pem
-#    secret:
-#      optional: true
-#      secretName: eventstreams-cert-pem
 status: {}
