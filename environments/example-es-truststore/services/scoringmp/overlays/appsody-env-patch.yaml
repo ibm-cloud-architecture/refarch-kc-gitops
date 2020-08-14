@@ -14,3 +14,13 @@
       secretKeyRef:
         name: "eventstreams-cred"
         key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SASL_MECHANISM
+    value: PLAIN
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SECURITY_PROTOCOL
+    value: SASL_SSL
