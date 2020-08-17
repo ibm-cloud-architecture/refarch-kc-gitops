@@ -8,20 +8,20 @@ metadata:
     commit.image.appsody.dev/author: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/committer: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/contextDir: /fleet-ms
-    commit.image.appsody.dev/date: Thu Jun 25 13:44:15 2020 +0000
-    commit.image.appsody.dev/message: built image in docker and project name in config
+    commit.image.appsody.dev/date: Mon Aug 17 10:35:10 2020 -0500
+    commit.image.appsody.dev/message: Updated GitHub Actions to use forked actions
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
-    commit.stack.appsody.dev/date: Thu Jun 4 13:29:00 2020 +0100
-    commit.stack.appsody.dev/message: 'java-openliberty: define APPSODY_DEBUG_PORT
-      (#818)'
+    commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
+    commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
+      20.0.0.6 (#847)
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-06-29T08:07:21Z"
-    image.opencontainers.org/documentation: https://github.com/josiemundi/refarch-kc-ms
-    image.opencontainers.org/revision: fa1967fa9724f90a2329707aadc78c05c9f3d74c-modified
-    image.opencontainers.org/source: https://github.com/josiemundi/refarch-kc-ms/tree/fleet-ms-appsody
-    image.opencontainers.org/url: https://github.com/josiemundi/refarch-kc-ms
+    image.opencontainers.org/created: "2020-08-17T15:41:04Z"
+    image.opencontainers.org/documentation: https://github.com/osowski/refarch-kc-ms
+    image.opencontainers.org/revision: 98b69a07d74c5af78b6e0c93d26a3b6a40e5d458-modified
+    image.opencontainers.org/source: https://github.com/osowski/refarch-kc-ms/tree/master
+    image.opencontainers.org/url: https://github.com/osowski/refarch-kc-ms
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
       This base image is freely redistributable, but Red Hat only supports Red Hat
@@ -39,14 +39,15 @@ metadata:
     stack.appsody.dev/authors: Mike Andrasak <uberskigeek>, Andy Mauer <ajm01>, Scott
       Kurz <scottkurz>, Adam Wisniewski <awisniew90>
     stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.2
-    stack.appsody.dev/created: "2020-06-04T12:31:59Z"
+    stack.appsody.dev/created: "2020-07-21T15:51:13Z"
     stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
       & OpenJ9 using Maven
+    stack.appsody.dev/digest: sha256:eacaf472af2ab870a09834baf653108bef890a136d211f938ff900ad89d53c7d
     stack.appsody.dev/documentation: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/README.md
     stack.appsody.dev/licenses: Apache-2.0
-    stack.appsody.dev/revision: 1b105b4891a3edef718d668271da30086214dd84
+    stack.appsody.dev/revision: 02083c860c608940e8845948a0b9c00e459767d0
     stack.appsody.dev/source: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/image
-    stack.appsody.dev/tag: docker.io/appsody/java-openliberty:0.2.14
+    stack.appsody.dev/tag: docker.io/appsody/java-openliberty:0.2.15
     stack.appsody.dev/title: Open Liberty
     stack.appsody.dev/url: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty
     summary: Open Liberty
@@ -54,16 +55,15 @@ metadata:
     vcs-ref: 26f36bfa3e3a04c8c866b250924c1aefc34f01c9
     vcs-type: git
     vendor: Open Liberty
-    version: 0.2.14
+    version: 0.2.15
   creationTimestamp: null
   labels:
     image.opencontainers.org/title: fleet-ms
     stack.appsody.dev/id: java-openliberty
-    stack.appsody.dev/version: 0.2.14
+    stack.appsody.dev/version: 0.2.15
   name: fleet-ms
 spec:
-  applicationImage: ibmcase/kcontainer-fleet-ms:latest
-  pullPolicy: Always
+  applicationImage: osowski/kcontainer-fleet-ms:0.1.40
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
