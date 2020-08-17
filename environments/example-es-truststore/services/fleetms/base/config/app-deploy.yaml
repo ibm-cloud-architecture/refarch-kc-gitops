@@ -8,8 +8,9 @@ metadata:
     commit.image.appsody.dev/author: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/committer: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/contextDir: /fleet-ms
-    commit.image.appsody.dev/date: Mon Aug 17 10:00:50 2020 -0500
-    commit.image.appsody.dev/message: Implement appsody gitops CI update actions (#64)
+    commit.image.appsody.dev/date: Mon Aug 17 11:21:30 2020 -0500
+    commit.image.appsody.dev/message: Updated GitHub Actions to use forked actions
+      (#65)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
     commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
@@ -17,9 +18,9 @@ metadata:
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-08-17T15:04:17Z"
+    image.opencontainers.org/created: "2020-08-17T16:24:05Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-ms
-    image.opencontainers.org/revision: 99c5fcb4ec0a1a9463d0b3fae208f7c1b0ffdfdb-modified
+    image.opencontainers.org/revision: 2a86e1fb764bf1e6519924600284acd3286f24a7-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-ms
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -63,7 +64,7 @@ metadata:
     stack.appsody.dev/version: 0.2.15
   name: fleet-ms
 spec:
-  applicationImage: ibmcase/kcontainer-fleet-ms:0.1.38
+  applicationImage: ibmcase/kcontainer-fleet-ms:0.1.39
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
