@@ -26,12 +26,12 @@ jobs:
       uses: ibm-cloud-architecture/actions-update-gitops@v1.0.5
       with:
         filePath: 'templates/deployment.yaml'
-    - name: Update Appsody YAMLs
-      id: update-appsody-yamls
-      #uses: ibm-cloud-architecture/actions-update-gitops@master
-      uses: ibm-cloud-architecture/actions-update-gitops@v1.0.5
-      with:
-        filePath: 'appsody/app-deploy.yaml'
+    #- name: Update Appsody YAMLs
+    #  id: update-appsody-yamls
+    #  #uses: ibm-cloud-architecture/actions-update-gitops@master
+    #  uses: ibm-cloud-architecture/actions-update-gitops@v1.0.5
+    #  with:
+    #    filePath: 'appsody/app-deploy.yaml'
     - name: Commit & push modified files
       id: commit-and-push-files
       env:
