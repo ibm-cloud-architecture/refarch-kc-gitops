@@ -8,8 +8,9 @@ metadata:
     commit.image.appsody.dev/author: Jerome Boyer <boyerje@us.ibm.com>
     commit.image.appsody.dev/committer: Jerome Boyer <boyerje@us.ibm.com>
     commit.image.appsody.dev/contextDir: /scoring-mp
-    commit.image.appsody.dev/date: Tue Aug 11 14:52:52 2020 -0500
-    commit.image.appsody.dev/message: Merge remote-tracking branch 'upstream/master'
+    commit.image.appsody.dev/date: Tue Aug 18 09:41:27 2020 -0500
+    commit.image.appsody.dev/message: Replace gitops webhook with app-deploy.yaml
+      update actions (#75)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
     commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
@@ -17,11 +18,11 @@ metadata:
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-08-11T15:51:25-05:00"
-    image.opencontainers.org/documentation: https://github.com/osowski/refarch-reefer-ml
-    image.opencontainers.org/revision: ddd59e5eb8e302090d131a87760f132d0803cfa4-modified
-    image.opencontainers.org/source: https://github.com/osowski/refarch-reefer-ml/tree/master
-    image.opencontainers.org/url: https://github.com/osowski/refarch-reefer-ml
+    image.opencontainers.org/created: "2020-08-18T14:46:06Z"
+    image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
+    image.opencontainers.org/revision: 59cb41f417dfc06df1574848ab3e99ecc6e799b1-modified
+    image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-reefer-ml/tree/master
+    image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
       This base image is freely redistributable, but Red Hat only supports Red Hat
@@ -65,8 +66,7 @@ metadata:
     stack.appsody.dev/version: 0.2.15
   name: scoring-mp
 spec:
-  applicationImage: ibmcase/kcontainer-scoringmp-ms:0.1.57
-  pullPolicy: Always
+  applicationImage: ibmcase/kcontainer-scoringmp-ms:0.1.62
   createKnativeService: false
   env:
   - name: PREDICTIONS_ENABLED
@@ -103,9 +103,9 @@ spec:
         name: kafka-topics
   - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
     valueFrom:
-        configMapKeyRef:
-          key: brokers
-          name: kafka-brokers
+      configMapKeyRef:
+        key: brokers
+        name: kafka-brokers
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -114,6 +114,7 @@ spec:
       port: 9080
     initialDelaySeconds: 5
     periodSeconds: 2
+  pullPolicy: Always
   readinessProbe:
     failureThreshold: 12
     httpGet:
