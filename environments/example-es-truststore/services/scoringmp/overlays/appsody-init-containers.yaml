@@ -16,7 +16,11 @@ spec:
       - -c
       - |
         echo "mp.messaging.connector.liberty-kafka.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username=\"${KAFKA_USER}\" password=\"${KAFKA_PASSWORD}\";" >> tmpfile
+
         # If truststore & certificate information is needed (for instance, to connect to Event Streams on OCP), it would be added here...
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.location=/config/resources/security/es-ssl/es-cert.p12" >> tmpfile
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.password=${EVENTSTREAMS_TRUSTSTORE_PASSWORD}" >> tmpfile
+
         cp tmpfile /config/bootstrap.properties
     env:
       - name: KAFKA_USER
@@ -28,6 +32,11 @@ spec:
         valueFrom:
           secretKeyRef:
             name: "eventstreams-cred"
+            key: password
+      - name: EVENTSTREAMS_TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: "eventstreams-truststore-pwd"
             key: password
     securityContext:
       runAsUser: 0

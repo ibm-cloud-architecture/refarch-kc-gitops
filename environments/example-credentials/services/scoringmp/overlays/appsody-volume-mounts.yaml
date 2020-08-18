@@ -1,0 +1,10 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: scoring-mp
+spec:
+  volumeMounts:
+  - mountPath: /config/bootstrap.properties
+    # /config is a default symlink to /opt/ol/wlp/usr/servers/defaultServer
+    name: openliberty-bootstrap
+    subPath: bootstrap.properties

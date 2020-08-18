@@ -2,9 +2,6 @@ bases:
   - ../base
 
 secretGenerator:
-  - name: openliberty-bootstrap
-    files:
-      - ./bootstrap.properties
   - name: predictive-model-secret 
     literals:
       - user='replace-with-your-username'
