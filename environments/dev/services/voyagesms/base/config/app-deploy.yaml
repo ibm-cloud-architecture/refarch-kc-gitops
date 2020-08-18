@@ -7,6 +7,7 @@ metadata:
     commit.image.appsody.dev/contextDir: /voyages-ms
     commit.image.appsody.dev/date: Mon Aug 17 11:21:30 2020 -0500
     commit.image.appsody.dev/message: Updated GitHub Actions to use forked actions
+      (#65)
     commit.stack.appsody.dev/contextDir: /incubator/nodejs-express
     commit.stack.appsody.dev/date: Wed Jul 1 16:05:26 2020 +0100
     commit.stack.appsody.dev/message: 'nodejs-express: Install ca-certificates when

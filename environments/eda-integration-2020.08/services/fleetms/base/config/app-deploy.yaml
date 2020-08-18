@@ -10,6 +10,7 @@ metadata:
     commit.image.appsody.dev/contextDir: /fleet-ms
     commit.image.appsody.dev/date: Mon Aug 17 11:21:30 2020 -0500
     commit.image.appsody.dev/message: Updated GitHub Actions to use forked actions
+      (#65)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
     commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
