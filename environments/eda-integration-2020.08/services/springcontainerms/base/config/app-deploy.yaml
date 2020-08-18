@@ -5,19 +5,19 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: C:\dev\refarch\refarch-kc-container-ms
-    commit.image.appsody.dev/date: Fri Jul 10 13:15:40 2020 -0700
-    commit.image.appsody.dev/message: 'Merge pull request #54 from jesusmah/compose_refactor'
+    commit.image.appsody.dev/date: Tue Aug 18 09:01:44 2020 -0500
+    commit.image.appsody.dev/message: Replace gitops webhook with app-deploy.yaml
+      update actions (#57)
     commit.stack.appsody.dev/author: Harish Yayi <yharish991@gmail.com>
     commit.stack.appsody.dev/committer: GitHub <noreply@github.com>
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu Jun 4 12:03:56 2020 +0100
     commit.stack.appsody.dev/message: 'java-springboot2: define APPSODY_DEBUG_PORT
       (#819)'
-    image.opencontainers.org/created: "2020-07-28T14:19:01+01:00"
+    image.opencontainers.org/created: "2020-08-18T14:02:52Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
-    image.opencontainers.org/revision: de73a4946cceaf3d5b7f8358758ef3f86e5f2220
-    image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms/tree/HEAD
-      -> upstream
+    image.opencontainers.org/revision: 090d8678f6f73dbd89e16a296ee1860410d94b53-modified
+    image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
     stack.appsody.dev/authors: Erin Schnabel <ebullient>, Ozzy Osborne <bardweller>,
       Richard Trotter <richard-trotter>, Harish Yayi <yharish991>
@@ -41,8 +41,7 @@ metadata:
     stack.appsody.dev/version: 0.3.30
   name: spring-container-ms
 spec:
-  applicationImage: ibmcase/kcontainer-spring-container-ms:latest
-  pullPolicy: Always
+  applicationImage: ibmcase/kcontainer-spring-container-ms:0.1.40
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
@@ -73,18 +72,18 @@ spec:
   - name: POSTGRESQL_URL
     valueFrom:
       secretKeyRef:
-        key: url
-        name: postgresql-cred
+        key: binding
+        name: postgresql-url
   - name: POSTGRESQL_USER
     valueFrom:
       secretKeyRef:
-        key: username
-        name: postgresql-cred
+        key: binding
+        name: postgresql-user
   - name: POSTGRESQL_PWD
     valueFrom:
       secretKeyRef:
-        key: password
-        name: postgresql-cred
+        key: binding
+        name: postgresql-pwd
   - name: ANOMALY_THRESHOLD
     valueFrom:
       configMapKeyRef:

@@ -5,17 +5,17 @@ metadata:
     commit.image.appsody.dev/author: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /voyages-ms
-    commit.image.appsody.dev/date: Mon Aug 17 10:35:10 2020 -0500
+    commit.image.appsody.dev/date: Mon Aug 17 11:21:30 2020 -0500
     commit.image.appsody.dev/message: Updated GitHub Actions to use forked actions
     commit.stack.appsody.dev/contextDir: /incubator/nodejs-express
     commit.stack.appsody.dev/date: Wed Jul 1 16:05:26 2020 +0100
     commit.stack.appsody.dev/message: 'nodejs-express: Install ca-certificates when
       building production image (#838)'
-    image.opencontainers.org/created: "2020-08-17T15:47:02Z"
-    image.opencontainers.org/documentation: https://github.com/osowski/refarch-kc-ms
-    image.opencontainers.org/revision: 98b69a07d74c5af78b6e0c93d26a3b6a40e5d458-modified
-    image.opencontainers.org/source: https://github.com/osowski/refarch-kc-ms/tree/master
-    image.opencontainers.org/url: https://github.com/osowski/refarch-kc-ms
+    image.opencontainers.org/created: "2020-08-17T16:30:04Z"
+    image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-ms
+    image.opencontainers.org/revision: 2a86e1fb764bf1e6519924600284acd3286f24a7-modified
+    image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-ms/tree/master
+    image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-ms
     stack.appsody.dev/authors: Gireesh Punathil <gireeshpunathil>
     stack.appsody.dev/configured: docker.io/appsody/nodejs-express:0.4
     stack.appsody.dev/created: "2020-07-01T15:09:37Z"
@@ -37,7 +37,7 @@ metadata:
     stack.appsody.dev/version: 0.4.13
   name: voyages-ms
 spec:
-  applicationImage: osowski/kcontainer-voyages-ms:0.1.40
+  applicationImage: ibmcase/kcontainer-voyages-ms:0.1.39
   createKnativeService: false
   env:
   - name: PORT
