@@ -1,2 +1,5 @@
 credentials/*/binding
 credentials/*/root.crt
+
+# Explicitly include local (non-public) postgresql credentials
+!credentials/postgresql-*/binding
