@@ -12,13 +12,11 @@ secretGenerator:
   #  - username='token'
   #  - password='...abcd123xyz...'
   #  ^^ PRECREATED IN THE NAMESPACE ^^
-  #- name: postgresql-cred
-  #  files:
-  #    - ./credentials/postgresql-cred/url
-  #    - ./credentials/postgresql-cred/username
-  #    - ./credentials/postgresql-cred/password
-  # ^^ Commented out until POSTGRES Secrets are converged in the app-deploy.yaml ^^
-  # ^^ https://github.ibm.com/case/gse-eda/issues/105 ^^
+  - name: postgresql-creds
+    files:
+      - ./credentials/postgresql-creds/url
+      - ./credentials/postgresql-creds/username
+      - ./credentials/postgresql-creds/password
   - name: postgresql-url
     files:
       - ./credentials/postgresql-url/binding
