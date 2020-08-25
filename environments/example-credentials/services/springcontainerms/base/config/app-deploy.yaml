@@ -5,18 +5,17 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: C:\dev\refarch\refarch-kc-container-ms
-    commit.image.appsody.dev/date: Tue Aug 18 09:01:44 2020 -0500
-    commit.image.appsody.dev/message: Replace gitops webhook with app-deploy.yaml
-      update actions (#57)
+    commit.image.appsody.dev/date: Tue Aug 25 11:41:11 2020 -0500
+    commit.image.appsody.dev/message: Merge PostgreSQL creds into single secret (#58)
     commit.stack.appsody.dev/author: Harish Yayi <yharish991@gmail.com>
     commit.stack.appsody.dev/committer: GitHub <noreply@github.com>
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu Jun 4 12:03:56 2020 +0100
     commit.stack.appsody.dev/message: 'java-springboot2: define APPSODY_DEBUG_PORT
       (#819)'
-    image.opencontainers.org/created: "2020-08-18T14:02:52Z"
+    image.opencontainers.org/created: "2020-08-25T16:42:15Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
-    image.opencontainers.org/revision: 090d8678f6f73dbd89e16a296ee1860410d94b53-modified
+    image.opencontainers.org/revision: 3aca2c44d84ec02a17a784386891b90e03a25e51-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
     stack.appsody.dev/authors: Erin Schnabel <ebullient>, Ozzy Osborne <bardweller>,
@@ -41,7 +40,7 @@ metadata:
     stack.appsody.dev/version: 0.3.30
   name: spring-container-ms
 spec:
-  applicationImage: ibmcase/kcontainer-spring-container-ms:0.1.40
+  applicationImage: ibmcase/kcontainer-spring-container-ms:0.1.41
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
@@ -72,18 +71,18 @@ spec:
   - name: POSTGRESQL_URL
     valueFrom:
       secretKeyRef:
-        key: binding
-        name: postgresql-url
+        key: url
+        name: postgresql-creds
   - name: POSTGRESQL_USER
     valueFrom:
       secretKeyRef:
-        key: binding
-        name: postgresql-user
+        key: username
+        name: postgresql-creds
   - name: POSTGRESQL_PWD
     valueFrom:
       secretKeyRef:
-        key: binding
-        name: postgresql-pwd
+        key: password
+        name: postgresql-creds
   - name: ANOMALY_THRESHOLD
     valueFrom:
       configMapKeyRef:
