@@ -17,15 +17,6 @@ secretGenerator:
       - ./credentials/postgresql-creds/url
       - ./credentials/postgresql-creds/username
       - ./credentials/postgresql-creds/password
-  - name: postgresql-url
-    files:
-      - ./credentials/postgresql-url/binding
-  - name: postgresql-user
-    files:
-      - ./credentials/postgresql-user/binding
-  - name: postgresql-pwd
-    files:
-      - ./credentials/postgresql-pwd/binding
   - name: bpm-anomaly
     literals:
       - user='your-username'

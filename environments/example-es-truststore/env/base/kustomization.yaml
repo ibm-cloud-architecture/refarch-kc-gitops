@@ -26,15 +26,6 @@ secretGenerator:
       - ./credentials/postgresql-creds/username
       - ./credentials/postgresql-creds/password
       - ./credentials/postgresql-creds/url
-  - name: postgresql-url
-    files:
-      - ./credentials/postgresql-url/binding
-  - name: postgresql-user
-    files:
-      - ./credentials/postgresql-user/binding
-  - name: postgresql-pwd
-    files:
-      - ./credentials/postgresql-pwd/binding
   - name: postgresql-ca-pem
     files:
       - ./credentials/gsa-eda-sandbox-db/root.crt
