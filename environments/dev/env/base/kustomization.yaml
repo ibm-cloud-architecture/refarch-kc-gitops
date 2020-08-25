@@ -11,6 +11,11 @@ resources:
   - ./bpm-configmap.yaml
 
 secretGenerator:
+  - name: postgresql-creds
+    literals:
+      - url="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
+      - username="postgres"
+      - password="supersecret"
   - name: postgresql-url
     literals:
       - binding="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
