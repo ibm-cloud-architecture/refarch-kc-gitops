@@ -21,6 +21,11 @@ secretGenerator:
   - name: eventstreams-cert-pem
     files:
       - ./credentials/eventstreams-pem/es-cert.pem
+  - name: postgresql-creds
+    files:
+      - ./credentials/postgresql-creds/username
+      - ./credentials/postgresql-creds/password
+      - ./credentials/postgresql-creds/url
   - name: postgresql-url
     files:
       - ./credentials/postgresql-url/binding
