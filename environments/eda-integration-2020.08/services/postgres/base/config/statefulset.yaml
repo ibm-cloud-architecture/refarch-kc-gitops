@@ -76,21 +76,13 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  # Commented out until POSTGRES Secrets are converged in the app-deploy.yaml
-                  # https://github.ibm.com/case/gse-eda/issues/105
-                  #name: postgresql-cred
-                  #key: username
-                  name: postgresql-user
-                  key: binding
+                  name: postgresql-creds
+                  key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  # Commented out until POSTGRES Secrets are converged in the app-deploy.yaml
-                  # https://github.ibm.com/case/gse-eda/issues/105
-                  #name: postgresql-cred
-                  #key: password
-                  name: postgresql-pwd
-                  key: binding
+                  name: postgresql-creds
+                  key: password
             - name: POSTGRES_DB
               value: "containers"
             - name: POSTGRESQL_ENABLE_LDAP
