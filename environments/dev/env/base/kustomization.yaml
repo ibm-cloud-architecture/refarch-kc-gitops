@@ -16,15 +16,6 @@ secretGenerator:
       - url="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
       - username="postgres"
       - password="supersecret"
-  - name: postgresql-url
-    literals:
-      - binding="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
-  - name: postgresql-user
-    literals:
-      - binding="postgres"
-  - name: postgresql-pwd
-    literals:
-      - binding="supersecret"
   - name: bpm-anomaly
     literals:
       - user='your-username'
