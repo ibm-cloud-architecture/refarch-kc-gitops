@@ -8,9 +8,9 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /order-command-ms
-    commit.image.appsody.dev/date: Tue Aug 18 08:56:34 2020 -0500
-    commit.image.appsody.dev/message: Replace gitops webhook with app-deploy.yaml
-      update actions (#80)
+    commit.image.appsody.dev/date: Thu Sep 17 13:39:23 2020 -0500
+    commit.image.appsody.dev/message: Removed 'namespace' from order-query-ms app-deploy.yaml
+      (#81)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Tue Jul 21 16:48:17 2020 +0100
     commit.stack.appsody.dev/message: Upgrade java-openliberty stack to Open Liberty
@@ -18,9 +18,9 @@ metadata:
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2020-08-18T13:58:20Z"
+    image.opencontainers.org/created: "2020-09-17T18:41:03Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
-    image.opencontainers.org/revision: fdb92db0a3cf26a979a343f5a86150d0b766421c-modified
+    image.opencontainers.org/revision: 80ae79567a0e2a78846120023bb22748e94b1287-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -66,7 +66,7 @@ metadata:
     stack.appsody.dev/version: 0.2.15
   name: order-command-ms
 spec:
-  applicationImage: ibmcase/kcontainer-order-command-ms:0.1.37
+  applicationImage: ibmcase/kcontainer-order-command-ms:0.1.38
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
