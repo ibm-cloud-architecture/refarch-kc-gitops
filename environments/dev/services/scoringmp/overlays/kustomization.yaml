@@ -2,7 +2,7 @@ bases:
   - ../base
 
 secretGenerator:
-  - name: predictive-model-secret 
+  - name: predictive-model-secret
     literals:
       - user='replace-with-your-username'
       - password='replace-with-your-password'
@@ -15,3 +15,6 @@ configMapGenerator:
 
 #patchesStrategicMerge:
 #  - ./patch.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true

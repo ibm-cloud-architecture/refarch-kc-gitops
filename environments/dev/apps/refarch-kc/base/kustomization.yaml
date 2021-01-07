@@ -4,6 +4,7 @@ bases:
   - ../../../services/kc-ui
   - ../../../services/ordercommandms
   - ../../../services/orderqueryms
+  - ../../../services/postgres
   - ../../../services/reefersimulator
   - ../../../services/scoringmp
   - ../../../services/springcontainerms
