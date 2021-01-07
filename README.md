@@ -13,28 +13,22 @@ This environment is deployable to any Kubernetes or OCP cluster and provides its
 Prerequisites:
 - Strimzi operator must be installed, and configured to watch all namespaces.
 - Appsody operator must be installed, and configured to watch all namespaces.
-- Postgres database must exist. The defaults assume that the database is in the `postgres` namespace, configured with the default credentials (`postgres` / `supersecret`).
-
-#### Postgres installation:
-```
-kubectl create ns postgres
-kubectl create serviceaccount -n postgres pgserviceaccount
-oc adm policy add-scc-to-user anyuid -z pgserviceaccount -n postgres
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install postgresql bitnami/postgresql -n postgres --wait --timeout=300s --set postgresqlPassword=supersecret --set persistence.enabled=false --set serviceAccount.enabled=true --set serviceAccount.name=pgserviceaccount
-```
-(note: the `oc adm` command is required only if targeting an OpenShift cluster).
+- Open Liberty operator must be installed, and configured to watch all namespaces.
 
 #### Deploying microservices:
+
+_(note: the following `oc adm` command is required only if targeting an OpenShift cluster)._
 
 One-time setup to create namespace and Kafka cluster:
 ```
 kubectl apply -k environments/dev/infrastructure
+oc adm policy add-scc-to-user anyuid -z kcontainer-runtime -n shipping
 kubectl wait --for=condition=ready kafka my-cluster --timeout 300s -n shipping
 ```
 Deploy microservices and required configmaps and secrets:
 ```
 kubectl apply -k environments/dev
+kubectl wait --for=condition=available deploy -l app.kubernetes.io/part-of=refarch-kc --timeout 300s -n shipping
 ```
 
 ### Environment with off-cluster backing services (`example-credentials`)
