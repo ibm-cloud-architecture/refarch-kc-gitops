@@ -8,18 +8,18 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /order-query-ms
-    commit.image.appsody.dev/date: Thu Jan 7 15:12:40 2021 -0600
-    commit.image.appsody.dev/message: Removed transactionality from error event producer
-      due to config error (#86
+    commit.image.appsody.dev/date: Fri Jan 8 10:43:06 2021 -0600
+    commit.image.appsody.dev/message: Return tx functionality to error producer for
+      consume-transform-produce support (#87)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Fri Oct 9 16:07:30 2020 -0400
     commit.stack.appsody.dev/message: Pull in kabanero/ubi8-maven:0.10.2 (#859)
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2021-01-07T21:17:53Z"
+    image.opencontainers.org/created: "2021-01-08T16:48:07Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
-    image.opencontainers.org/revision: 069cf6c23d117d24f988d2f3b9fcb2eb1b592018-modified
+    image.opencontainers.org/revision: 433dcbd29684e79071b7f8a036a2f874ee510ae9-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -65,7 +65,7 @@ metadata:
     stack.appsody.dev/version: 0.2.17
   name: order-query-ms
 spec:
-  applicationImage: ibmcase/kcontainer-order-query-ms:0.1.43
+  applicationImage: ibmcase/kcontainer-order-query-ms:0.1.44
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
