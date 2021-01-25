@@ -1,0 +1,5 @@
+bases:
+  - ../base
+
+commonLabels:
+  app.kubernetes.io/part-of: refarch-kc
