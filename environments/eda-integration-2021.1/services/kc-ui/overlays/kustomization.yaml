@@ -1,0 +1,13 @@
+bases:
+  - ../base
+
+patchesStrategicMerge:
+  - ./service-account-patch.yaml
+
+patchesJson6902:
+  - target:
+      group: appsody.dev
+      version: v1beta1
+      kind: AppsodyApplication
+      name: kc-ui
+    path: ./appsody-env-patch.yaml
