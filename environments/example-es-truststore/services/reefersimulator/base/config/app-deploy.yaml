@@ -5,12 +5,12 @@ metadata:
     commit.image.appsody.dev/author: David Jones <djones6dev@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /simulator
-    commit.image.appsody.dev/date: Tue Aug 18 09:41:27 2020 -0500
-    commit.image.appsody.dev/message: Replace gitops webhook with app-deploy.yaml
-      update actions (#75)
-    image.opencontainers.org/created: "2020-08-18T14:43:00Z"
+    commit.image.appsody.dev/date: Fri Jan 29 12:49:03 2021 -0600
+    commit.image.appsody.dev/message: Updated initialDelaySeconds for probes due to
+      liberty startup (#77)
+    image.opencontainers.org/created: "2021-01-29T18:51:38Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
-    image.opencontainers.org/revision: 59cb41f417dfc06df1574848ab3e99ecc6e799b1-modified
+    image.opencontainers.org/revision: 0b194921646c950acf0dbb0b851bce39c0de065a-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-reefer-ml/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
     stack.appsody.dev/configured: docker.io/appsody/python-flask:0.1
@@ -26,7 +26,7 @@ metadata:
     stack.appsody.dev/version: 0.1.6
   name: reefer-simulator
 spec:
-  applicationImage: ibmcase/kcontainer-reefer-simulator-appsody:0.1.62
+  applicationImage: ibmcase/kcontainer-reefer-simulator-appsody:0.1.63
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
