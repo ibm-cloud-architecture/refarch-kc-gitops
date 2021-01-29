@@ -13,8 +13,13 @@ configMapGenerator:
       - baseURL='https://zen-cpd-zen.demo.ibmcloudpack.com/'
       - predictionURL='/v4/deployments/fb03738c-1234-abcd-wxyz-7e66106ee51c/predictions'
 
-#patchesStrategicMerge:
-#  - ./patch.yaml
+patchesJson6902:
+  - target:
+      group: openliberty.io
+      version: v1beta1
+      kind: OpenLibertyApplication
+      name: scoring-mp
+    path: ./appsody-probe-patch.yaml
 
 generatorOptions:
   disableNameSuffixHash: true
