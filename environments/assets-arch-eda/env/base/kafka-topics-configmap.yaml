@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-topics
+data:
+  bluewaterContainerTopic: assets-arch-eda-bluewater-container
+  bluewaterProblemTopic: assets-arch-eda-bluewater-problem
+  bluewaterShipTopic: assets-arch-eda-bluewater-ship
+  containersTopic: assets-arch-eda-containers
+  containerAnomalyRetryTopic: assets-arch-eda-container-anomaly-retry
+  containerAnomalyDeadTopic: assets-arch-eda-container-anomaly-dead
+  errorsTopic: assets-arch-eda-errors
+  orderCommandsTopic: assets-arch-eda-order-commands
+  ordersTopic: assets-arch-eda-orders
+  reeferTelemetryTopic: assets-arch-eda-reefer-telemetry

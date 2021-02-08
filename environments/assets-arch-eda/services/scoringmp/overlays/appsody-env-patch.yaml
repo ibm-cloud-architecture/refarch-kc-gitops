@@ -1,0 +1,26 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_USER
+    valueFrom:
+      configMapKeyRef:
+        name: "eda-integration-kafka-user"
+        key: username
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "eda-integration-kafka-user"
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SASL_MECHANISM
+    value: SCRAM-SHA-512
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_SECURITY_PROTOCOL
+    value: SASL_SSL

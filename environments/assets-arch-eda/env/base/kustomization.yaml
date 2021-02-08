@@ -1,0 +1,32 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+  #- ./service-account.yaml
+  # Due to the need for the SA to be added to an SCC on OCP,
+  # we pre-create the SA now and manually add the SCC policy to it.
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+  - name: postgresql-creds
+    files:
+      - ./credentials/postgresql-creds/url
+      - ./credentials/postgresql-creds/username
+      - ./credentials/postgresql-creds/password
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="my-cluster-kafka-bootstrap:9092"
+  - name: eda-integration-kafka-user
+    literals:
+      - username="eda-integration-kafka-user"
+
+
+generatorOptions:
+  disableNameSuffixHash: true

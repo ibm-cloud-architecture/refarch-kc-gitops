@@ -1,0 +1,17 @@
+bases:
+  - ../base
+
+# Event Streams certificate mounted as /config/resources/security/es-ssl/ca.p12
+
+patchesStrategicMerge:
+  - ./service-account-patch.yaml
+  - ./appsody-volume-mounts.yaml
+  - ./appsody-volumes.yaml
+
+patchesJson6902:
+  - target:
+      group: openliberty.io
+      version: v1beta1
+      kind: OpenLibertyApplication
+      name: order-command-ms
+    path: ./appsody-env-patch.yaml

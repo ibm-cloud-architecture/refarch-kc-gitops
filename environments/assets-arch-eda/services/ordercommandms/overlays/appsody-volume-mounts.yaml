@@ -1,0 +1,8 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: order-command-ms
+spec:
+  volumeMounts:
+  - mountPath: /config/resources/security/es-ssl
+    name: kafka-certificate-volume
