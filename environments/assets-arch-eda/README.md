@@ -35,13 +35,13 @@ oc wait --for=condition=ready kafka my-cluster --timeout 300s
 
 **Deploy the application configuration and microservices**
 ```
-kubectl apply -k environments/eda-integration-2021.1
+kubectl apply -k environments/assets-arch-eda
 sleep 10
-oc wait --for=condition=available deploy -l app.kubernetes.io/part-of=refarch-kc --timeout 300s -n shipping
+oc wait --for=condition=available deploy -l app.kubernetes.io/part-of=refarch-kc --timeout 300s
 ```
 
 ### Deploying microservices via ArgoCD
 
-TODO
+_TBD_
 1. Create `infrastructure` project
 2. Create `application` project
