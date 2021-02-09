@@ -1,0 +1,11 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: scoring-mp
+spec:
+  volumes:
+  - name: openliberty-bootstrap
+    emptyDir: {}
+  - name: kafka-certificate-volume
+    secret:
+      secretName: my-cluster-cluster-ca-cert

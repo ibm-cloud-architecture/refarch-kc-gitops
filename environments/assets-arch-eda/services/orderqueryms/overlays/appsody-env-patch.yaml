@@ -1,0 +1,34 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_USER
+    valueFrom:
+      configMapKeyRef:
+        name: "eda-integration-kafka-user"
+        key: username
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "eda-integration-kafka-user"
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_ENABLED
+    value: "true"
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PWD
+    valueFrom:
+      secretKeyRef:
+        name: my-cluster-cluster-ca-cert
+        key: ca.password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PATH
+    value: /config/resources/security/es-ssl/ca.p12

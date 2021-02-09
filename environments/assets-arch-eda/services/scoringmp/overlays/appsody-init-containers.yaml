@@ -1,0 +1,46 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: scoring-mp
+spec:
+  initContainers:
+  - name: init-bootstrap-properties
+    image: docker.io/busybox:stable
+    imagePullPolicy: "Always"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo "mp.messaging.connector.liberty-kafka.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username=\"${KAFKA_USER}\" password=\"${KAFKA_PASSWORD}\";" >> tmpfile
+
+        # If truststore & certificate information is needed (for instance, to connect to Event Streams on OCP), it would be added here...
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.location=/config/resources/security/kafka-ssl/ca.p12" >> tmpfile
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.password=${KAFKA_TRUSTSTORE_PASSWORD}" >> tmpfile
+
+        cp tmpfile /config/bootstrap.properties
+    env:
+      - name: KAFKA_USER
+        valueFrom:
+          configMapKeyRef:
+            name: "eda-integration-kafka-user"
+            key: username
+      - name: KAFKA_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: "eda-integration-kafka-user"
+            key: password
+      - name: KAFKA_TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: "my-cluster-cluster-ca-cert"
+            key: ca.password
+    securityContext:
+      runAsUser: 0
+    volumeMounts:
+      # /config is a default symlink to /opt/ol/wlp/usr/servers/defaultServer
+      - name: openliberty-bootstrap
+        mountPath: /config/

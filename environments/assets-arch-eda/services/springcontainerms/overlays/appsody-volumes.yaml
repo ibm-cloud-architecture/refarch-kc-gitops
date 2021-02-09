@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: spring-container-ms
+spec:
+  volumes:
+  - name: kafka-certificate-volume
+    secret:
+      secretName: my-cluster-cluster-ca-cert

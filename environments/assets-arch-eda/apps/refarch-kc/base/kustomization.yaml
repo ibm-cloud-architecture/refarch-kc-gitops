@@ -1,0 +1,11 @@
+bases:
+  - ./kafka
+  - ../../../services/fleetms
+  - ../../../services/kc-ui
+  - ../../../services/ordercommandms
+  - ../../../services/orderqueryms
+  - ../../../services/postgres
+  - ../../../services/reefersimulator
+  - ../../../services/scoringmp
+  - ../../../services/springcontainerms
+  - ../../../services/voyagesms
