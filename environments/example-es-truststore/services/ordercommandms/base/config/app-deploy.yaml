@@ -8,18 +8,18 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /order-command-ms
-    commit.image.appsody.dev/date: Tue Mar 9 11:47:32 2021 -0600
-    commit.image.appsody.dev/message: Updated GitHub actions to support third-party
-      container registry (#93)
+    commit.image.appsody.dev/date: Tue Mar 9 12:08:13 2021 -0600
+    commit.image.appsody.dev/message: Updated app-deploy.yaml to reference quay.io
+      (#94)
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
     commit.stack.appsody.dev/date: Fri Oct 9 16:07:30 2020 -0400
     commit.stack.appsody.dev/message: Pull in kabanero/ubi8-maven:0.10.2 (#859)
     description: Eclipse MicroProfile & Jakarta EE on Open Liberty & OpenJ9 using
       Maven
     distribution-scope: public
-    image.opencontainers.org/created: "2021-03-09T17:59:12Z"
+    image.opencontainers.org/created: "2021-03-09T18:10:35Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
-    image.opencontainers.org/revision: 7f0d6abc23bbeda6da542e247963b002e150622f-modified
+    image.opencontainers.org/revision: 1ffb8cbfd716f00fb9ebc0f5139b62563e5854ba-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-order-ms
     k8s.io/description: The Universal Base Image is designed and engineered to be
@@ -65,7 +65,7 @@ metadata:
     stack.appsody.dev/version: 0.2.17
   name: order-command-ms
 spec:
-  applicationImage: quay.io/ibmcase/kcontainer-order-command-ms:0.1.50
+  applicationImage: quay.io/ibmcase/kcontainer-order-command-ms:0.1.51
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
