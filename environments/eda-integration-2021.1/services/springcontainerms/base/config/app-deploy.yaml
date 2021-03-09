@@ -5,17 +5,18 @@ metadata:
     commit.image.appsody.dev/author: Rick O <rosowski@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: C:\dev\refarch\refarch-kc-container-ms
-    commit.image.appsody.dev/date: Tue Aug 25 11:41:11 2020 -0500
-    commit.image.appsody.dev/message: Merge PostgreSQL creds into single secret (#58)
+    commit.image.appsody.dev/date: Tue Mar 9 14:51:10 2021 -0600
+    commit.image.appsody.dev/message: Updated GitHub actions to support third-party
+      container registry (#59)
     commit.stack.appsody.dev/author: Harish Yayi <yharish991@gmail.com>
     commit.stack.appsody.dev/committer: GitHub <noreply@github.com>
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu Jun 4 12:03:56 2020 +0100
     commit.stack.appsody.dev/message: 'java-springboot2: define APPSODY_DEBUG_PORT
       (#819)'
-    image.opencontainers.org/created: "2020-08-25T16:42:15Z"
+    image.opencontainers.org/created: "2021-03-09T20:52:25Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
-    image.opencontainers.org/revision: 3aca2c44d84ec02a17a784386891b90e03a25e51-modified
+    image.opencontainers.org/revision: 8bcb83ee5ac5c23b41ff53feef38959473f68a1e-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-container-ms
     stack.appsody.dev/authors: Erin Schnabel <ebullient>, Ozzy Osborne <bardweller>,
@@ -40,7 +41,7 @@ metadata:
     stack.appsody.dev/version: 0.3.30
   name: spring-container-ms
 spec:
-  applicationImage: ibmcase/kcontainer-spring-container-ms:0.1.41
+  applicationImage: quay.io/ibmcase/kcontainer-spring-container-ms:0.1.42
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
