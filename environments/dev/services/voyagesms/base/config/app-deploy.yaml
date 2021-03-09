@@ -5,16 +5,15 @@ metadata:
     commit.image.appsody.dev/author: josiemundi <johannasaladas@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /voyages-ms
-    commit.image.appsody.dev/date: Fri Jan 29 12:47:58 2021 -0600
-    commit.image.appsody.dev/message: Updated initialDelaySeconds for probes due to
-      liberty startup (#68)
+    commit.image.appsody.dev/date: Tue Mar 9 15:33:59 2021 -0600
+    commit.image.appsody.dev/message: Updating failing fleet-ms test (#71)
     commit.stack.appsody.dev/contextDir: /incubator/nodejs-express
     commit.stack.appsody.dev/date: Wed Jul 1 16:05:26 2020 +0100
     commit.stack.appsody.dev/message: 'nodejs-express: Install ca-certificates when
       building production image (#838)'
-    image.opencontainers.org/created: "2021-01-29T18:55:45Z"
+    image.opencontainers.org/created: "2021-03-09T21:41:52Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-ms
-    image.opencontainers.org/revision: af6ce25f99b29f2c21d851d28d352a25808c7e72-modified
+    image.opencontainers.org/revision: be11c30c5f386b152e164cbfd90b1d9bd914ff1f-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-ms/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-ms
     stack.appsody.dev/authors: Gireesh Punathil <gireeshpunathil>
@@ -38,7 +37,7 @@ metadata:
     stack.appsody.dev/version: 0.4.13
   name: voyages-ms
 spec:
-  applicationImage: ibmcase/kcontainer-voyages-ms:0.1.41
+  applicationImage: quay.io/ibmcase/kcontainer-voyages-ms:0.1.44
   createKnativeService: false
   env:
   - name: PORT
