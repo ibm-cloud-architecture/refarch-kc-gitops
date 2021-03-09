@@ -3,16 +3,15 @@ kind: AppsodyApplication
 metadata:
   annotations:
     commit.image.appsody.dev/contextDir: C:\dev\refarch\appsody-kc-ui
-    commit.image.appsody.dev/date: Tue Mar 9 15:09:01 2021 -0600
-    commit.image.appsody.dev/message: Bump http-proxy from 1.17.0 to 1.18.1 in /ui
-      (#90)
+    commit.image.appsody.dev/date: Tue Mar 9 15:30:15 2021 -0600
+    commit.image.appsody.dev/message: Bump handlebars from 4.4.3 to 4.7.7 in /ui (#99)
     commit.stack.appsody.dev/contextDir: /incubator/nodejs
     commit.stack.appsody.dev/date: Thu Jul 30 11:03:34 2020 +0100
     commit.stack.appsody.dev/message: 'nodejs: Add ''build'' and ''prune'' lifecycle
       events (#841)'
-    image.opencontainers.org/created: "2021-03-09T21:10:32Z"
+    image.opencontainers.org/created: "2021-03-09T21:31:46Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-kc-ui
-    image.opencontainers.org/revision: 396e4d551fff42903979848fc5871d020ff4721f-modified
+    image.opencontainers.org/revision: 77da4923d2f808481c7a6da30d5569c94fdac28b-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-kc-ui/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-kc-ui
     stack.appsody.dev/authors: Gireesh Punathil <gireeshpunathil>
@@ -34,7 +33,7 @@ metadata:
     stack.appsody.dev/version: 0.4.0
   name: kc-ui
 spec:
-  applicationImage: quay.io/ibmcase/kcontainer-ui:0.1.45
+  applicationImage: quay.io/ibmcase/kcontainer-ui:0.1.46
   createKnativeService: false
   env:
   - name: PORT
