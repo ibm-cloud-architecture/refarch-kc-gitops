@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: kc-ui
+spec:
+  volumeMounts:
+  - mountPath: /etc/ssl/certs/kcontainer
+    name: kafka-pem-volume
+    readOnly: true

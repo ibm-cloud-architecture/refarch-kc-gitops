@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: reefer-simulator
+spec:
+  volumes:
+  - name: kafka-pem-volume
+    secret:
+      secretName: kafka-truststore-pem

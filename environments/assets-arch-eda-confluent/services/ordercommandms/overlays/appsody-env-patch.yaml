@@ -1,0 +1,34 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_USER
+    valueFrom:
+      secretKeyRef:
+        name: "kafka-credentials"
+        key: username
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "kafka-credentials"
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_ENABLED
+    value: "true"
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PWD
+    valueFrom:
+      secretKeyRef:
+        name: kafka-truststore-password
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: TRUSTSTORE_PATH
+    value: /config/resources/security/kafka-ssl/kafka-cert.jks

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-topics
+data:
+  bluewaterContainerTopic: confluent-bluewater-container
+  bluewaterProblemTopic: confluent-bluewater-problem
+  bluewaterShipTopic: confluent-bluewater-ship
+  containersTopic: confluent-containers
+  containerAnomalyRetryTopic: confluent-container-anomaly-retry
+  containerAnomalyDeadTopic: confluent-container-anomaly-dead
+  errorsTopic: confluent-errors
+  orderCommandsTopic: confluent-order-commands
+  ordersTopic: confluent-orders
+  reeferTelemetryTopic: confluent-reefer-telemetry

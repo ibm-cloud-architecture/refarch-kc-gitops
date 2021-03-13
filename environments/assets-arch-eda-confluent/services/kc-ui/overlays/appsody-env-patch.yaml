@@ -1,0 +1,26 @@
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_USER
+    valueFrom:
+      secretKeyRef:
+        name: "kafka-credentials"
+        key: username
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: "kafka-credentials"
+        key: password
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: CERTS_ENABLED
+    value: "true"
+- op: add
+  path: "/spec/env/-"
+  value:
+    name: KAFKA_CERT_PATH
+    value: /etc/ssl/certs/kcontainer/kafka-cert.pem

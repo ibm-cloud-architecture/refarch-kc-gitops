@@ -1,0 +1,9 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: order-command-ms
+spec:
+  volumes:
+  - name: kafka-truststore-volume
+    secret:
+      secretName: kafka-truststore-jks
