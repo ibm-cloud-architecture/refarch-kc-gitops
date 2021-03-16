@@ -1,6 +1,0 @@
-bases:
-  - ../base
-
-# Postgres CA mounted as /.postgresql/root.crt (for default SSLFactory)
-patchesStrategicMerge:
-  - ./service-account-patch.yaml
