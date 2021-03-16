@@ -1,0 +1,9 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  name: spring-container-ms
+spec:
+  volumes:
+  - name: kafka-truststore-volume
+    secret:
+      secretName: kafka-truststore-jks

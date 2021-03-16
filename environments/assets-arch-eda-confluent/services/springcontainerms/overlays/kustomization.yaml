@@ -1,0 +1,17 @@
+bases:
+  - ../base
+
+# Kafka truststore mounted as /config/resources/security/kafka-ssl/kafka-cert.jks
+
+patchesStrategicMerge:
+  - ./service-account-patch.yaml
+  - ./appsody-volume-mounts.yaml
+  - ./appsody-volumes.yaml
+
+patchesJson6902:
+  - target:
+      group: appsody.dev
+      version: v1beta1
+      kind: AppsodyApplication
+      name: spring-container-ms
+    path: ./appsody-env-patch.yaml

@@ -1,0 +1,50 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: scoring-mp
+spec:
+  initContainers:
+  - name: init-bootstrap-properties
+    image: registry.access.redhat.com/ubi8/ubi-minimal:latest
+    imagePullPolicy: "Always"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 256Mi
+    command:
+      - /bin/sh
+      - -c
+      - |
+        SASL_PLAIN="mp.messaging.connector.liberty-kafka.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username=\"${KAFKA_USER}\" password=\"${KAFKA_PASSWORD}\";"
+        SASL_SCRAM="mp.messaging.connector.liberty-kafka.sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username=\"${KAFKA_USER}\" password=\"${KAFKA_PASSWORD}\";"
+
+        # IF KAFKA_USER is 'token', we assume SASL_PLAIN-based security. Otherwise, assume SASL_SCRAM-based security.
+        [ "${KAFKA_USER}" == "token" ] && echo ${SASL_PLAIN} >> tmpfile || echo ${SASL_SCRAM} >> tmpfile
+
+        # If truststore & certificate information is needed (for instance, to connect to Event Streams on OCP), it would be added here...
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.location=/config/resources/security/kafka-ssl/kafka-cert.jks" >> tmpfile
+        echo "mp.messaging.connector.liberty-kafka.ssl.truststore.password=${KAFKA_TRUSTSTORE_PASSWORD}" >> tmpfile
+
+        cp tmpfile /config/bootstrap.properties
+    env:
+      - name: KAFKA_USER
+        valueFrom:
+          secretKeyRef:
+            name: "kafka-credentials"
+            key: username
+      - name: KAFKA_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: "kafka-credentials"
+            key: password
+      - name: KAFKA_TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: "kafka-truststore-password"
+            key: password
+    securityContext:
+      runAsUser: 0
+    volumeMounts:
+      # /config is a default symlink to /opt/ol/wlp/usr/servers/defaultServer
+      - name: openliberty-bootstrap
+        mountPath: /config/
