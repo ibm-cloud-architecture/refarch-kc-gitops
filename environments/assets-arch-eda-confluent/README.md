@@ -45,4 +45,81 @@ kubectl apply -k environments/assets-arch-eda-confluent
 
 ### Deploying microservices via ArgoCD
 
-TBD
+[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is the preferred continuous delivery tool for GitOps-based application configuration. You can install ArgoCD through the deployment of the [IBM Cloud Native Toolkit](https://cloudnativetoolkit.dev/) or the [ArgoCD Operator](https://operatorhub.io/operator/argocd-operator).
+
+1. Create `refarch-kc` project
+    ```yaml
+    apiVersion: argoproj.io/v1alpha1
+    kind: AppProject
+    metadata:
+      name: refarch-kc
+    spec:
+      description: Integration project for refarch-kc-gitops project
+      destinations:
+        - namespace: eda-integration
+          server: 'https://kubernetes.default.svc'
+      sourceRepos:
+        - 'https://github.com/ibm-cloud-architecture/refarch-kc-gitops'
+
+    ```
+
+1. Create `application` application
+    ```yaml
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: refarch-kc-application
+    spec:
+      destination:
+        namespace: eda-integration
+        server: 'https://kubernetes.default.svc'
+      source:
+        path: environments/assets-arch-eda-confluent
+        repoURL: 'https://github.com/ibm-cloud-architecture/refarch-kc-gitops'
+        targetRevision: HEAD
+      project: refarch-kc
+      syncPolicy:
+        automated:
+          automated:
+            prune: false
+            selfHeal: false
+          prune: true
+          selfHeal: true
+    ```
+
+### Accessing the deployed Kafka instance
+
+**NOTE:** All commands below expect to be run in the same project/namespace as the deployed Confluent Platform.
+
+1. Extract the password for the required SASL `token` user via the following `oc` command:
+   ```shell
+   oc get secret kafka-apikeys -o jsonpath='{.data.apikeys\.json}' | base64 -d - | jq -r '.keys["token"].hashed_secret'
+   ```
+1. Extract the external endpoint via the following `oc` command:
+   ```shell
+   KAFKA_BOOTSTRAP=$(oc get route kafka-bootstrap -o jsonpath="{ .spec.host }:443")
+   ```
+1. Extract the public certificate keystore of the Kafka cluster via the following `oc` command: _(remember to replace the value of your Confluent Platform release name below)_
+   ```shell
+   oc get secret confluent-platform-creds -o json | jq -r '.data | keys'
+   oc get secret confluent-platform-creds -o jsonpath='{.data.___YOUR_CONFLUENT_PLATFORM_RELEASE_NAME___-trust\.jks}' | base64 -d - > truststore.jks
+   echo "$(pwd)/truststore.jks"
+   ```
+1. Extract the public certificate password of the Kafka cluster via the following `oc` command:
+   ```shell
+   oc get secret confluent-platform-creds -o jsonpath='{.data.password}' | base64 -d -
+   ```
+1. Create `endpoint-config.properties`
+   ```properties
+   sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="token" password="___REPLACE_WITH_YOUR_TOKEN_USERS_PASSWORD___";"
+   security.protocol=SASL_SSL
+   sasl.mechanism=PLAIN
+
+   ssl.truststore.location=___REPLACE_WITH_YOUR_ABSOLUTE_PATH_TO_PROVIDED_JKS_TRUSTSTORE___
+   ssl.truststore.password=___REPLACE_WITH_YOUR_JKS_TRUSTSTORE_PASSWORD___
+   ```
+1. Download the latest [Kafka binaries](http://kafka.apache.org/downloads) or utilize a pre-built Kafka container image.
+1. Execute `bin/kafka-console-consumer.sh` via the following command:
+   ```shell
+   bin/kafka-console-consumer.sh --bootstrap-server ${KAFKA_BOOTSTRAP} --consumer.config /absolute/path/to/your/endpoint-config.properties --from-beginning --topic confluent-orders
+   ```
