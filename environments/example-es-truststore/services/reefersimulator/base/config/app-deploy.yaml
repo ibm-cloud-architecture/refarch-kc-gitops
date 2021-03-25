@@ -5,12 +5,11 @@ metadata:
     commit.image.appsody.dev/author: David Jones <djones6dev@gmail.com>
     commit.image.appsody.dev/committer: GitHub <noreply@github.com>
     commit.image.appsody.dev/contextDir: /simulator
-    commit.image.appsody.dev/date: Tue Mar 9 15:08:16 2021 -0600
-    commit.image.appsody.dev/message: Bump junit from 4.12 to 4.13.1 in /scoring-mp
-      (#76)
-    image.opencontainers.org/created: "2021-03-09T21:09:52Z"
+    commit.image.appsody.dev/date: Thu Mar 25 16:00:21 2021 -0500
+    commit.image.appsody.dev/message: Removing expired credentials
+    image.opencontainers.org/created: "2021-03-25T21:02:12Z"
     image.opencontainers.org/documentation: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
-    image.opencontainers.org/revision: 432e717098a3693eb4d2842d7842ebfd140236c1-modified
+    image.opencontainers.org/revision: 776fb0ad0949c8c365ee7b519f6ffd444e708c43-modified
     image.opencontainers.org/source: https://github.com/ibm-cloud-architecture/refarch-reefer-ml/tree/master
     image.opencontainers.org/url: https://github.com/ibm-cloud-architecture/refarch-reefer-ml
     stack.appsody.dev/configured: docker.io/appsody/python-flask:0.1
@@ -26,7 +25,7 @@ metadata:
     stack.appsody.dev/version: 0.1.6
   name: reefer-simulator
 spec:
-  applicationImage: quay.io/ibmcase/kcontainer-reefer-simulator-appsody:0.1.65
+  applicationImage: quay.io/ibmcase/kcontainer-reefer-simulator-appsody:0.1.66
   createKnativeService: false
   env:
   - name: KAFKA_BROKERS
