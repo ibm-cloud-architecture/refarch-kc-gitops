@@ -15,6 +15,7 @@ This environment is deployable to any Kubernetes or OCP cluster and provides its
 
 ### Environment setup
 
+If using Kubernetes cluster, follow the below instructions.
 ```
 kubectl create ns eda-integration
 kubectl create serviceaccount -n eda-integration kcontainer-runtime
@@ -22,6 +23,19 @@ kubectl create secret generic kafka-credentials --from-literal=username=token --
 
 kubectl create secret generic kafka-truststore-jks --from-file=kafka-cert.jks=$(pwd)/{confluent-trust.jks}
 kubectl create secret generic kafka-truststore-password --from-literal=password=password
+
+keytool -exportcert -keypass password -keystore {confluent-trust.jks} -rfc -file kafka-cert.pem
+kubectl create secret generic kafka-truststore-pem --from-file=kafka-cert.pem=$(pwd)/kafka-cert.pem
+```
+
+If using Openshift cluster, follow the below instructions.
+```
+oc new-project eda-integration
+oc create serviceaccount -n eda-integration kcontainer-runtime
+oc create secret generic kafka-credentials --from-literal=username=token --from-literal=password={API_KEY}
+
+oc create secret generic kafka-truststore-jks --from-file=kafka-cert.jks=$(pwd)/{confluent-trust.jks}
+oc create secret generic kafka-truststore-password --from-literal=password=password
 
 keytool -exportcert -keypass password -keystore {confluent-trust.jks} -rfc -file kafka-cert.pem
 oc create secret generic kafka-truststore-pem --from-file=kafka-cert.pem=$(pwd)/kafka-cert.pem
@@ -93,7 +107,7 @@ kubectl apply -k environments/assets-arch-eda-confluent
 
 1. Extract the password for the required SASL `token` user via the following `oc` command:
    ```shell
-   oc get secret kafka-apikeys -o jsonpath='{.data.apikeys\.json}' | base64 -d - | jq -r '.keys["token"].hashed_secret'
+   oc get secret kafka-apikeys -o jsonpath='{.data.apikeys\.json}' | base64 -D - | jq -r '.keys["token"].hashed_secret'
    ```
 1. Extract the external endpoint via the following `oc` command:
    ```shell
@@ -101,13 +115,13 @@ kubectl apply -k environments/assets-arch-eda-confluent
    ```
 1. Extract the public certificate keystore of the Kafka cluster via the following `oc` command: _(remember to replace the value of your Confluent Platform release name below)_
    ```shell
-   oc get secret confluent-platform-creds -o json | jq -r '.data | keys'
-   oc get secret confluent-platform-creds -o jsonpath='{.data.___YOUR_CONFLUENT_PLATFORM_RELEASE_NAME___-trust\.jks}' | base64 -d - > truststore.jks
+   oc get secret confluent-platform-certs -o json | jq -r '.data | keys'
+   oc get secret confluent-platform-certs -o jsonpath='{.data.___YOUR_CONFLUENT_PLATFORM_RELEASE_NAME___-trust\.jks}' | base64 -D - > truststore.jks
    echo "$(pwd)/truststore.jks"
    ```
 1. Extract the public certificate password of the Kafka cluster via the following `oc` command:
    ```shell
-   oc get secret confluent-platform-creds -o jsonpath='{.data.password}' | base64 -d -
+   oc get secret confluent-platform-certs -o jsonpath='{.data.password}' | base64 -D -
    ```
 1. Create `endpoint-config.properties`
    ```properties
