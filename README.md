@@ -1,10 +1,10 @@
-# refarch-kc-gitops
+# KC solution gitops
 
-Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
+IBM Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
 
 ## Example environments
 
-These example environments will deploy the microservices and their associated configuration to the `shipping` namespace.
+These example environments will deploy the microservices and their associated configuration to the `shipping-dev` namespace.
 
 ### Development environment (`dev`)
 
@@ -12,7 +12,6 @@ This environment is deployable to any Kubernetes or OCP cluster and provides its
 
 Prerequisites:
 - Strimzi operator must be installed, and configured to watch all namespaces.
-- Appsody operator must be installed, and configured to watch all namespaces.
 - Open Liberty operator must be installed, and configured to watch all namespaces.
 
 #### Deploying microservices:

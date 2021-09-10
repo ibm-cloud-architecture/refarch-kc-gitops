@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: refarch-kc-order-cmd-ms
+    app.kubernetes.io/part-of: app-refarch-kc-order-cmd-ms
+  name: refarch-kc-order-cmd-ms
+  namespace: kc-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: refarch-kc-order-cmd-ms
+      app.kubernetes.io/part-of: app-refarch-kc-order-cmd-ms
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: refarch-kc-order-cmd-ms
+        app.kubernetes.io/part-of: app-refarch-kc-order-cmd-ms
+    spec:
+      containers:
+      - image: nginxinc/nginx-unprivileged:latest
+        imagePullPolicy: Always
+        name: refarch-kc-order-cmd-ms
+        ports:
+        - containerPort: 8080
+        resources: {}
+      serviceAccountName: default
+status: {}

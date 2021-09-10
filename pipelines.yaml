@@ -1,0 +1,29 @@
+config:
+  argocd:
+    namespace: openshift-gitops
+  pipelines:
+    name: kc-cicd
+environments:
+- apps:
+  - name: app-refarch-kc-order-cmd-ms
+    services:
+    - name: refarch-kc-order-cmd-ms
+      pipelines:
+        integration:
+          bindings:
+          - kc-dev-app-refarch-kc-order-cmd-ms-refarch-kc-order-cmd-ms-binding
+          - github-push-binding
+      source_url: https://github.com/jbcodeforce/refarch-kc-order-cmd-ms.git
+      webhook:
+        secret:
+          name: webhook-secret-kc-dev-refarch-kc-order-cmd-ms
+          namespace: kc-cicd
+  name: kc-dev
+  pipelines:
+    integration:
+      bindings:
+      - github-push-binding
+      template: app-ci-template
+- name: kc-stage
+gitops_url: https://github.com/jbcodeforce/refarch-kc-gitops.git
+version: 1
