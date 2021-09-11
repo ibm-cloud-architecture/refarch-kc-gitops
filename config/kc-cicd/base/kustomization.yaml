@@ -7,6 +7,7 @@ resources:
 - 03-tasks/deploy-from-source-task.yaml
 - 03-tasks/set-commit-status-task.yaml
 - 04-pipelines/app-ci-pipeline.yaml
+- 04-pipelines/quarkus-pipeline.yaml
 - 04-pipelines/ci-dryrun-from-push-pipeline.yaml
 - 05-bindings/github-push-binding.yaml
 - 05-bindings/kc-dev-app-refarch-kc-order-cmd-ms-refarch-kc-order-cmd-ms-binding.yaml

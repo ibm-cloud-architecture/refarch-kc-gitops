@@ -7,13 +7,39 @@ Update 09/10/2021
 ## Draft notes
 
 * Update structure using KAM
-* Add Strimzi operators and cluster instance
+* Add Strimzi operators and cluster instance manifest in environments/strimzi
 * Add cp4i operators
+* Boostrap the environment with
+
+```sh
+oc create -f  bootstrap/argo-project.yaml
+# 
+oc apply -k config/argocd/
+```
+* Add quarkus pipelines
 
 ### Issues encountered
 
 * Strimzi operator not installed via argocd app
-* openshift-gitops-argocd-application-controller service account need to be able to create resource under target namespace 
+* openshift-gitops-argocd-application-controller service account need to be able to create or patch resource under target namespace 
+
+```sh
+# verify service account
+oc get sa
+# Verify existing cluster role
+oc get clusterrole
+# select the cluster role like below and do under the openshift-gitops project
+oc adm policy add-cluster-role-to-user  strimzi-cluster-operator.v0.25.0-strimzi-cluster-ope-65df8bbd78  --serviceaccount openshift-gitops-argocd-application-controller -n openshift-gitops
+```
+
+* In cicd: "InvalidSpecError: Application referencing project kc-solution which does not exist". Resynch once the argocd project is created
+* In cicd: "Resource rbac.authorization.k8s.io:ClusterRole is not permitted in project kc-solution.". Change project definition with
+
+```yaml
+clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+```
 
 ## Example environments
 

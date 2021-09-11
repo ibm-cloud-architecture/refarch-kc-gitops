@@ -16,5 +16,7 @@ spec:
   selector:
     app.kubernetes.io/name: refarch-kc-order-cmd-ms
     app.kubernetes.io/part-of: app-refarch-kc-order-cmd-ms
+  type: ClusterIP
 status:
   loadBalancer: {}
+  

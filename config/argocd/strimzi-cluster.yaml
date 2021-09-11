@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: null
+  name: strimzi-cluster
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: strimzi
+    server: https://kubernetes.default.svc
+  project: kc-solution
+  source:
+    path: environments/strimzi/apps/overlays
+    repoURL: https://github.com/jbcodeforce/refarch-kc-gitops.git
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+status:
+  health: {}
+  summary: {}
+  sync:
+    comparedTo:
+      destination: {}
+      source:
+        repoURL: ""
+    status: ""
