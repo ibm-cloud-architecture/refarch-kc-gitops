@@ -2,6 +2,19 @@
 
 IBM Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
 
+Update 09/10/2021
+
+## Draft notes
+
+* Update structure using KAM
+* Add Strimzi operators and cluster instance
+* Add cp4i operators
+
+### Issues encountered
+
+* Strimzi operator not installed via argocd app
+* openshift-gitops-argocd-application-controller service account need to be able to create resource under target namespace 
+
 ## Example environments
 
 These example environments will deploy the microservices and their associated configuration to the `shipping-dev` namespace.
@@ -19,6 +32,7 @@ Prerequisites:
 _(note: the following `oc adm` command is required only if targeting an OpenShift cluster)._
 
 One-time setup to create namespace and Kafka cluster:
+
 ```
 kubectl apply -k environments/dev/infrastructure
 oc adm policy add-scc-to-user anyuid -z kcontainer-runtime -n shipping
