@@ -8,7 +8,7 @@ spec:
   destination:
     namespace: strimzi
     server: https://kubernetes.default.svc
-  project: default
+  project: kc-solution
   source:
     path: environments/strimzi/env/overlays
     repoURL: https://github.com/jbcodeforce/refarch-kc-gitops.git

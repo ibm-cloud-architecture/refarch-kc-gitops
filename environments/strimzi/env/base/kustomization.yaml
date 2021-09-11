@@ -1,4 +1,2 @@
 resources:
   - ./namespace.yaml
-  - ./kafka-cluster.yaml
-  - ./kafka-users.yaml

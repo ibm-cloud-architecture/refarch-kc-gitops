@@ -8,7 +8,7 @@ spec:
   destination:
     namespace: kc-stage
     server: https://kubernetes.default.svc
-  project: default
+  project: kc-solution
   source:
     path: environments/kc-stage/env/overlays
     repoURL: https://github.com/jbcodeforce/refarch-kc-gitops.git
