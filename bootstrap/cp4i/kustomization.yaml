@@ -1,0 +1,3 @@
+bases:
+  - github.com/jbcodeforce/eda-gitops-catalog/cp4i-operators?ref=main
+  

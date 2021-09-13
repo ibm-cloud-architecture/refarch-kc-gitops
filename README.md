@@ -2,7 +2,40 @@
 
 IBM Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
 
-Update 09/10/2021
+This gitops repository supports three types of deployments of the solution, one using
+Strimzi Kafka to run on OpenShift, one with Event Streams with Cloud Pak for Integration,
+and one with Event Streams Managed service on IBM Cloud.
+
+The microservices of the solutions are deployed to OpenShift and connect to the Kafka deployment
+you use.
+
+Updated 09/10/2021.
+
+## Pre-requisites
+
+* Access to an OpenShift 4.7 or later. You can use the bring your own app [Red Hat OpenShift on IBM Cloud](https://developer.ibm.com/openlabs/openshift)
+* [Logging in to the OpenShift CLI](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands)
+* Optional [install the Argo CD CLI](https://argoproj.github.io/argo-cd/cli_installation/)
+* Install the [kubeseal CLI](https://github.com/bitnami-labs/sealed-secrets#homebrew)
+* Install KAM CLI
+
+## Event Streams with Cloud Pak for Integration
+
+The Cloud Pak for Integration installation is documented here and a [cloud pak gitops repository](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md) helps to
+automate deployment.
+
+The manual steps to bootstrap this ci/cd process are:
+
+1. [Install the openShift GitOps Operator](https://docs.openshift.com/container-platform/4.7/cicd/gitops/installing-openshift-gitops.html#installing-gitops-operator-in-web-console_getting-started-with-openshift-gitops).
+1. Obtain [IBM license entitlement key](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#obtain-an-entitlement-key)
+1. [Update the OCP global pull secret of the `openshift-config` project](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#update-the-ocp-global-pull-secret)
+1. Use our bootstrap folder to initiate the GitOps
+
+```sh
+oc apply -k https://raw.githubusercontent.com/jbcodeforce/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+oc create -k bootstrap/cicd
+oc create -k bootstrap/cp4i
+```
 
 ## Draft notes
 

@@ -1,0 +1,6 @@
+resources:
+  - 000-namespace.yaml
+bases:
+  - github.com/jbcodeforce/eda-gitops-catalog/openshift-pipelines-operator/overlays/stable?ref=main
+  - github.com/jbcodeforce/eda-gitops-catalog/sealed-secrets-operator/overlays/default?ref=main
+  

@@ -5,5 +5,5 @@ resources:
 - kc-dev-env-app.yaml
 - kc-stage-env-app.yaml
 # Use Strimzi as kafka in a multitenancy mode
-- strimzi-env.yaml
-- strimzi-cluster.yaml
+#- strimzi-env.yaml
+#- strimzi-cluster.yaml
