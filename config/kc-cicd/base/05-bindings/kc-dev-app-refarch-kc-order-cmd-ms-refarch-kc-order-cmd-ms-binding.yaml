@@ -1,0 +1,13 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  creationTimestamp: null
+  name: kc-dev-app-refarch-kc-order-cmd-ms-refarch-kc-order-cmd-ms-binding
+  namespace: kc-cicd
+spec:
+  params:
+  - name: imageRepo
+    value: quay.io/jbcodeforce/kc-order-cmd-ms
+  - name: tlsVerify
+    value: "true"
+status: {}

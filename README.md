@@ -1,10 +1,127 @@
-# refarch-kc-gitops
+# KC solution gitops
 
-Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
+IBM Event Driven Architecture reference implementation GitOps repository, in support of https://ibm-cloud-architecture.github.io/refarch-eda/
+
+This gitops repository supports three types of deployments of the solution, one using
+Strimzi Kafka to run on OpenShift, one with Event Streams with Cloud Pak for Integration,
+and one with Event Streams Managed service on IBM Cloud.
+
+The microservices of the solutions are deployed to OpenShift and connect to the Kafka deployment
+you use.
+
+Updated 09/14/2021.
+
+## Considerations
+
+As presented in the [product documentation](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2021.2?topic=installation-structuring-your-deployment),
+"Considerations before deployment", we have to assess user roles and platform requirements.
+
+Here is the asumptions we define for the `kc-solution`:
+
+* Single admin team for OCP cluster and production projects within the cluster.
+* Developers manages staging and dev environment. This is a functional team developing the `kc-solution`
+* For the solution one gitops will define all environments and apps/services of the solution.  
+* Developers will not have access to OpenShift cluster administration
+* Cloud Pak for integration operators are installed in all namespaces, and there is only one instance of
+each operator. 
+* Only one Platform Navigator installed per cluster (in all namespaces) and it displays instances of
+ capabilities from the whole cluster.
+* `ibm-common-services` is unique to the cluster. 
+
+For real production deployment, the production OpenShift cluster will be separate from dev and staging, running in different infrastructure.
+
+
+
+## Pre-requisites
+
+* Access to an OpenShift 4.7 or later. You can use the bring your own app [Red Hat OpenShift on IBM Cloud](https://developer.ibm.com/openlabs/openshift)
+* [Logging in to the OpenShift CLI](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html#cli-logging-in_cli-developer-commands)
+* Optional [install the Argo CD CLI](https://argoproj.github.io/argo-cd/cli_installation/)
+* Install the [kubeseal CLI](https://github.com/bitnami-labs/sealed-secrets#homebrew)
+* Install KAM CLI
+
+
+## Event Streams with Cloud Pak for Integration
+
+The Cloud Pak for Integration installation is documented here and a [cloud pak gitops repository](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md) helps to
+automate deployment.
+
+The manual steps to bootstrap this ci/cd process are:
+
+1. [Install the openShift GitOps Operator](https://docs.openshift.com/container-platform/4.7/cicd/gitops/installing-openshift-gitops.html#installing-gitops-operator-in-web-console_getting-started-with-openshift-gitops).
+1. Obtain [IBM license entitlement key](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#obtain-an-entitlement-key)
+1. [Update the OCP global pull secret of the `openshift-config` project](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#update-the-ocp-global-pull-secret)
+1. Use our bootstrap folder to initiate the GitOps
+
+    ```sh
+    # Reference ibm catalog
+    oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+    # Install OpenShift pipeline and sealed-secrets
+    oc create -k bootstrap/cicd
+    # NOT TESTED YET need release 2021.3 Install CP4I operators
+    # oc create -k bootstrap/cp4i
+    # Bootstrap solution environment
+    oc apply -k bootstrap/kc-solution
+    # Create a secrets for entitlement key
+    oc create secret docker-registry ibm-entitlement-key \
+        --docker-username=cp \
+        --docker-server=cp.icr.io \
+        --namespace=kc-dev \
+        --docker-password=entitlement_key 
+
+    ```
+1. If you just want event-streams operators deployed and create on event streams for the kc-dev 
+project use the following:
+
+```sh
+# deploy operator
+oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/kustomization.yaml
+    
+```
+
+> not yet validated. 1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
+
+1. Bootstrap the argocd app of app within an argoCD project named `kc-solution`
+
+## Draft notes
+
+* Update structure using KAM
+* Add Strimzi operators and cluster instance manifest in environments/strimzi
+* Boostrap the environment with
+
+```sh
+oc create -f  bootstrap/argo-project.yaml
+# 
+oc apply -k config/argocd/
+```
+* Add quarkus pipelines
+
+### Issues encountered
+
+* Strimzi operator not installed via argocd app
+* openshift-gitops-argocd-application-controller service account need to be able to create or patch resource under target namespace 
+
+```sh
+# verify service account
+oc get sa
+# Verify existing cluster role
+oc get clusterrole
+# select the cluster role like below and do under the openshift-gitops project
+oc adm policy add-cluster-role-to-user  strimzi-cluster-operator.v0.25.0-strimzi-cluster-ope-65df8bbd78  --serviceaccount openshift-gitops-argocd-application-controller -n openshift-gitops
+```
+
+* In cicd: "InvalidSpecError: Application referencing project kc-solution which does not exist". Resynch once the argocd project is created
+* In cicd: "Resource rbac.authorization.k8s.io:ClusterRole is not permitted in project kc-solution.". Change project definition with
+
+```yaml
+clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+```
 
 ## Example environments
 
-These example environments will deploy the microservices and their associated configuration to the `shipping` namespace.
+These example environments will deploy the microservices and their associated configuration to the `shipping-dev` namespace.
 
 ### Development environment (`dev`)
 
@@ -12,7 +129,6 @@ This environment is deployable to any Kubernetes or OCP cluster and provides its
 
 Prerequisites:
 - Strimzi operator must be installed, and configured to watch all namespaces.
-- Appsody operator must be installed, and configured to watch all namespaces.
 - Open Liberty operator must be installed, and configured to watch all namespaces.
 
 #### Deploying microservices:
@@ -20,6 +136,7 @@ Prerequisites:
 _(note: the following `oc adm` command is required only if targeting an OpenShift cluster)._
 
 One-time setup to create namespace and Kafka cluster:
+
 ```
 kubectl apply -k environments/dev/infrastructure
 oc adm policy add-scc-to-user anyuid -z kcontainer-runtime -n shipping

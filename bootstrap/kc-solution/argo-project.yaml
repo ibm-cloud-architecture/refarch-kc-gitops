@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kc-solution
+  labels:
+    gitops.tier.layer: infra
+spec:
+  description: The ArgoCD project to manage the KC Solution deployment
+  sourceRepos: 
+  - https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git
+  # Only permit applications to deploy to the following namespace in the same cluster
+  destinations:
+  - namespace: kc-cicd
+    server: https://kubernetes.default.svc
+  - namespace: kc-dev
+    server: https://kubernetes.default.svc
+  - namespace: kc-stage
+    server: https://kubernetes.default.svc
+  - namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  - namespace: strimzi
+    server: https://kubernetes.default.svc
+  - namespace: openshift-operators
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  roles:
+  # A role which provides read-only access to all applications in the project
+  - name: read-only
+    description: Read-only privileges to this project
+    policies:
+    - p, proj:kc-solution:read-only, applications, get, kc-solution/*, allow
+    groups:
+    - argocd-admins

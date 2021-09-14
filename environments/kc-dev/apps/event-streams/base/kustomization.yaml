@@ -1,0 +1,4 @@
+resources:
+- eventstreams-minimal.yaml
+- scram-user.yaml
+- tls-user.yaml

@@ -1,0 +1,12 @@
+resources:
+  - 000-namespace.yaml
+bases:
+  - github.com/ibm-cloud-architecture/eda-gitops-catalog/cp4i-operators?ref=main
+patchesJson6902:
+- target:
+    group: operators.coreos.com
+    version: v1alpha1
+    kind: Subscription
+    name: ibm-cp-integration
+    namespace: openshift-operators
+  path: v13-channel.yaml 

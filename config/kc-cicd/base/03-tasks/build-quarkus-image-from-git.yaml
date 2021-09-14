@@ -1,0 +1,84 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-quarkus-image-from-git
+  description: Build quarkus app with maven and build docker image
+spec:
+  params:
+    - name: contextDir
+      default: /workspace/source
+      description: The Docker build context Dir
+    - name: mavenMirrorUrl
+      default: "https://repo1.maven.org/maven2"
+      description: The MAVEN_MIRROR_URL url to use
+    - name: mavenCmdArgs
+      default: "clean -DskipTests package"
+      description: The maven command parameter
+    - name: destinationImage
+      description: the fully qualified image name
+      default: "$(outputs.resources.builtImage.url)"
+    - name: dockerFile
+      description: the docker file to used for building the application
+      default: src/main/docker/Dockerfile.jvm
+    - name: tlsVerify
+      description: tls verify
+      type: string
+      default: "false"
+  resources:
+    inputs:
+      - name: source
+        type: git
+    outputs:
+      - name: builtImage
+        type: image
+  steps:
+    - name: build-sources
+      image: docker.io/maven:3.6.3-openjdk-11-slim
+      workingDir: "/workspace/source/$(inputs.params.contextDir)"
+      command:
+        - mvn
+      args:
+        - -DskipTests
+        - clean
+        - package
+      env:
+        - name: user.home
+          value: /home/tekton
+    - name: build-image
+      image: quay.io/buildah/stable
+      workingDir: "/workspace/source/$(inputs.params.contextDir)"
+      command:
+        - "buildah"
+      args:
+        - "bud"
+        - "--layers"
+        - "-f"
+        - "$(inputs.params.dockerFile)"
+        - "-t"
+        - "$(inputs.params.destinationImage)"
+        - "."
+      securityContext:
+        privileged: true
+        runAsUser: 0
+      volumeMounts:
+        - name: varlibc
+          mountPath: /var/lib/containers
+    - name: push-image
+      image: quay.io/buildah/stable
+      workingDir: "/workspace/source/$(inputs.params.contextDir)"
+      command:
+        - "buildah"
+      args:
+        - "push"
+        - "--tls-verify=$(inputs.params.tlsVerify)"
+        - $(inputs.params.destinationImage)
+        - "docker://$(inputs.params.destinationImage)"
+      securityContext:
+        privileged: true
+        runAsUser: 0
+      volumeMounts:
+        - mountPath:  /var/lib/containers
+          name: vcontainer
+  volumes:
+    - name: vcontainer
+      emptyDir: {}

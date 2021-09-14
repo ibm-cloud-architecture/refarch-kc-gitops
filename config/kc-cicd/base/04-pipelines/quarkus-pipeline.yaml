@@ -1,0 +1,70 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-quarkus-app
+spec:
+  params:
+  - name: repo-url
+    type: string
+    description: The git repository URL to clone from.
+  - name: revision
+    type: string
+    description: The git tag to clone.
+  - name: DOCKERFILE
+    type: string
+    default: src/main/docker/Dockerfile.jvm
+  - name: IMAGE_NAME
+    type: string
+    default: quay.io/boyerje/edademo
+  - name: GOALS
+    type: string
+    default: -DskipTests, clean, package
+  workspaces:
+    - name: build-ws
+    - name: maven-settings
+  tasks:
+    - name: fetch-source
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+      - name: output
+        workspace: build-ws
+      params:
+      - name: url
+        value: $(params.repo-url)
+      - name: revision
+        value: $(params.revision)
+    - name: build-quarkus-app
+      taskRef:
+        name: maven
+      runAfter:
+        - fetch-source
+      params:
+        - name: GOALS
+          value:
+            - -DskipTests
+            - clean
+            - package
+      workspaces:
+        - name: source
+          workspace: build-ws
+        - name: maven-settings
+          workspace: maven-settings
+    - name: build-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      runAfter:
+        - build-quarkus-app
+      params:
+        - name: IMAGE
+          value: '$(params.IMAGE_NAME)'
+        # since pushing to internal registry we skip TLS verify
+        - name: TLSVERIFY
+          value: 'false'
+        - name: DOCKERFILE
+          value: '$(params.DOCKERFILE)'
+      workspaces:
+        - name: source
+          workspace: build-ws
