@@ -5,7 +5,7 @@ metadata:
   name: tls-user
   labels:
     strimzi.io/cluster: kc-dev-kafka
-  namespace: strimzi
+  namespace: kc-dev
 spec:
   authentication:
     type: tls

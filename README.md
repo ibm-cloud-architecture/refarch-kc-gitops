@@ -75,25 +75,29 @@ project use the following:
 
 ```sh
 # deploy operator
-oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/kustomization.yaml
+oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/event-streams/subscription.yaml
     
 ```
 
 > not yet validated. 1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
 
-1. Bootstrap the argocd app of app within an argoCD project named `kc-solution`
+1. Bootstrap the argocd app of app within an argoCD project named `kc-solution`using the command
+
+```sh
+oc apply -k config/argocd
+```
+1. Log to ArgoCD console: See the exposed route in the openshift-gitops project
+
+```sh
+oc get route openshift-gitops-server -n openshift-gitops -o jsonpath='{.saliaspec.host}'
+# Get argoadmin password
+oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
+```
 
 ## Draft notes
 
 * Update structure using KAM
 * Add Strimzi operators and cluster instance manifest in environments/strimzi
-* Boostrap the environment with
-
-```sh
-oc create -f  bootstrap/argo-project.yaml
-# 
-oc apply -k config/argocd/
-```
 * Add quarkus pipelines
 
 ### Issues encountered
