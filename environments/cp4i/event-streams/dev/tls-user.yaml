@@ -2,9 +2,8 @@ apiVersion: eventstreams.ibm.com/v1beta1
 kind: KafkaUser
 metadata:
   name: tls-user
-  namespace: es-dev
   labels:
-    eventstreams.ibm.com/cluster: k-dev
+    eventstreams.ibm.com/cluster: es-dev
 spec:
   authentication:
     type: tls

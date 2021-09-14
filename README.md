@@ -11,6 +11,27 @@ you use.
 
 Updated 09/10/2021.
 
+## Considerations
+
+As presented in the [product documentation](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2021.2?topic=installation-structuring-your-deployment),
+"Considerations before deployment", we have to assess user roles and platform requirements.
+
+Here is the asumptions we define for the `kc-solution`:
+
+* Single admin team for OCP cluster and production projects within the cluster.
+* Developers manages staging and dev environment. This is a functional team developing the `kc-solution`
+* For the solution one gitops will define all environments and apps/services of the solution.  
+* Developers will not have access to OpenShift cluster administration
+* Cloud Pak for integration operators are installed in all namespaces, and there is only one instance of
+each operator. 
+* Only one Platform Navigator installed per cluster (in all namespaces) and it displays instances of
+ capabilities from the whole cluster.
+* `ibm-common-services` is unique to the cluster. 
+
+For real production deployment, the production OpenShift cluster will be separate from dev and staging, running in different infrastructure.
+
+
+
 ## Pre-requisites
 
 * Access to an OpenShift 4.7 or later. You can use the bring your own app [Red Hat OpenShift on IBM Cloud](https://developer.ibm.com/openlabs/openshift)
@@ -18,6 +39,7 @@ Updated 09/10/2021.
 * Optional [install the Argo CD CLI](https://argoproj.github.io/argo-cd/cli_installation/)
 * Install the [kubeseal CLI](https://github.com/bitnami-labs/sealed-secrets#homebrew)
 * Install KAM CLI
+
 
 ## Event Streams with Cloud Pak for Integration
 
@@ -31,17 +53,31 @@ The manual steps to bootstrap this ci/cd process are:
 1. [Update the OCP global pull secret of the `openshift-config` project](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#update-the-ocp-global-pull-secret)
 1. Use our bootstrap folder to initiate the GitOps
 
-```sh
-oc apply -k https://raw.githubusercontent.com/jbcodeforce/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
-oc create -k bootstrap/cicd
-oc create -k bootstrap/cp4i
-```
+    ```sh
+    # Reference ibm catalog
+    oc apply -k https://raw.githubusercontent.com/jbcodeforce/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+    # Install OpenShift pipeline and sealed-secrets
+    oc create -k bootstrap/cicd
+    # Install CP4I operators
+    oc create -k bootstrap/cp4i
+    # Bootstrap solution environment
+    oc apply -k bootstrap/kc-solution
+    # Create a secrets for entitlement key
+    oc create secret docker-registry ibm-entitlement-key \
+        --docker-username=cp \
+        --docker-server=cp.icr.io \
+        --namespace=kc-dev \
+        --docker-password=entitlement_key 
+
+    ```
+
+1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
+1. Bootstrap the argocd app of app within an argoCD project named ``
 
 ## Draft notes
 
 * Update structure using KAM
 * Add Strimzi operators and cluster instance manifest in environments/strimzi
-* Add cp4i operators
 * Boostrap the environment with
 
 ```sh

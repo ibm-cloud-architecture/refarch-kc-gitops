@@ -4,7 +4,7 @@ metadata:
   name: tls-user
   namespace: es-staging
   labels:
-    eventstreams.ibm.com/cluster: k-staging
+    eventstreams.ibm.com/cluster: es-stage
 spec:
   authentication:
     type: tls

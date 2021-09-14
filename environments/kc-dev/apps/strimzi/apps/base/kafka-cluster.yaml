@@ -4,7 +4,7 @@ metadata:
   name: eda-kafka
   labels:
     app: strimzi
-  namespace: strimzi
+  namespace: kc-dev
 spec:
   kafka:
     version: 2.7.0

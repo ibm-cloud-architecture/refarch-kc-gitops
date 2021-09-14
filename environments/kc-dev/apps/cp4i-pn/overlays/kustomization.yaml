@@ -1,0 +1,11 @@
+bases:
+- ../base
+
+patchesJson6902:
+- target:
+    group: integration.ibm.com
+    version: v1beta1
+    kind: PlatformNavigator
+    name: kc-dev-cp4i-pn
+    namespace: kc-dev
+  path: path-version.yaml 
