@@ -9,7 +9,7 @@ and one with Event Streams Managed service on IBM Cloud.
 The microservices of the solutions are deployed to OpenShift and connect to the Kafka deployment
 you use.
 
-Updated 09/10/2021.
+Updated 09/14/2021.
 
 ## Considerations
 
@@ -55,11 +55,11 @@ The manual steps to bootstrap this ci/cd process are:
 
     ```sh
     # Reference ibm catalog
-    oc apply -k https://raw.githubusercontent.com/jbcodeforce/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+    oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
     # Install OpenShift pipeline and sealed-secrets
     oc create -k bootstrap/cicd
-    # Install CP4I operators
-    oc create -k bootstrap/cp4i
+    # NOT TESTED YET need release 2021.3 Install CP4I operators
+    # oc create -k bootstrap/cp4i
     # Bootstrap solution environment
     oc apply -k bootstrap/kc-solution
     # Create a secrets for entitlement key
@@ -70,9 +70,18 @@ The manual steps to bootstrap this ci/cd process are:
         --docker-password=entitlement_key 
 
     ```
+1. If you just want event-streams operators deployed and create on event streams for the kc-dev 
+project use the following:
 
-1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
-1. Bootstrap the argocd app of app within an argoCD project named ``
+```sh
+# deploy operator
+oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/kustomization.yaml
+    
+```
+
+> not yet validated. 1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
+
+1. Bootstrap the argocd app of app within an argoCD project named `kc-solution`
 
 ## Draft notes
 

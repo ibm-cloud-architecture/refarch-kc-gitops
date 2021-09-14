@@ -1,9 +1,10 @@
 resources:
 - argo-app.yaml
 - cicd-app.yaml
-# - kc-dev-app-refarch-kc-order-cmd-ms-app.yaml
 - kc-dev-env-app.yaml
-- kc-stage-env-app.yaml
+- kc-dev-strimzi-cluster.yaml
+- kc-dev-app-refarch-kc-order-cmd-ms.yaml
+# - kc-stage-env-app.yaml
 # Use Strimzi as kafka in a multitenancy mode
 #- strimzi-env.yaml
-#- strimzi-cluster.yaml
+#-

@@ -32,7 +32,7 @@ spec:
   project: kc-solution
   source:
     path: config/kc-cicd/overlays
-    repoURL: https://github.com/jbcodeforce/refarch-kc-gitops.git
+    repoURL: https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git
   syncPolicy:
     automated:
       prune: true

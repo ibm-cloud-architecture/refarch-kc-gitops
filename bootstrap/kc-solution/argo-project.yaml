@@ -7,7 +7,7 @@ metadata:
 spec:
   description: The ArgoCD project to manage the KC Solution deployment
   sourceRepos: 
-  - https://github.com/jbcodeforce/refarch-kc-gitops.git
+  - https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git
   # Only permit applications to deploy to the following namespace in the same cluster
   destinations:
   - namespace: kc-cicd

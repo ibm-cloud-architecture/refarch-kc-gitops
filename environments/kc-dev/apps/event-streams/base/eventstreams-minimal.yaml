@@ -2,12 +2,12 @@
 kind: EventStreams
 metadata:
   name: es-dev
-  namespace: eventstreams
+  namespace: kc-dev
 spec:
-  version: 10.2.0-eus
+  version: 10.3.1
   license:
     accept: true
-    use: CloudPakForIntegrationProduction
+    use: CloudPakForIntegrationNonProduction
   adminApi: {}
   adminUI: {}
   apicurioRegistry: {}
@@ -37,13 +37,12 @@ spec:
             type: tls
       metrics: {}
       storage:
-        type: persistent-claim
-        size: 4Gi
-        class: ibmc-block-gold
+        type: ephemeral
     zookeeper:
       replicas: 3
       metrics: {}
       storage:
-        type: persistent-claim
-        size: 2Gi
-        class: ibmc-block-gold
+        type: ephemeral
+  requestIbmServices:
+    iam: true
+    monitoring: true

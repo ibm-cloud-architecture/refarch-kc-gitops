@@ -1,3 +1,0 @@
-bases:
- - github.com/jbcodeforce/eda-gitops-catalog/kafka-strimzi/operator/overlay/stable?ref=main
- - ../base

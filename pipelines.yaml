@@ -13,7 +13,7 @@ environments:
           bindings:
           - kc-dev-app-refarch-kc-order-cmd-ms-refarch-kc-order-cmd-ms-binding
           - github-push-binding
-      source_url: https://github.com/jbcodeforce/refarch-kc-order-cmd-ms.git
+      source_url: https://github.com/ibm-cloud-architecture/refarch-kc-order-cmd-ms.git
       webhook:
         secret:
           name: webhook-secret-kc-dev-refarch-kc-order-cmd-ms
@@ -25,5 +25,5 @@ environments:
       - github-push-binding
       template: app-ci-template
 - name: kc-stage
-gitops_url: https://github.com/jbcodeforce/refarch-kc-gitops.git
+gitops_url: https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git
 version: 1

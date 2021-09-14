@@ -1,7 +1,7 @@
 resources:
   - 000-namespace.yaml
 bases:
-  - github.com/jbcodeforce/eda-gitops-catalog/cp4i-operators?ref=main
+  - github.com/ibm-cloud-architecture/eda-gitops-catalog/cp4i-operators?ref=main
 patchesJson6902:
 - target:
     group: operators.coreos.com

@@ -1,4 +1,0 @@
-bases:
-- overlays
-commonLabels:
-  app.openshift.io/vcs-source: jbcodeforce/refarch-kc-gitops

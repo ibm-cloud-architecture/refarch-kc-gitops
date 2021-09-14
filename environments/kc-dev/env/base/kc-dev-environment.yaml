@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    app.openshift.io/vcs-uri: https://github.com/jbcodeforce/refarch-kc-gitops.git?ref=HEAD
+    app.openshift.io/vcs-uri: https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git?ref=HEAD
   creationTimestamp: null
   name: kc-dev
 spec: {}

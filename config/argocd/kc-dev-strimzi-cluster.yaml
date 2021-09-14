@@ -2,9 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  labels:
-    app.kubernetes.io/name: app-refarch-kc-order-cmd-ms
-  name: kc-dev-app-refarch-kc-order-cmd-ms
+  name: kc-dev-kafka
   namespace: openshift-gitops
 spec:
   destination:
@@ -12,8 +10,8 @@ spec:
     server: https://kubernetes.default.svc
   project: kc-solution
   source:
-    path: environments/kc-dev/apps/app-refarch-kc-order-cmd-ms/overlays
-    repoURL: https://github.com/jbcodeforce/refarch-kc-gitops.git
+    path: environments/kc-dev/apps/strimzi/overlays
+    repoURL: https://github.com/ibm-cloud-architecture/refarch-kc-gitops.git
   syncPolicy:
     automated:
       prune: true
