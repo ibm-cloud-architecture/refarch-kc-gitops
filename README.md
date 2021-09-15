@@ -46,6 +46,40 @@ For real production deployment, the production OpenShift cluster will be separat
 The Cloud Pak for Integration installation is documented here and a [cloud pak gitops repository](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md) helps to
 automate deployment.
 
+### "Manual deployment of event-streams"
+
+In this section we just focusing on deploying Event Streams within an OpenShift with IBM Catalog defined.
+
+* Get IBM product catalog added to your OpenShift cluster
+
+```sh
+ oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+```
+* Obtain [IBM license entitlement key](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#obtain-an-entitlement-key)
+
+If you just want event-streams and dependant operators deployed use the following:
+
+```sh
+# deploy dependent operators if not done before
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/asset-repo.yaml
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/automation-foundation.yaml
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/common-services.yaml
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/couchdb.yaml
+
+# deploy event streams operator
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/event-streams/subscription.yaml
+    
+```
+
+Now create users and cluster using manifests declaration. For example the ec-stage environment defines a shared
+cluster:
+
+```sh
+oc apply -k environments/kc-stage/apps/event-streams
+```
+
+### Automating deployment with ArgoCD
+
 The manual steps to bootstrap this ci/cd process are:
 
 1. [Install the openShift GitOps Operator](https://docs.openshift.com/container-platform/4.7/cicd/gitops/installing-openshift-gitops.html#installing-gitops-operator-in-web-console_getting-started-with-openshift-gitops).
@@ -70,16 +104,6 @@ The manual steps to bootstrap this ci/cd process are:
         --docker-password=entitlement_key 
 
     ```
-1. If you just want event-streams operators deployed and create on event streams for the kc-dev 
-project use the following:
-
-```sh
-# deploy operator
-oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/event-streams/subscription.yaml
-    
-```
-
-> not yet validated. 1. Create the CP4I platform navigator which can take up to 40 minutes as it downloads product images.
 
 1. Bootstrap the argocd app of app within an argoCD project named `kc-solution`using the command
 
@@ -93,6 +117,9 @@ oc get route openshift-gitops-server -n openshift-gitops -o jsonpath='{.saliaspe
 # Get argoadmin password
 oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
 ```
+Once logged to the console, you should see the `kc-argo-app` synced or performing synch operation.
+
+![](./docs/kc-argo-app.png)
 
 ## Draft notes
 

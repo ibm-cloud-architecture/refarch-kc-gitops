@@ -15,3 +15,4 @@ resources:
 - 06-templates/ci-dryrun-from-push-template.yaml
 - 07-eventlisteners/cicd-event-listener.yaml
 - 08-routes/gitops-webhook-event-listener.yaml
+- pvc.yaml
