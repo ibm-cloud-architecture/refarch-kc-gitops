@@ -16,7 +16,7 @@ Updated 09/14/2021.
 As presented in the [product documentation](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2021.2?topic=installation-structuring-your-deployment),
 "Considerations before deployment", we have to assess user roles and platform requirements.
 
-Here is the asumptions we define for the `kc-solution`:
+Here are the assumptions we define for the `kc-solution`:
 
 * Single admin team for OCP cluster and production projects within the cluster.
 * Developers manages staging and dev environment. This is a functional team developing the `kc-solution`
@@ -29,8 +29,6 @@ each operator.
 * `ibm-common-services` is unique to the cluster. 
 
 For real production deployment, the production OpenShift cluster will be separate from dev and staging, running in different infrastructure.
-
-
 
 ## Pre-requisites
 
@@ -53,8 +51,12 @@ In this section we just focusing on deploying Event Streams within an OpenShift 
 * Get IBM product catalog added to your OpenShift cluster
 
 ```sh
- oc apply -k https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/ibm-catalog/kustomization.yaml
+# To verify they are not already installed use:
+oc get operators
+# If you do not see any IBM operators then install IBM Catalog definition
+oc apply -f ./ibm-catalog/subscription.yaml
 ```
+
 * Obtain [IBM license entitlement key](https://github.com/IBM/cloudpak-gitops/blob/main/docs/install.md#obtain-an-entitlement-key)
 
 If you just want event-streams and dependant operators deployed use the following:
@@ -67,11 +69,10 @@ oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-
 oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/couchdb.yaml
 
 # deploy event streams operator
-oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/event-streams/subscription.yaml
-    
+oc apply -f https://raw.githubusercontent.com/ibm-cloud-architecture/eda-gitops-catalog/main/cp4i-operators/event-streams/subscription.yaml   
 ```
 
-Now create users and cluster using manifests declaration. For example the ec-stage environment defines a shared
+Now create users and cluster using manifests declaration. For example the `es-stage` environment defines a shared
 cluster:
 
 ```sh
