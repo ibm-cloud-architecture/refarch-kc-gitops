@@ -1,4 +1,4 @@
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: bluewater-container
@@ -8,7 +8,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: bluewater-problem
@@ -18,7 +18,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: bluewater-ship
@@ -28,7 +28,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: containers
@@ -38,7 +38,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: container-anomaly-retry
@@ -48,7 +48,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: container-anomaly-dead
@@ -58,7 +58,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: errors
@@ -68,7 +68,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: order-commands
@@ -78,7 +78,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: orders
@@ -88,7 +88,7 @@ spec:
   partitions: 1
   replicas: 1
 ---
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: reefer-telemetry
