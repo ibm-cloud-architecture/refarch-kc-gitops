@@ -1,0 +1,36 @@
+bases:
+  - ../../apps/refarch-kc
+
+resources:
+# Namespace created as part of Kafka cluster install.
+# TODO: move kafka and namespace back into env once services properly tolerate its absence.
+#  - ./namespace.yaml
+#  - ./kafka-cluster.yaml
+  - ./service-account.yaml
+  - ./kafka-topics-configmap.yaml
+  - ./bpm-configmap.yaml
+
+secretGenerator:
+  #- name: postgresql-creds
+  #  literals:
+  #    - url="jdbc:postgresql://postgresql.postgres.svc:5432/postgres"
+  #    - username="postgres"
+  #    - password="supersecret"
+  - name: postgresql-creds
+    files:
+      - ./credentials/postgresql-creds/url
+      - ./credentials/postgresql-creds/username
+      - ./credentials/postgresql-creds/password
+  - name: bpm-anomaly
+    literals:
+      - user='your-username'
+      - password='your-password'
+
+# TODO: replace with Service Binding Operator
+configMapGenerator:
+  - name: kafka-brokers
+    literals:
+      - brokers="my-cluster-kafka-bootstrap:9092"
+
+generatorOptions:
+  disableNameSuffixHash: true

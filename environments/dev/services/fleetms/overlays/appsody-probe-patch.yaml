@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/livenessProbe/initialDelaySeconds
+  value: 120
+- op: replace
+  path: /spec/readinessProbe/initialDelaySeconds
+  value: 120
